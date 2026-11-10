@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0b1020">
-<title>Szószövő 2.4 — Teljes betűmentés és kibővített küldetések</title>
+<title>SZÓSZÖVŐ 3.1 – Erőforrás-kímélés és elakadásmentés</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
 :root{--bg:#080d1b;--panel:#101a30;--panel2:#131f39;--line:rgba(177,196,255,.12);--muted:#93a2c3;--text:#f4f6ff;--gold:#f6c96b;--gold2:#ffdf91;--mint:#73e3c0;--blue:#7ea7ff;--pink:#e89bcb;--danger:#ff8295;--shadow:0 22px 70px rgba(0,0,0,.34);--tile:clamp(48px,9.1vw,76px)}
@@ -444,16 +444,16 @@ html{overflow-x:hidden;max-width:100%;}
       <div class="target-line"><span id="targetDescription">Cél: gyűjts minél több pontot!</span><div class="objective-pills"><span class="stone-objective" id="stoneObjective">🪨 KŐRÉTEG 0/12</span><strong id="targetValue"></strong></div></div>
       <div class="quest-panel" id="questPanel" aria-live="polite">
         <div class="quest-emblem" id="questIcon">💎</div>
-        <div class="quest-copy"><div class="quest-kicker">KÜLDETÉS <span id="questNumber">01 / 96</span></div><strong id="questTitle">Kristályvadász I.</strong><p id="questDescription">Gyűjts össze 3 kristályt a szavak összekötésével!</p><div class="quest-progress-track"><div class="quest-progress-fill" id="questProgressBar"></div></div></div>
+        <div class="quest-copy"><div class="quest-kicker">KÜLDETÉS <span id="questNumber">001 / 400</span></div><strong id="questTitle">Kristályvadász I.</strong><p id="questDescription">Gyűjts össze 3 kristályt a szavak összekötésével!</p><div class="quest-progress-track"><div class="quest-progress-fill" id="questProgressBar"></div></div></div>
         <div class="quest-count" id="questProgressText">0 / 3</div>
       </div>
       <div class="bonus-banner" id="bonusWordBanner" hidden aria-live="polite">
         <div class="bonus-orb">✦</div><div class="bonus-copy"><small>CSILINGELŐ BÓNUSZSZÓ · KÜLÖN JUTALOM</small><strong id="bonusWordDisplay">—</strong><span id="bonusWordHint">Kösd ki a tábláról, mielőtt lejár az idő!</span></div>
         <div class="bonus-clock"><b id="bonusTimer">15.0</b><small>mp</small></div>
       </div>
-      <div class="powerup-bar" id="powerupBar"><span class="powerup-label">SEGÍTSÉG</span><button type="button" class="powerup-btn" id="stoneBombBtn" hidden>💣 KŐBOMBA <b id="stoneBombCount">0</b></button><button type="button" class="powerup-btn rowshot-btn" id="rowShotBtn" hidden>💥 SORLÖVŐ <b id="rowShotCount">0</b></button><span class="powerup-tip" id="powerupTip">A teljes táblatisztítás a következő körre szóló bombát ad.</span></div>
+      <div class="powerup-bar" id="powerupBar"><span class="powerup-label">SEGÍTSÉG</span><button type="button" class="powerup-btn shuffle-btn" id="shuffleLettersBtn" title="A betűk helyét keveri össze; a kövek és a küldetésjelvények helye változatlan marad">🔀 BETŰK KEVERÉSE</button><button type="button" class="powerup-btn" id="stoneBombBtn" hidden>💣 KŐBOMBA <b id="stoneBombCount">0</b></button><button type="button" class="powerup-btn rowshot-btn" id="rowShotBtn" hidden>💥 SORLÖVŐ <b id="rowShotCount">0</b></button><span class="powerup-tip" id="powerupTip">A teljes táblatisztítás a következő körre szóló bombát ad.</span></div>
       <div class="board-wrap"><div class="board" id="board" aria-label="Szómező"></div></div>
-      <div class="board-help">Telefonon ujjhúzással, számítógépen lenyomott bal egérgombbal köss. A rendszer a húzás irányát is figyeli: az átlós mozdulat átlós kockára fut, nem a mellette lévőre. Visszafelé húzva visszaléphetsz.</div>
+      <div class="board-help">Számítógépen kattints az első betűre, majd csak vezesd fölé az egeret a következő betűknek — nem kell nyomva tartanod. A szó lezárásához kattints az utolsó kijelölt betűre vagy nyomj Entert. Telefonon koppints sorban a szomszédos betűkre, vagy húzd végig az ujjad; a „Szóellenőrzés” gombbal zárhatod le. Átlós lépés, irányváltás és visszalépés is működik.</div>
       <section class="letter-bank" id="letterBankPanel" hidden aria-live="polite">
         <div class="bank-heading"><div><small>VÉGJÁTÉK · BETŰMENTŐ LÁDA</small><strong id="bankTitle">A tábla kifogyott a szavakból</strong><p id="bankDescription">Kattints a megmaradt betűkre, gyűjtsd őket a ládába, majd rendezd szóvá őket!</p></div><div class="bank-gem">▣</div></div>
         <div class="bank-pool-label"><span>BETŰLÁDA</span><b id="bankPoolCount">0 betű</b></div><div class="bank-pool" id="bankPool" aria-label="Betűláda"></div>
@@ -482,14 +482,14 @@ html{overflow-x:hidden;max-width:100%;}
     <aside class="side-stack">
       <div class="side-card compact"><div class="side-title"><h3>Szó-lendület</h3><span>AKTUÁLIS KOMBI</span></div><div class="combo-display"><div><div class="combo-number" id="comboNumber">0×</div><div class="combo-label">egymás után</div></div><div class="combo-flame">🔥</div></div><div class="progress-track" style="margin-top:14px"><div class="progress-fill" id="comboProgress" style="width:0%"></div></div></div>
       <div class="side-card compact"><div class="side-title"><h3>Frissen talált szavak</h3><span id="foundCountLabel">0 DB</span></div><div class="found-list" id="foundList"><div class="empty-list">A megtalált szavaid itt gyűlnek majd.</div></div></div>
-      <div class="side-card compact board-word-card"><div class="side-title"><h3>Mi rejtőzik a táblán?</h3><span id="boardWordState">KERESÉS</span></div><div id="boardWordCounts" class="board-word-counts"><div class="empty-list">A tábla szavainak felmérése…</div></div><div class="board-word-note" id="boardWordNote">32 relikviaforma · 320 küldetésváltozat · A darabszám a magyar betűket számolja; a CS, GY, LY, NY, SZ, TY és ZS egy-egy betűnek számít.</div></div>
+      <div class="side-card compact board-word-card"><div class="side-title"><h3>Mi rejtőzik a táblán?</h3><span id="boardWordState">KERESÉS</span></div><div id="boardWordCounts" class="board-word-counts"><div class="empty-list">A tábla szavainak felmérése…</div></div><div class="board-word-note" id="boardWordNote">42 relikviaforma · 400 küldetésváltozat · A darabszám a magyar betűket számolja; a CS, GY, LY, NY, SZ, TY és ZS egy-egy betűnek számít.</div></div>
       <div class="side-card compact"><div class="side-title"><h3>Szósegéd</h3><span>MEGOLDÁS NÉLKÜL</span></div><div class="hint-box" id="hintBox">Elakadtál? Kérj egy apró támpontot: a szó hosszát és a kezdőmezőt mutatom meg, a teljes szót nem.</div><button class="btn btn-secondary" id="hintBtn" style="width:100%;margin-top:11px">Tippet kérek ✦</button></div>
       <div class="side-card compact"><div class="side-title"><h3>Szótárkapcsolat</h3><span id="dictionaryState">ELŐKÉSZÍTÉS</span></div><div style="font-size:10px;color:#9aacca;line-height:1.55" id="dictionaryInfo">Helyi magyar szóanyag · online Wikiszótár-ellenőrzés · Hunspell-szólista betöltése.</div><div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:11px"><a href="https://hu.wiktionary.org/" target="_blank" rel="noopener" class="word-chip">Wikiszótár ↗</a><a href="https://szotar.sztaki.hu/" target="_blank" rel="noopener" class="word-chip">SZTAKI ↗</a><a href="https://dictzone.com/" target="_blank" rel="noopener" class="word-chip">DictZone ↗</a><a href="https://e-nyelv.hu/" target="_blank" rel="noopener" class="word-chip">e-nyelv ↗</a></div></div>
     </aside>
   </div>
 </section>
 
-<footer class="footer"><span>© SZÓSZÖVŐ · 2.3 PRÉMIUM KOCKÁK ÉS STABIL, IRÁNYÉRZÉKENY HÚZÁS</span><span>Helyi mentés · <a href="https://github.com/laszlonemeth/magyarispell" target="_blank" rel="noopener">Magyar Ispell / Hunspell forrás</a> · <a href="https://hu.wiktionary.org/" target="_blank" rel="noopener">Wikiszótár</a></span></footer>
+<footer class="footer"><span>© SZÓSZÖVŐ · 3.0 JÉGMEZŐK · PONTOS ÚTVONALKÖVETÉS · VÉGTELEN NYUGALOM MÓD</span><span>Helyi mentés · <a href="https://github.com/laszlonemeth/magyarispell" target="_blank" rel="noopener">Magyar Ispell / Hunspell forrás</a> · <a href="https://hu.wiktionary.org/" target="_blank" rel="noopener">Wikiszótár</a></span></footer>
 </div>
 
 <div class="modal-backdrop" id="modalBackdrop"><div class="modal" id="modalContent"><div class="eyebrow">KÖR VÉGE</div><h2 id="modalTitle">Szép menet!</h2><p id="modalText">Minden szó közelebb visz a következő szinthez.</p><div class="modal-score" id="modalScore">0</div><div style="font-size:10px;color:#94a6ca;letter-spacing:.14em;text-transform:uppercase">MEGSZERZETT PONT</div><div class="modal-actions"><button class="btn btn-primary" id="playAgain">Új kör</button><button class="btn btn-secondary" id="modalHome">Főmenü</button></div></div></div>
@@ -727,7 +727,7 @@ async function acceptWord(path,word){
  if(stoneDamage.hit&&state.stoneBroken>=state.stoneGoal&&!state.stoneRewarded){state.stoneRewarded=true;state.score+=180;stats.xp+=15;showToast('KŐMEZŐ MEGTISZTÍTVA! +180 pont · +15 XP');playSound('combo')}
  saveStats();state.accepting=false;updateHUD();updateSelection();renderBoard();updateStoneHUD();updateQuestHUD();updateBoardWordCounts();
  if(state.mode==='campaign'&&state.score>=state.target&&state.stoneBroken>=state.stoneGoal&&state.questCompleted){endRound(true)}
- else if(state.mode==='zen'&&state.words.length>=40){endRound(true)}
+ 
  else if(state.mode==='daily'&&state.score>=state.target&&state.time>25){showToast('Napi cél teljesítve! Folytasd a rekordért.')}
 }
 async function checkOnlineWord(word){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),4800);try{const u='https://hu.wiktionary.org/w/api.php?action=parse&page='+encodeURIComponent(word)+'&prop=sections&format=json&origin=*';const res=await fetch(u,{signal:controller.signal,mode:'cors'});if(!res.ok)throw new Error('http');const data=await res.json();const sections=data.parse?.sections||[];const hasHungarian=sections.some(section=>/magyar/i.test(section.line||''));if(hasHungarian){state.onlineWords.add(normalize(word));state.wordTrie=null;state.wordCandidates=null;state.bankCanForm=null;return true}return false}catch(e){return null}finally{clearTimeout(timer)}}
@@ -740,7 +740,7 @@ function closeHow(){if($('playAgain').style.display==='none'){ $('modalBackdrop'
 // Online word sources: the MediaWiki Action API explicitly supports anonymous CORS via origin=*.
 async function loadTypoLibrary(){if(window.Typo)return true;return new Promise(resolve=>{const script=document.createElement('script');script.src='https://cdn.jsdelivr.net/gh/cfinke/Typo.js@master/typo/typo.js';script.async=true;script.onload=()=>resolve(!!window.Typo);script.onerror=()=>resolve(false);document.head.appendChild(script)})}
 async function fetchText(urls){for(const url of urls){try{const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),9000);const res=await fetch(url,{signal:controller.signal,mode:'cors'});clearTimeout(timer);if(res.ok){const body=await res.text();if(body.length>500)return body}}catch(e){}}return null}
-async function sz23LoadHunspellBase(){try{const libraryOk=await loadTypoLibrary();const base='https://raw.githubusercontent.com/LibreOffice/dictionaries/master/hu_HU/hu_HU';const alt='https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hu_HU/hu_HU';const [aff,dic]=await Promise.all([fetchText([base+'.aff',alt+'.aff']),fetchText([base+'.dic',alt+'.dic'])]);if(!dic)throw new Error('A magyar szótár nem tölthető le');const lines=dic.split(/\r?\n/),words=new Set();for(let start=1;start<lines.length;start+=3000){const end=Math.min(lines.length,start+3000);for(let i=start;i<end;i++){const raw=lines[i].trim().split(/[\t ]/)[0].replace(/\/.*$/,'');if(raw&&/^[a-záéíóöőúüű]+$/i.test(raw))words.add(normalize(raw))}if(end<lines.length)await new Promise(resolve=>{if(typeof requestIdleCallback==='function')requestIdleCallback(()=>resolve(),{timeout:80});else setTimeout(resolve,0)})}if(words.size<500)throw new Error('A szótárfájl hiányos');state.hunspellWords=words;if(libraryOk&&aff){try{state.spellchecker=new window.Typo('hu_HU',aff,dic);if(!state.spellchecker.loaded)state.spellchecker=null}catch(e){state.spellchecker=null}}state.wordTrie=null;state.wordCandidates=null;state.bankCanForm=null;$('dictionaryState').textContent=state.spellchecker?'HUNSPELL · RAGOZÁS':'HUNSPELL · ALAPALAKOK';$('dictionaryInfo').textContent=state.spellchecker?`Magyar Hunspell-szótár betöltve: ${words.size.toLocaleString('hu-HU')} szótő és toldalékolási szabályok. Az ellenőrzés az értelmetlen alakokat elutasítja.`:`Magyar Hunspell-szólista betöltve: ${words.size.toLocaleString('hu-HU')} alapalak. Az összetettebb ragozott alakok ellenőrzése online kiegészítéssel történik.`;if(state.active){state.wordCandidates=null;state.bankPossibleCache=null;updateBoardWordCounts();if(state.bankPhase==='compose')updateBankControls()}}catch(e){$('dictionaryState').textContent='HELYI + ONLINE';$('dictionaryInfo').textContent='A teljes Hunspell-szótár most nem érhető el. A megtisztított helyi magyar szókincs és a magyar Wikiszótár nyelvi szakasz-ellenőrzése marad aktív.';state.wordTrie=null;state.wordCandidates=null;state.bankCanForm=null;state.bankPossibleCache=null;if(state.active){updateBoardWordCounts();if(state.bankPhase==='compose')updateBankControls()}}}
+async function sz23LoadHunspellBase(){try{const libraryOk=await loadTypoLibrary();const base='https://raw.githubusercontent.com/LibreOffice/dictionaries/master/hu_HU/hu_HU';const alt='https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hu_HU/hu_HU';const [aff,dic]=await Promise.all([fetchText([base+'.aff',alt+'.aff']),fetchText([base+'.dic',alt+'.dic'])]);if(!dic)throw new Error('A magyar szótár nem tölthető le');const lines=dic.split(/\r?\n/),words=new Set();for(let start=1;start<lines.length;start+=3000){const end=Math.min(lines.length,start+3000);for(let i=start;i<end;i++){const entry=lines[i].trim().split(/[\t ]/)[0],raw=entry.replace(/\/.*$/,'');if(raw&&raw===raw.toLocaleLowerCase('hu-HU')&&/^[a-záéíóöőúüű]{2,}$/.test(raw))words.add(normalize(raw))}if(end<lines.length)await new Promise(resolve=>{if(typeof requestIdleCallback==='function')requestIdleCallback(()=>resolve(),{timeout:80});else setTimeout(resolve,0)})}if(words.size<500)throw new Error('A szótárfájl hiányos');state.hunspellWords=words;if(libraryOk&&aff){try{state.spellchecker=new window.Typo('hu_HU',aff,dic);if(!state.spellchecker.loaded)state.spellchecker=null}catch(e){state.spellchecker=null}}state.wordTrie=null;state.wordCandidates=null;state.bankCanForm=null;$('dictionaryState').textContent=state.spellchecker?'HUNSPELL · RAGOZÁS':'HUNSPELL · ALAPALAKOK';$('dictionaryInfo').textContent=state.spellchecker?`Magyar Hunspell-szótár betöltve: ${words.size.toLocaleString('hu-HU')} szótő és toldalékolási szabályok. Az ellenőrzés az értelmetlen alakokat elutasítja.`:`Magyar Hunspell-szólista betöltve: ${words.size.toLocaleString('hu-HU')} alapalak. Az összetettebb ragozott alakok ellenőrzése online kiegészítéssel történik.`;if(state.active){state.wordCandidates=null;state.bankPossibleCache=null;updateBoardWordCounts();if(state.bankPhase==='compose')updateBankControls()}}catch(e){$('dictionaryState').textContent='HELYI + ONLINE';$('dictionaryInfo').textContent='A teljes Hunspell-szótár most nem érhető el. A megtisztított helyi magyar szókincs és a magyar Wikiszótár nyelvi szakasz-ellenőrzése marad aktív.';state.wordTrie=null;state.wordCandidates=null;state.bankCanForm=null;state.bankPossibleCache=null;if(state.active){updateBoardWordCounts();if(state.bankPhase==='compose')updateBankControls()}}}
 
 // ---------- 1.4: reliable state, precise path selection and no-repeat rules ----------
 function loadStats(){const defaults={xp:0,best:0,totalWords:0,longest:'',daily:{},seen:{},bonusRecent:[],carryAids:0,carryRowShots:1,clearedBoards:0};try{return Object.assign(defaults,JSON.parse(localStorage.getItem('szoszovo_stats'))||{})}catch{return defaults}}
@@ -800,13 +800,13 @@ async function fetchWordKnowledge(word){const u='https://hu.wiktionary.org/w/api
 function showKnowledge(word){if(!$('knowledgeCard'))return;const id=++state.knowledgeRequestId;$('knowledgeCard').hidden=false;$('knowledgeTitle').textContent=word.toLocaleUpperCase('hu-HU');$('knowledgeText').textContent='Szótári jelentés keresése…';$('knowledgeIcon').textContent=word.slice(0,1).toLocaleUpperCase('hu-HU');$('knowledgeSource').href='https://hu.wiktionary.org/wiki/'+encodeURIComponent(word);fetchWordKnowledge(word).then(info=>{if(id!==state.knowledgeRequestId)return;if(info){$('knowledgeText').textContent=info;$('knowledgeSource').textContent='Forrás: Magyar Wikiszótár ↗'}else{$('knowledgeText').textContent='Ehhez a szóhoz most nem találtam megbízható, magyar nyelvű szótári magyarázatot. A szó elfogadása ettől független.';$('knowledgeSource').textContent='Megnyitás a Magyar Wikiszótárban ↗'}}).catch(()=>{if(id===state.knowledgeRequestId)$('knowledgeText').textContent='A szótári magyarázat jelenleg nem érhető el.'})}
 async function sz23CheckOnlineBase(word){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),5200);try{const u='https://hu.wiktionary.org/w/api.php?action=parse&page='+encodeURIComponent(word)+'&prop=sections&format=json&origin=*';const res=await fetch(u,{signal:controller.signal,mode:'cors'});if(!res.ok)throw new Error('http');const data=await res.json(),sections=data.parse?.sections||[];const hasHungarian=sections.some(section=>/^magyar$/i.test((section.line||'').trim()));if(hasHungarian){state.onlineWords.add(normalize(word));state.wordTrie=null;state.wordCandidates=null;state.bankCanForm=null;return true}return false}catch{return null}finally{clearTimeout(timer)}}
 async function submitWord(pathOverride=null){if(!state.active||state.roundEnded||state.accepting||state.draining&&state.bankPhase!=='off')return;const path=pathOverride?[...pathOverride]:[...state.selected],word=normalize(path.map(i=>state.board[i]?.letter||'').join(''));if(tokenize(word).length<3||!pathStillForms(path,word)){if(!pathOverride)clearSelectionOnly();updateStatus('Legalább 3 betűs, szomszédos mezőkből álló magyar szó szükséges.','bad');return}if(state.words.includes(word)||isRecentlyUsed(word)){updateStatus('Ezt a szót már megtaláltad az elmúlt 30 napban. Keress egy másikat!','bad');state.combo=0;updateHUD();return}const seq=++state.validationSeq;let valid=isKnownWord(word);if(!valid){updateStatus('Magyar szótárellenőrzés…','gold');valid=await checkOnlineWord(word)}if(seq!==state.validationSeq||!state.active||!pathStillForms(path,word))return;if(!valid){updateStatus(valid===null?'A külső szótár nem érhető el. A szó nem igazolható most.':'Ez nem igazolt magyar szóalak. A betűk a táblán maradnak.','bad');state.combo=0;updateHUD();return}if(state.bonusWord?.word===word&&!state.bonusFoundAt)state.bonusFoundAt=performance.now();acceptWord(path,word)}
-async function acceptWord(path,word){if(!state.active||state.roundEnded||state.accepting||!pathStillForms(path,word))return;const token=state.roundToken;state.accepting=true;cancelPendingValidation();const len=tokenize(word).length,digraphs=path.filter(i=>state.board[i].letter.length>1).length,special=path.filter(i=>state.board[i].special).length;state.combo++;state.bestCombo=Math.max(state.bestCombo,state.combo);const mult=Math.min(5,1+Math.floor((state.combo-1)/2)),stones=damageStones(path),quest=collectQuestItems(path);let points=(len*len*8+Math.max(0,len-3)*12)*mult+special*35+digraphs*8+stones.hit*16+stones.broken*85+quest.count*45+(quest.completed?240:0);let bonus=null;if(state.bonusWord?.word===word){const captured=state.bonusFoundAt||performance.now(),elapsed=Math.max(0,captured-state.bonusWord.startedAt);if(elapsed<=state.bonusWord.duration){const tenths=Math.round(elapsed/100)/10,remaining=Math.max(0,state.bonusWord.duration-elapsed),extra=Math.round((len*len*42+120)*(1+remaining/state.bonusWord.duration));points+=extra;bonus={tenths,extra};playSound('bonus');showToast('BÓNUSZSZÓ! '+tenths.toFixed(1)+' mp alatt · +'+extra+' pont')}state.bonusWord=null;state.bonusFoundAt=0}state.score+=points;state.words.push(word);stats.seen[word]=Date.now();triggerWordImpact(len,!!bonus);if(stones.broken)playSound('break');else if(stones.hit)playSound('stone');else if(!bonus)playSound(len>=8?'break':'valid');if(state.combo>1&&state.combo%2===0)playSound('combo');if(navigator.vibrate&&state.combo>1)navigator.vibrate([18,20,32]);path.forEach(i=>{const el=$('board').querySelector('[data-index="'+i+'"]');if(el)el.classList.add('clearing-big')});state.selected=[];state.selectionValid=false;state.lastValidSignature='';updateSelection();updateHUD();updateStatus('✓ '+word.toLocaleUpperCase('hu-HU')+' · +'+points+' pont'+(bonus?' · bónusz '+bonus.tenths.toFixed(1)+' mp alatt':'')+(stones.hit?' · '+stones.hit+' kőréteg sérült':'')+(stones.broken?' · '+stones.broken+' kőmező eltűnt':'')+(quest.count?' · '+quest.count+' relikvia':'') ,'good');showKnowledge(word);checkObjectivesCleared();await delay(len>=9?430:len>=6?330:230);if(token!==state.roundToken){state.accepting=false;return}path.forEach(i=>state.board[i]={letter:'',special:false,collectible:null});refillBoard();if(state.words.length%4===0)stats.xp+=5;if(state.stoneBroken>=state.stoneGoal&&!state.stoneRewarded&&state.stoneGoal>0){state.stoneRewarded=true;state.score+=180;stats.xp+=15;showToast('MINDEN KŐRÉTEG ELTŰNT! +180 pont');playSound('combo')}saveStats();state.accepting=false;updateHUD();updateSelection();renderBoard();updateStoneHUD();updateQuestHUD();updateBoardWordCounts();if(state.mode==='campaign'&&state.score>=state.target&&state.stoneBroken>=state.stoneGoal&&state.questCompleted){endRound(true)}else if(state.mode==='zen'&&state.words.length>=40){endRound(true)}else if(state.mode==='daily'&&state.score>=state.target&&state.time>25){showToast('Napi cél teljesítve! Folytasd a rekordért.')}}
+async function acceptWord(path,word){if(!state.active||state.roundEnded||state.accepting||!pathStillForms(path,word))return;const token=state.roundToken;state.accepting=true;cancelPendingValidation();const len=tokenize(word).length,digraphs=path.filter(i=>state.board[i].letter.length>1).length,special=path.filter(i=>state.board[i].special).length;state.combo++;state.bestCombo=Math.max(state.bestCombo,state.combo);const mult=Math.min(5,1+Math.floor((state.combo-1)/2)),stones=damageStones(path),quest=collectQuestItems(path);let points=(len*len*8+Math.max(0,len-3)*12)*mult+special*35+digraphs*8+stones.hit*16+stones.broken*85+quest.count*45+(quest.completed?240:0);let bonus=null;if(state.bonusWord?.word===word){const captured=state.bonusFoundAt||performance.now(),elapsed=Math.max(0,captured-state.bonusWord.startedAt);if(elapsed<=state.bonusWord.duration){const tenths=Math.round(elapsed/100)/10,remaining=Math.max(0,state.bonusWord.duration-elapsed),extra=Math.round((len*len*42+120)*(1+remaining/state.bonusWord.duration));points+=extra;bonus={tenths,extra};playSound('bonus');showToast('BÓNUSZSZÓ! '+tenths.toFixed(1)+' mp alatt · +'+extra+' pont')}state.bonusWord=null;state.bonusFoundAt=0}state.score+=points;state.words.push(word);stats.seen[word]=Date.now();triggerWordImpact(len,!!bonus);if(stones.broken)playSound('break');else if(stones.hit)playSound('stone');else if(!bonus)playSound(len>=8?'break':'valid');if(state.combo>1&&state.combo%2===0)playSound('combo');if(navigator.vibrate&&state.combo>1)navigator.vibrate([18,20,32]);path.forEach(i=>{const el=$('board').querySelector('[data-index="'+i+'"]');if(el)el.classList.add('clearing-big')});state.selected=[];state.selectionValid=false;state.lastValidSignature='';updateSelection();updateHUD();updateStatus('✓ '+word.toLocaleUpperCase('hu-HU')+' · +'+points+' pont'+(bonus?' · bónusz '+bonus.tenths.toFixed(1)+' mp alatt':'')+(stones.hit?' · '+stones.hit+' kőréteg sérült':'')+(stones.broken?' · '+stones.broken+' kőmező eltűnt':'')+(quest.count?' · '+quest.count+' relikvia':'') ,'good');showKnowledge(word);checkObjectivesCleared();await delay(len>=9?430:len>=6?330:230);if(token!==state.roundToken){state.accepting=false;return}path.forEach(i=>state.board[i]={letter:'',special:false,collectible:null});refillBoard();if(state.words.length%4===0)stats.xp+=5;if(state.stoneBroken>=state.stoneGoal&&!state.stoneRewarded&&state.stoneGoal>0){state.stoneRewarded=true;state.score+=180;stats.xp+=15;showToast('MINDEN KŐRÉTEG ELTŰNT! +180 pont');playSound('combo')}saveStats();state.accepting=false;updateHUD();updateSelection();renderBoard();updateStoneHUD();updateQuestHUD();updateBoardWordCounts();if(state.mode==='campaign'&&state.score>=state.target&&state.stoneBroken>=state.stoneGoal&&state.questCompleted){endRound(true)}else if(state.mode==='daily'&&state.score>=state.target&&state.time>25){showToast('Napi cél teljesítve! Folytasd a rekordért.')}}
 function enterGame(mode){state.roundToken++;cancelPendingValidation();if(state.timer)clearInterval(state.timer);if(state.bonusTicker)clearInterval(state.bonusTicker);if(state.bonusNextTimer)clearTimeout(state.bonusNextTimer);state.accepting=false;state.mode=mode;state.score=0;state.words=[];state.combo=0;state.bestCombo=0;state.time=MODES[mode].time;state.usedHints=0;state.active=true;state.roundEnded=false;state.selected=[];state.selectionValid=false;state.stoneBroken=0;state.stoneRewarded=false;state.level=stats.campaignLevel||1;state.roundNumber=1;state.target=mode==='campaign'?200+state.level*110:mode==='daily'?650:0;state.seed=mode==='daily'?hash(dateKey+'szoszovo'):Math.floor(Math.random()*0xffffffff);if(mode==='campaign')state.seed=hash('campaign-'+state.level+'-'+dateKey);state.quest=chooseQuest(mode,state.level,state.seed);state.questProgress=0;state.questCompleted=false;state.questPlaced=0;state.board=createBoard(state.seed,state.quest,state.quest.target);state.rocks=createRocks(state.seed);state.stoneTotal=totalRockLayers(state.rocks);state.stoneGoal=state.stoneTotal;state.draining=false;state.bankPhase='off';state.bankPool=[];state.bankSelected=[];state.bankCanForm=null;state.wordCandidates=null;state.fullClearReward=false;state.bombs=stats.carryAids||0;state.rowShots=stats.carryRowShots??0;state.rowShotArmed=false;state.bombArmed=false;state.bonusWord=null;state.bonusFoundAt=0;state.timerPaused=false;state.wordTrie=null;state.knowledgeRequestId++;$('letterBankPanel').hidden=true;$('knowledgeCard').hidden=true;$('powerupBar').hidden=false;$('newBoard').disabled=false;$('newBoard').style.opacity='1';$('homeScreen').style.display='none';$('gameScreen').style.display='block';$('gameModeLabel').textContent=MODES[mode].name;$('targetDescription').textContent=mode==='campaign'?`Pályacél: ${state.target} pont, minden kőréteg és a relikviaküldetés teljesítése`:mode==='daily'?'Napi célpontszám · relikvia-küldetés · teljes kőtörés':'Cél: gyűjts pontokat, relikviákat és tisztítsd meg a táblát!';$('targetValue').textContent=state.target?state.target+' pont':'';$('clockLabel').textContent=mode==='zen'?'Játékidő':'Hátralévő idő';$('hintBox').textContent='Ha minden kő és relikvia eltűnt, a betűk nem pótlódnak. A végén a betűládában mentheted meg a maradék pontokat.';syncSoundButton();updateStoneHUD();updateQuestHUD();renderBoard();updateSelection();updateHUD();renderPowerups();updateBoardWordCounts();updateStatus('Húzd a betűket pontosan a szomszédos mezőkre — érvényes szó esetén az út azonnal zöld!','gold');if(state.time>0)state.timer=setInterval(tick,1000);state.bonusTicker=setInterval(updateBonusClock,100);window.scrollTo({top:0,behavior:'smooth'})}
 function tick(){if(!state.active||state.roundEnded||state.timerPaused)return;state.time--;updateHUD();if(state.mode==='campaign'&&state.score>=state.target&&state.stoneBroken>=state.stoneGoal&&state.questCompleted){endRound(true);return}if(state.time<=0)endRound(false)}
 function newBoard(){if(state.draining){showToast('A betűmentő végjátékot fejezd be, mielőtt új kört indítasz!');return}cancelPendingValidation();state.seed=Math.floor(Math.random()*0xffffffff);state.board=createBoard(state.seed,state.quest,Math.max(0,state.quest.target-state.questProgress));state.rocks=createRocks(state.seed);state.stoneBroken=0;state.stoneTotal=totalRockLayers(state.rocks);state.stoneGoal=state.stoneTotal;state.stoneRewarded=false;state.selected=[];state.selectionValid=false;state.lastValidSignature='';updateStoneHUD();updateQuestHUD();renderBoard();updateSelection();updateBoardWordCounts();$('hintBox').textContent='Új betűmező érkezett. A pontszámod és a küldetésed haladása megmaradt.';updateStatus('Új mező érkezett. A pontszámod és a küldetésed haladása megmaradt.','gold')}
 function findHint(){updateBoardWordCounts();const opts=(state.boardWordMatches||[]).filter(x=>!state.words.includes(x.word));if(!opts.length){$('hintBox').textContent=state.draining?'A betűládában próbálj új szóalakot kirakni.':'Most nem találtam új, biztos szót. Próbálj más irányt!';return}const pick=opts[Math.floor(Math.random()*opts.length)],first=state.board[pick.path[0]].letter;state.hintIndex=pick.path[0];state.usedHints++;renderBoard();$('hintBox').innerHTML='<strong>'+pick.length+' betűs szó</strong> rejtőzik a táblán. A kezdőmező betűje: <strong>'+escapeHTML(first)+'</strong>.<br>A pulzáló mező mutatja a kezdést — a teljes megfejtést neked kell megtalálnod.';updateStatus('Apró segítség: keresd a pulzáló kezdőmezőt!','gold')}
 function returnHome(){state.roundToken++;cancelPendingValidation();if(state.timer)clearInterval(state.timer);if(state.bonusTicker)clearInterval(state.bonusTicker);if(state.bonusNextTimer)clearTimeout(state.bonusNextTimer);state.active=false;state.accepting=false;$('gameScreen').style.display='none';$('homeScreen').style.display='block';$('modalBackdrop').style.display='none';updateHome();window.scrollTo({top:0,behavior:'smooth'})}
-function showHow(){$('modalTitle').textContent='A Szószövő új szabályai';$('modalText').innerHTML='1. Húzd az ujjad vagy a lenyomott bal egérgombot. A program a tényleges célmezőt követi: az átlós mozdulat egyetlen átlós mezőt jelöl, nem vesz fel köztes oldalmezőt. Elengedéskor minden kijelölés eltűnik.<br><br>2. Legalább három betűs, igazolt magyar szó fogadható el. A játék a közelmúltban megtalált szavakat nem ismétli. A nagyobb szavak látványosabb robbanást, erősebb hangot és táblaremegést kapnak.<br><br>3. A tábla feletti bónuszszót csilingelő hang jelzi. A pontos időt tizedmásodpercben mérjük; gyors találatért több pont jár. Minden elfogadott szóhoz Tudtad? szótári kártya társul.<br><br>4. Ha minden kőréteg és relikvia elfogyott, a betűk nem pótlódnak. Amikor nincs több köthető szó, a megmaradt betűket a betűládába gyűjtheted.<br><br>5. A kis betűk kiválasztásával nagy kockákból rakj ki szavakat. Kattints a nagy kockára vagy húzd vissza a ládába, ha változtatnál. Az Elfogadom gomb csak ellenőrzött, legalább három betűs magyar szót enged be.<br><br>6. Az Új kör csak akkor nyílik meg, ha a ládában már nincs további kirakható szó. Ha az összes betűt felhasználod, +500 pontot, +60 XP-t és egy kőbombát kapsz a következő körre.';$('modalScore').textContent='';$('modalBackdrop').style.display='flex';$('playAgain').style.display='none';$('modalHome').textContent='Értem'}
+function showHow(){$('modalTitle').textContent='A Szószövő új szabályai';$('modalText').innerHTML='1. Húzd az ujjad vagy a lenyomott bal egérgombot. A húzás tényleges útját követi és minden érintett szomszédos kockát azonnal kijelöl; egyenes, átlós és kanyargós útvonal, valamint visszalépés is működik. Elengedéskor minden kijelölés eltűnik.<br><br>2. Legalább három betűs, igazolt magyar szó fogadható el. A játék a közelmúltban megtalált szavakat nem ismétli. A nagyobb szavak látványosabb robbanást, erősebb hangot és táblaremegést kapnak.<br><br>3. A tábla feletti bónuszszót csilingelő hang jelzi. A pontos időt tizedmásodpercben mérjük; gyors találatért több pont jár. Minden elfogadott szóhoz Tudtad? szótári kártya társul.<br><br>4. Ha minden kőréteg és relikvia elfogyott, a betűk nem pótlódnak. Amikor nincs több köthető szó, a megmaradt betűket a betűládába gyűjtheted.<br><br>5. A kis betűk kiválasztásával nagy kockákból rakj ki szavakat. Kattints a nagy kockára vagy húzd vissza a ládába, ha változtatnál. Az Elfogadom gomb csak ellenőrzött, legalább három betűs magyar szót enged be.<br><br>6. Az Új kör csak akkor nyílik meg, ha a ládában már nincs további kirakható szó. Ha az összes betűt felhasználod, +500 pontot, +60 XP-t és egy kőbombát kapsz a következő körre.';$('modalScore').textContent='';$('modalBackdrop').style.display='flex';$('playAgain').style.display='none';$('modalHome').textContent='Értem'}
 
 
 
@@ -1039,7 +1039,7 @@ async function acceptWord(path,word){
  path.forEach(i=>state.board[i]={letter:'',special:false,collectible:null});refillBoard();if(state.words.length%4===0)stats.xp+=5;
  if(state.stoneBroken>=state.stoneGoal&&!state.stoneRewarded&&state.stoneGoal>0){state.stoneRewarded=true;state.score+=180;stats.xp+=15;showToast('MINDEN KŐRÉTEG ELTŰNT! +180 pont');playSound('combo')}
  saveStats();state.accepting=false;updateHUD();updateSelection();renderBoard();updateStoneHUD();updateQuestHUD();updateBoardWordCounts();updateBonusClock();
- if(state.mode==='campaign'&&state.score>=state.target&&state.stoneBroken>=state.stoneGoal&&state.questCompleted){endRound(true)}else if(state.mode==='zen'&&state.words.length>=40){endRound(true)}else if(state.mode==='daily'&&state.score>=state.target&&state.time>25){showToast('Napi cél teljesítve! Folytasd a rekordért.')}
+ if(state.mode==='campaign'&&state.score>=state.target&&state.stoneBroken>=state.stoneGoal&&state.questCompleted){endRound(true)}else if(state.mode==='daily'&&state.score>=state.target&&state.time>25){showToast('Napi cél teljesítve! Folytasd a rekordért.')}
 }
 function enterGame(mode){
  state.roundToken++;cancelPendingValidation();if(state.timer)clearInterval(state.timer);if(state.bonusTicker)clearInterval(state.bonusTicker);if(state.bonusNextTimer)clearTimeout(state.bonusNextTimer);
@@ -2418,7 +2418,2266 @@ showHow = function showHow24() {
 
 
 $('soundToggle').addEventListener('click',()=>setSoundEnabled(!soundEnabled));$('rowShotBtn').addEventListener('click',()=>{if(state.rowShots<=0)return;state.rowShotArmed=!state.rowShotArmed;state.bombArmed=false;renderPowerups();updateStatus(state.rowShotArmed?'Sorlövő élesítve — válassz egy sort!':'Sorlövő visszavonva.','gold')});$('stoneBombBtn').addEventListener('click',()=>{if(state.bombs<=0)return;state.bombArmed=!state.bombArmed;renderPowerups();updateStatus(state.bombArmed?'Kőbomba élesítve — válassz célmezőt!':'Kőbomba visszavonva.','gold')});$('bankAccept').addEventListener('click',submitBankWord);$('bankUndo').addEventListener('click',()=>{if(state.bankSelected.length){state.bankSelected.pop();renderBank()}});$('bankNextRound').addEventListener('click',requestNextRound);$('bankRevealYes').addEventListener('click',revealRemainingWords);$('bankRevealNo').addEventListener('click',skipRevealAndContinue);$('bankPool').addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='move'});$('bankPool').addEventListener('drop',e=>{e.preventDefault();removeBankSelection(e.dataTransfer.getData('text/plain'))});syncSoundButton();setupDragSelection();$('quickStart').addEventListener('click',()=>enterGame('timed'));$('dailyStart').addEventListener('click',()=>enterGame('daily'));document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>enterGame(b.dataset.mode)));$('howBtn').addEventListener('click',showHow);$('backHome').addEventListener('click',returnHome);$('newBoard').addEventListener('click',()=>{if(state.mode==='daily'){showToast('A napi kihívás mezője fix — mindenki ugyanazt kapja.');return}newBoard()});$('undoSelection').addEventListener('click',undoOneSelection);$('clearSelection').addEventListener('click',clearSelection);$('submitWord').addEventListener('click',submitWord);$('hintBtn').textContent='Tippet kérek ✦';$('hintBtn').addEventListener('click',findHint);$('playAgain').addEventListener('click',()=>{const m=state.mode;$('modalBackdrop').style.display='none';enterGame(m)});$('modalHome').addEventListener('click',closeHow);$('modalBackdrop').addEventListener('click',e=>{if(e.target===$('modalBackdrop'))closeHow()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('modalBackdrop').style.display==='flex')closeHow();if(e.key==='Backspace'&&$('gameScreen').style.display==='block'&&state.selected.length){e.preventDefault();undoOneSelection()}if(e.key==='Enter'&&$('gameScreen').style.display==='block'&&state.selected.length>=3)submitWord()});
-updateHome();if(QUESTS.length!==320)console.error('A küldetéslista nem 320 elemből áll.');loadHunspell();
+
+/* ================= SZÓSZÖVŐ 2.5 – végtelen Nyugalom mód, szigorúbb szóellenőrzés, +80 küldetés ================= */
+
+// 2.5.1: A Nyugalom mód valóban végtelen. A 40 szavas korlát megszűnt; a körváltás
+// kizárólag a betűláda automatikus továbbhaladásával, időzített módok időlejártával,
+// illetve a Szóösvény pályacéljának teljesítésével történhet.
+
+// További 10 relikviaforma × 8 fokozat = pontosan 80 új küldetés.
+const SZ25_EXTRA_RELICS = [
+  {key:'unicorn',name:'unikornis',title:'Unikornis-őrző',icon:'🦄'},
+  {key:'dolphin',name:'delfin',title:'Delfinvadász',icon:'🐬'},
+  {key:'fox',name:'róka',title:'Rókanyom-kutató',icon:'🦊'},
+  {key:'turtle',name:'teknős',title:'Teknőspajzs-gyűjtő',icon:'🐢'},
+  {key:'octopus',name:'polip',title:'Mélységi felfedező',icon:'🐙'},
+  {key:'bee',name:'méh',title:'Mézgyűjtő',icon:'🐝'},
+  {key:'peacock',name:'páva',title:'Pávatoll-őrző',icon:'🦚'},
+  {key:'flamingo',name:'flamingó',title:'Lagúnaőr',icon:'🦩'},
+  {key:'wolf',name:'farkas',title:'Farkasnyom-követő',icon:'🐺'},
+  {key:'hedgehog',name:'sün',title:'Sünikristály-vadász',icon:'🦔'}
+];
+QUEST_RELICS.push(...SZ25_EXTRA_RELICS);
+const SZ25_NEW_TIERS = QUEST_TIERS.slice(0,8); // 3, 4, 5, 6, 7, 9, 11, 13 – folyamatosan nehezedő, reális célok.
+const SZ25_ROMAN = ROMAN.slice(0,8);
+for (const relic of SZ25_EXTRA_RELICS) {
+  for (let ti=0; ti<SZ25_NEW_TIERS.length; ti++) {
+    const target=SZ25_NEW_TIERS[ti];
+    QUESTS.push({
+      id:QUESTS.length+1, shape:relic.key, icon:relic.icon, relicName:relic.name,
+      title:`${relic.title} ${SZ25_ROMAN[ti]}`, target,
+      description:`Gyűjts össze ${target} ${relic.name} relikviajelvényt a helyes szavak összekötésével!`
+    });
+  }
+}
+
+// Szorosabb magyar szóalak-szűrés. A kétbetűs szavak kizárólag a külön ellenőrzött
+// listából fogadhatók el; 3+ betűnél a helyi/Hunspell adat és a valódi magyar
+// Wikiszótár-szófaji definíció az elfogadás alapja.
+function sz25HasHungarianWordShape(word) {
+  const w=normalize(word), t=tokenize(w);
+  if (!w || t.length<3 || t.length>25) return false;
+  // A teljesen magánhangzó nélküli betűhalmazok (pl. véletlen mássalhangzó-sorok) nem szavak.
+  if (!/[aáeéiíoóöőuúüű]/i.test(w)) return false;
+  // Szokatlan, négy vagy több azonos karakter egymás után gyakorlatilag elgépelés.
+  if (/(.)\1{3,}/u.test(w)) return false;
+  return true;
+}
+
+const SZ25_VALID_POS = new Set([
+  'főnév','ige','melléknév','határozószó','névmás','számnév','kötőszó',
+  'indulatszó','névelő','igekötő','segédige','névutó','melléknévi igenév',
+  'határozói igenév','főnévi igenév','módosítószó','viszonyszó','particípium'
+]);
+function sz25ExtractVerifiedHuDefinitions(raw) {
+  if (!raw) return [];
+  let inHu=false, activePos='', defs=[];
+  for (const rawLine of String(raw).split(/\r?\n/)) {
+    const line=rawLine.trim();
+    const h=line.match(/^(={2,6})\s*(.*?)\s*\1\s*$/);
+    if (h) {
+      const level=h[1].length;
+      const title=cleanWikiText(h[2]).toLocaleLowerCase('hu-HU').replace(/\s*\([^)]*\)\s*/g,' ').trim();
+      if (level===2) { inHu=title==='magyar'; activePos=''; }
+      else if (inHu && level===3) { activePos=SZ25_VALID_POS.has(title.replace(/\s+\d+$/,'').trim()) ? title.replace(/\s+\d+$/,'').trim() : ''; }
+      else if (inHu && level>3) { /* alcímek alatt a szófaj állapota megmaradhat */ }
+      continue;
+    }
+    if (!inHu || !activePos) continue;
+    const m=line.match(/^#(?![#*:])\s*(.+)$/);
+    if (!m) continue;
+    const cleaned=cleanWikiText(m[1]);
+    if (cleaned.length<7) continue;
+    if (/^(főnév|ige|melléknév|határozószó|tulajdonnév)$/i.test(cleaned)) continue;
+    if (/^(nincs jelentés|ismeretlen jelentés|fordítás)$/i.test(cleaned) || /\bnincs\b/i.test(cleaned)) continue;
+    defs.push({pos:activePos,text:cleaned});
+    if (defs.length>=8) break;
+  }
+  const grouped=new Map();
+  for (const item of defs) {
+    if (!grouped.has(item.pos)) grouped.set(item.pos,[]);
+    if (grouped.get(item.pos).length<2) grouped.get(item.pos).push(item.text);
+  }
+  return [...grouped].map(([pos,items])=>({pos:pos.charAt(0).toLocaleUpperCase('hu-HU')+pos.slice(1),text:items.join(' · ')}));
+}
+
+// A szótármagyarázat és az online elfogadás ugyanazt a szigorú magyar szófaji
+// definíció-kinyerést használja. A puszta „Magyar” fejezet jelenléte nem elég.
+extractHungarianDefinitionsFromWikitext = function(raw) {
+  return sz25ExtractVerifiedHuDefinitions(raw);
+};
+extractHungarianDefinitionsFromHtml = function(html) {
+  if (!html || !window.DOMParser) return [];
+  const doc=new DOMParser().parseFromString(String(html),'text/html');
+  const root=doc.querySelector('.mw-parser-output')||doc.body;
+  const headings=[...root.querySelectorAll('h2,h3,h4,h5,h6')];
+  const magyar=headings.find(h=>{
+    const text=(h.querySelector('.mw-headline')?.textContent||h.textContent||'').replace(/\[szerkesztés\]/gi,'').trim().toLocaleLowerCase('hu-HU');
+    return text==='magyar';
+  });
+  if (!magyar) return [];
+  const nodes=[...root.querySelectorAll('h2,h3,h4,h5,h6,ol')];
+  let activePos='',defs=[];
+  for (let i=nodes.indexOf(magyar)+1;i<nodes.length;i++) {
+    const el=nodes[i],tag=el.tagName;
+    if (tag==='H2') break;
+    if (/^H[3-6]$/.test(tag)) {
+      const title=(el.querySelector('.mw-headline')?.textContent||el.textContent||'').replace(/\[szerkesztés\]/gi,'').trim().toLocaleLowerCase('hu-HU');
+      activePos=tag==='H3'&&SZ25_VALID_POS.has(title)?title:'';
+    } else if (tag==='OL'&&activePos) {
+      for (const li of [...el.children].filter(x=>x.tagName==='LI')) {
+        const clone=li.cloneNode(true);
+        clone.querySelectorAll('ol,ul,sup,.reference,.mw-editsection').forEach(x=>x.remove());
+        const text=cleanWikiText(clone.textContent);
+        if (text.length>=7) defs.push({pos:activePos,text});
+        if (defs.length>=8) break;
+      }
+    }
+    if (defs.length>=8) break;
+  }
+  const grouped=new Map();
+  for (const d of defs) { if(!grouped.has(d.pos))grouped.set(d.pos,[]); if(grouped.get(d.pos).length<2)grouped.get(d.pos).push(d.text); }
+  return [...grouped].map(([pos,items])=>({pos:pos.charAt(0).toLocaleUpperCase('hu-HU')+pos.slice(1),text:items.join(' · ')}));
+};
+
+// Az online ellenőrzés csak akkor enged, ha a Wikiszótár magyar szakaszában
+// valódi szófaj és legalább egy számozott jelentés is található.
+sz23CheckOnlineBase = async function sz25CheckOnlineBase(word) {
+  const key=normalize(word);
+  if (!sz25HasHungarianWordShape(key)) return false;
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),5500);
+  try {
+    const url='https://hu.wiktionary.org/w/api.php?action=parse&page='+encodeURIComponent(key)+'&prop=wikitext&redirects=1&format=json&origin=*';
+    const res=await fetch(url,{mode:'cors',signal:controller.signal});
+    if (!res.ok) return null;
+    const data=await res.json(),wt=data.parse?.wikitext;
+    const raw=typeof wt==='string'?wt:wt?.['*'];
+    const definitions=sz25ExtractVerifiedHuDefinitions(raw);
+    if (!definitions.length) return false;
+    state.onlineWords.add(key);
+    state.wordTrie=null;state.wordCandidates=null;state.bankCanForm=null;state.bankPossibleCache=null;
+    return true;
+  } catch { return null; }
+  finally { clearTimeout(timer); }
+};
+
+// Csak kisbetűs szótári címszavakat veszünk fel gyors szóanyagként, így a Hunspell
+// címszólistájában szereplő tulajdonnevek és rövidítések nem szivárognak be.
+const sz25BaseKnown = sz23KnownBase;
+sz23KnownBase = function sz25KnownBase(word) {
+  const key=normalize(word);
+  if (!sz25HasHungarianWordShape(key) || isRecentlyUsed(key)) return false;
+  if (state.onlineWords?.has(key)) return true;
+  if (LOCAL_WORDS.has(key) || state.hunspellWords?.has(key)) return true;
+  if (state.spellchecker?.loaded) {
+    try { return !!state.spellchecker.check(key); } catch { return false; }
+  }
+  return false;
+};
+
+// A Hunspell spellchecker is a kisbetűs, szűrt szótárat kapja meg, nem az eredeti
+// teljes állományt, ezért a nagybetűs személy- és helynevek nem szivárognak vissza.
+sz23LoadHunspellBase = async function sz25LoadHunspellBase() {
+  try {
+    const libraryOk=await loadTypoLibrary();
+    const base='https://raw.githubusercontent.com/LibreOffice/dictionaries/master/hu_HU/hu_HU';
+    const alt='https://cgit.freedesktop.org/libreoffice/dictionaries/plain/hu_HU/hu_HU';
+    const [aff,dic]=await Promise.all([fetchText([base+'.aff',alt+'.aff']),fetchText([base+'.dic',alt+'.dic'])]);
+    if(!dic)throw new Error('A magyar szótár nem tölthető le');
+    const lines=dic.split(/\r?\n/),words=new Set(),safeEntries=[];
+    for(let start=1;start<lines.length;start+=3000){
+      const end=Math.min(lines.length,start+3000);
+      for(let i=start;i<end;i++){
+        const entry=lines[i].trim().split(/[\t ]/)[0],raw=entry.replace(/\/.*$/,'');
+        if(raw&&raw===raw.toLocaleLowerCase('hu-HU')&&/^[a-záéíóöőúüű]{2,}$/.test(raw)){
+          words.add(normalize(raw));safeEntries.push(entry);
+        }
+      }
+      if(end<lines.length)await new Promise(resolve=>{
+        if(typeof requestIdleCallback==='function')requestIdleCallback(()=>resolve(),{timeout:80});
+        else setTimeout(resolve,0);
+      });
+    }
+    if(words.size<500)throw new Error('A szűrt szótárfájl hiányos');
+    state.hunspellWords=words;
+    if(libraryOk&&aff){
+      try{
+        const safeDic=String(safeEntries.length)+'\n'+safeEntries.join('\n');
+        state.spellchecker=new window.Typo('hu_HU',aff,safeDic);
+        if(!state.spellchecker.loaded)state.spellchecker=null;
+      }catch(e){state.spellchecker=null;}
+    }else state.spellchecker=null;
+    state.wordTrie=null;state.wordCandidates=null;state.bankCanForm=null;state.bankPossibleCache=null;
+    $('dictionaryState').textContent=state.spellchecker?'HUNSPELL · SZŰRT RAGOZÁS':'HUNSPELL · SZŰRT ALAPALAKOK';
+    $('dictionaryInfo').textContent=state.spellchecker
+      ? `Megtisztított magyar Hunspell-szótár betöltve: ${words.size.toLocaleString('hu-HU')} kisbetűs címszó és ragozási szabályok. A nagybetűs tulajdonneveket a gyors szóanyag nem veszi át.`
+      : `Megtisztított magyar szólista betöltve: ${words.size.toLocaleString('hu-HU')} kisbetűs alapalak. Az összetettebb ragozott alakokat szigorú magyar Wikiszótár-ellenőrzés egészíti ki.`;
+    if(state.active){state.wordCandidates=null;state.bankPossibleCache=null;updateBoardWordCounts();if(state.bankPhase==='compose')updateBankControls();}
+  }catch(e){
+    $('dictionaryState').textContent='HELYI + ONLINE';
+    $('dictionaryInfo').textContent='A teljes Hunspell-szótár most nem érhető el. A helyi magyar szóanyag és a magyar Wikiszótár valódi szófaji jelentéseket ellenőrző kapcsolata marad aktív.';
+    state.wordTrie=null;state.wordCandidates=null;state.bankCanForm=null;state.bankPossibleCache=null;state.spellchecker=null;
+    if(state.active){updateBoardWordCounts();if(state.bankPhase==='compose')updateBankControls();}
+  }
+};
+
+// A betűládában 2 betűtől kizárólag a szűk, ellenőrzött kétbetűs listát engedjük.
+isKnownBankWord = function isKnownBankWord25(word) {
+  const key=normalize(word),len=tokenize(key).length;
+  if (!key || isRecentlyUsed(key)) return false;
+  if (len===2) return BANK_TWO_LETTER_WORDS.has(key);
+  return sz23KnownBase(key);
+};
+
+// Frissebb Tudtad? feldolgozás: ugyanaz a kizárólag magyar szófaji definíciót
+// elfogadó parser dolgozik a wikitext- és HTML-változaton is.
+fetchWordKnowledge = async function fetchWordKnowledge25(word) {
+  const key=normalize(word);
+  if (!key) return null;
+  if (typeof SZ21_KNOWLEDGE_CACHE!=='undefined' && SZ21_KNOWLEDGE_CACHE.has(key)) return SZ21_KNOWLEDGE_CACHE.get(key);
+  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),6500);
+  const makeUrl=params=>'https://hu.wiktionary.org/w/api.php?'+new URLSearchParams({...params,format:'json',origin:'*'}).toString();
+  try {
+    let res=await fetch(makeUrl({action:'parse',page:key,prop:'wikitext',redirects:'1'}),{mode:'cors',signal:controller.signal});
+    if (res.ok) {
+      const data=await res.json(),wt=data.parse?.wikitext,raw=typeof wt==='string'?wt:wt?.['*'];
+      const defs=sz25ExtractVerifiedHuDefinitions(raw);
+      if (defs.length) {
+        const text=defs.map(d=>d.pos+': '+d.text).join('  •  ').slice(0,900);
+        if (typeof SZ21_KNOWLEDGE_CACHE!=='undefined') SZ21_KNOWLEDGE_CACHE.set(key,text);
+        return text;
+      }
+    }
+    res=await fetch(makeUrl({action:'parse',page:key,prop:'text',formatversion:'2',redirects:'1'}),{mode:'cors',signal:controller.signal});
+    if (res.ok) {
+      const data=await res.json(),html=typeof data.parse?.text==='string'?data.parse.text:data.parse?.text?.['*'];
+      const defs=extractHungarianDefinitionsFromHtml(html);
+      if (defs.length) {
+        const text=defs.map(d=>d.pos+': '+d.text).join('  •  ').slice(0,900);
+        if (typeof SZ21_KNOWLEDGE_CACHE!=='undefined') SZ21_KNOWLEDGE_CACHE.set(key,text);
+        return text;
+      }
+    }
+  } catch {} finally { clearTimeout(timer); }
+  if (typeof SZ21_KNOWLEDGE_CACHE!=='undefined') SZ21_KNOWLEDGE_CACHE.set(key,null);
+  return null;
+};
+
+// 14 további kihívásfajta ad változatosságot a 400 relikviaküldetés mellett.
+const SZ25_CHALLENGES = [
+  {key:'shortWords',name:'Rövidszó-szlalom',description:'Találj 3–4 betűs szavakat.',base:4},
+  {key:'mediumWords',name:'Középhosszú szavak',description:'Találj 5–6 betűs szavakat.',base:3},
+  {key:'digraphWords',name:'Kétjegyű betűvadász',description:'Használj CS, GY, LY, NY, SZ, TY vagy ZS betűkaput.',base:2},
+  {key:'vowelRich',name:'Magánhangzó-mágus',description:'Alkoss legalább három magánhangzót tartalmazó szavakat.',base:2},
+  {key:'diagonalLong',name:'Átlós óriásszó',description:'Alkoss legalább 6 betűs szót átlós lépéssel.',base:1},
+  {key:'turningPath',name:'Kanyargó szóösvény',description:'Válassz legalább két irányváltást tartalmazó szóutat.',base:1},
+  {key:'balancedWords',name:'Betűegyensúly',description:'Találj legalább két magán- és két mássalhangzót tartalmazó szavakat.',base:2},
+  {key:'doubleTile',name:'Duplázó',description:'Használj egy szón belül ismétlődő betűkaput.',base:1},
+  {key:'stoneLong',name:'Kőzúzó hosszúszavak',description:'Törj fel követ legalább 5 betűs szavakkal.',base:2},
+  {key:'bonusLong',name:'Bónuszóriás',description:'Találd meg a csilingelő bónuszszót, ha legalább 6 betűs.',base:1},
+  {key:'uniqueStart',name:'Kezdőbetű-kavalkád',description:'Gyűjts különböző kezdőbetűket.',base:3},
+  {key:'uniqueEnd',name:'Végződésvadász',description:'Gyűjts különböző szóvégi betűket.',base:3},
+  {key:'evenWords',name:'Páros betűlépés',description:'Találj legalább 4 betűs, páros hosszúságú szavakat.',base:3},
+  {key:'specialDigraph',name:'Fényes betűkapu',description:'Használj különleges mezőt és kétjegyű magyar betűt egy szóban.',base:1}
+];
+CHALLENGE_DECK.push(...SZ25_CHALLENGES);
+const SZ25_NEW_CHALLENGE_KEYS=new Set(SZ25_CHALLENGES.map(x=>x.key));
+const sz25BaseChooseQuest=chooseQuest;
+chooseQuest=function chooseQuest25(mode,level,seed) {
+  const result=sz25BaseChooseQuest(mode,level,seed);
+  state.challengeStarts=new Set();state.challengeEnds=new Set();state.challengeLengths=new Set();state.challengeProgress=0;state.challengeCompleted=false;
+  return result;
+};
+const sz25BaseChallengeProgress=applyChallengeProgress;
+applyChallengeProgress=function applyChallengeProgress25(word,path,stones,questResult,bonus,specialCount) {
+  const ch=state.challenge;
+  if (!ch || !SZ25_NEW_CHALLENGE_KEYS.has(ch.key)) return sz25BaseChallengeProgress(word,path,stones,questResult,bonus,specialCount);
+  if (state.challengeCompleted) return 0;
+  const tokens=tokenize(word),len=tokens.length;
+  const vowels=tokens.filter(t=>/^[AÁEÉIÍOÓÖŐUÚÜŰ]$/.test(t)).length;
+  const consonants=len-vowels;
+  const hasDigraph=path.some(i=>(state.board[i]?.letter||'').length>1);
+  const hasDiagonal=path.some((idx,k)=>k>0&&Math.abs(Math.floor(idx/5)-Math.floor(path[k-1]/5))===1&&Math.abs(idx%5-path[k-1]%5)===1);
+  let turns=0,lastDir='';
+  for(let i=1;i<path.length;i++){
+    const a=path[i-1],b=path[i],dir=`${Math.sign(Math.floor(b/5)-Math.floor(a/5))},${Math.sign((b%5)-(a%5))}`;
+    if(lastDir&&dir!==lastDir)turns++;lastDir=dir;
+  }
+  let add=0;
+  switch(ch.key){
+    case 'shortWords': if(len>=3&&len<=4)add=1; break;
+    case 'mediumWords': if(len>=5&&len<=6)add=1; break;
+    case 'digraphWords': if(hasDigraph)add=1; break;
+    case 'vowelRich': if(vowels>=3)add=1; break;
+    case 'diagonalLong': if(len>=6&&hasDiagonal)add=1; break;
+    case 'turningPath': if(turns>=2)add=1; break;
+    case 'balancedWords': if(vowels>=2&&consonants>=2)add=1; break;
+    case 'doubleTile': if(new Set(tokens).size<tokens.length)add=1; break;
+    case 'stoneLong': if(len>=5&&(stones?.hit>0||stones?.broken>0))add=1; break;
+    case 'bonusLong': if(bonus&&len>=6)add=1; break;
+    case 'uniqueStart': state.challengeStarts.add(tokens[0]);state.challengeProgress=state.challengeStarts.size;break;
+    case 'uniqueEnd': state.challengeEnds.add(tokens[tokens.length-1]);state.challengeProgress=state.challengeEnds.size;break;
+    case 'evenWords': if(len>=4&&len%2===0)add=1; break;
+    case 'specialDigraph': if(len>=5&&hasDigraph&&(specialCount||0)>0)add=1; break;
+  }
+  if(ch.key!=='uniqueStart'&&ch.key!=='uniqueEnd') state.challengeProgress+=add;
+  if(state.challengeProgress>=ch.target){
+    state.challengeProgress=ch.target;state.challengeCompleted=true;
+    const xp=18+(ch.stage||0)*4;stats.xp+=xp;saveStats();
+    showToast('KIHÍVÁS TELJESÍTVE: '+ch.name+' · +'+ch.reward+' pont · +'+xp+' XP');
+    playSound('combo');if(navigator.vibrate)navigator.vibrate([25,20,45,25,75]);
+    updateQuestHUD();return ch.reward;
+  }
+  updateQuestHUD();return 0;
+};
+
+// A 400-as teljes készlet minden felületen dinamikusan jelenjen meg.
+const sz25BaseShowHow=showHow;
+showHow=function showHow25(){
+  sz25BaseShowHow();
+  $('modalTitle').textContent='A Szószövő 2.5 szabályai';
+  const node=$('modalText');
+  if(node){
+    let text=node.innerHTML;
+    text=text.replace(/320 küldetés 32 különböző gyűjthető jelvényformával/g,'400 küldetés 42 különböző gyűjthető jelvényformával');
+    node.innerHTML=text+'<br><br>8. A Nyugalom mód időkorlát nélkül, 40 szavas leállás nélkül működik. A szógyűjteményed folyamatosan bővül; a táblatisztítás után a betűláda és az automatikus következő kör gondoskodik a folytatásról.<br><br>9. A küldetésrendszer 42 relikviaformát és 400 fokozatosan nehezedő relikviaküldetést tartalmaz, valamint 14 új szóalkotási kihívást.';
+  }
+};
+$('boardWordNote').textContent='42 relikviaforma · 400 küldetésváltozat · 14 további szóalkotási kihívás · A CS, GY, LY, NY, SZ, TY és ZS egy-egy magyar betűnek számít.';
+$('hintBtn').textContent='Tippet kérek ✦';
+
+updateHome();if(QUESTS.length!==400)console.error('A küldetéslista nem 400 elemből áll.');loadHunspell();
+
+/* ================= SZÓSZÖVŐ 2.6 – precíz mobilhúzás és kímélő renderelés =================
+   A látvány és a játéktábla mérete változatlan. A mozgás közben a kiválasztott
+   útvonal 8 szomszéd irányú rácson, irányvektorral épül fel, nem téglalapok
+   metszése alapján: így egy átlós mozdulat nem szedi fel a két oldalsó mezőt.
+*/
+const SZ26_NEIGHBORS = SZ23_NEIGHBORS;
+let sz26Geometry = null;
+let sz26LastPoint = null;
+let sz26VisualFrame = 0;
+let sz26PendingSound = false;
+
+function sz26CacheBoardGeometry() {
+  const board = $('board');
+  const br = board.getBoundingClientRect();
+  const centers = new Array(25);
+  const rects = new Array(25);
+  for (const el of board.querySelectorAll('.tile[data-index]')) {
+    const i = Number(el.dataset.index);
+    if (!Number.isInteger(i) || i < 0 || i >= 25) continue;
+    const r = el.getBoundingClientRect();
+    centers[i] = { x: r.left + r.width / 2, y: r.top + r.height / 2 };
+    rects[i] = { left:r.left, right:r.right, top:r.top, bottom:r.bottom,
+      cx:centers[i].x, cy:centers[i].y, width:r.width, height:r.height };
+  }
+  sz26Geometry = { centers, rects, boardRect:br };
+  // A meglévő fényvonal ugyanazokat a fix képernyő-koordinátákat használja.
+  sz22BoardRect = br;
+  sz22DragCenters = centers.map(c => c ? {x:c.x-br.left, y:c.y-br.top} : null);
+  sz22DragRects = rects;
+  sz23Rects = rects;
+  sz24HotRects = rects;
+}
+
+// A mozgásszakaszt a következő 8 szomszédos cella belső aktív felületével metsszük.
+// Nem következtetünk a húzás irányából egy feltételezett mezőre: csak az kerül be,
+// amelynek aktív felületét a kurzor/ujj útja ténylegesen keresztezi.
+function sz27SegmentRectHit(x0,y0,x1,y1,rect,fromT=0){
+  // Csak minimális (1.25 px) belső peremet hagyunk a lekerekített kockasarok miatt.
+  // A régi 8.5%-os belső zóna és a 7.5%-os minimális áthaladási hossz érezhető késést okozott.
+  const insetX=Math.min(1.25,rect.width*.015);
+  const insetY=Math.min(1.25,rect.height*.015);
+  const left=rect.left+insetX,right=rect.right-insetX;
+  const top=rect.top+insetY,bottom=rect.bottom-insetY;
+  const dx=x1-x0,dy=y1-y0;
+  let enter=fromT,exit=1;
+  const axes=[[x0,dx,left,right],[y0,dy,top,bottom]];
+  for(const [origin,delta,min,max] of axes){
+    if(Math.abs(delta)<1e-7){if(origin<min||origin>max)return null;continue;}
+    let a=(min-origin)/delta,b=(max-origin)/delta;
+    if(a>b){const t=a;a=b;b=t;}
+    enter=Math.max(enter,a);exit=Math.min(exit,b);
+    if(enter>exit+1e-7)return null;
+  }
+  if(exit<fromT||enter>1||exit<0)return null;
+  return {enter:Math.max(fromT,enter),exit:Math.min(1,exit)};
+}
+
+function sz26ApplyStep(index) {
+  if (!Number.isInteger(index) || index < 0 || index >= 25 || !state.board[index]?.letter || !state.selected.length) return false;
+  const existing = state.selected.indexOf(index);
+  if (existing === state.selected.length - 1) return false;
+  if (existing >= 0) {
+    state.selected.length = existing + 1;
+    return true;
+  }
+  const last = state.selected[state.selected.length - 1];
+  if (!SZ26_NEIGHBORS[last].includes(index) || state.selected.length >= 25) return false;
+  state.selected.push(index);
+  sz22PlayTick();
+  return true;
+}
+
+function sz26UpdateDragState() {
+  if (state.validationTimer) { clearTimeout(state.validationTimer); state.validationTimer = null; }
+  state.validationSeq++;
+  state.validationPending = false;
+  const word = normalize(state.selected.map(i => state.board[i]?.letter || '').join(''));
+  const valid = sz22FastKnown(word);
+  state.selectionValid = valid;
+  if (valid && state.bonusWord?.word === word) {
+    if (!state.bonusFoundAt) state.bonusFoundAt = performance.now();
+  } else {
+    state.bonusFoundAt = 0;
+  }
+  if (valid) {
+    const signature = selectionSignature();
+    if (state.lastValidSignature !== signature) playSound('valid');
+    state.lastValidSignature = signature;
+  } else {
+    state.lastValidSignature = '';
+  }
+}
+
+// Az útvonal visszajelzése ugyanabban a pointer eseményben frissül.
+// Nincs requestAnimationFrame-re várakozás: az új mező azonnal zöldül/kijelölődik.
+function sz26ScheduleVisualUpdate() {
+  if (sz26VisualFrame) { cancelAnimationFrame(sz26VisualFrame); sz26VisualFrame = 0; }
+  if (pointerSelecting && state.dragging) updateSelection();
+}
+
+function sz26ExtendToPoint(x, y) {
+  if(!sz26Geometry||!sz26LastPoint||!state.selected.length)return false;
+  const x0=sz26LastPoint.x,y0=sz26LastPoint.y;
+  const dx=x-x0,dy=y-y0;
+  if(dx*dx+dy*dy<0.36)return false;
+  const segmentLength=Math.hypot(dx,dy);
+  let cursorT=0,changed=false;
+  // A coalesced pointer event akár több kockán is áthaladhat. A szakasz mentén
+  // mindig a legkorábban keresztezett, aktuálisan szomszédos cellát dolgozzuk fel.
+  for(let guard=0;guard<24&&cursorT<.9999;guard++){
+    const last=state.selected[state.selected.length-1];
+    const adjacent=SZ26_NEIGHBORS[last]||[];
+    let bestIndex=-1,bestHit=null;
+    for(const candidate of adjacent){
+      if(!state.board[candidate]?.letter)continue;
+      const rect=sz26Geometry.rects[candidate];
+      if(!rect)continue;
+      const hit=sz27SegmentRectHit(x0,y0,x,y,rect,cursorT);
+      if(!hit)continue;
+      // A csak súrolt sarkot/élt nem tekintjük mezőválasztásnak.
+      const span=(hit.exit-hit.enter)*segmentLength;
+      // Már az első egyértelmű, legalább 0.8 px-es belépésnél reagálunk.
+      // A szomszédos mező továbbra is csak akkor kerül be, ha a húzott szakasz érinti.
+      if(span<0.8)continue;
+      if(!bestHit||hit.enter<bestHit.enter-1e-5||
+         (Math.abs(hit.enter-bestHit.enter)<1e-5&&hit.exit>bestHit.exit)){
+        bestIndex=candidate;bestHit=hit;
+      }
+    }
+    if(bestIndex<0||!bestHit)break;
+    const oldPath=state.selected.join(',');
+    if(!sz26ApplyStep(bestIndex))break;
+    if(state.selected.join(',')!==oldPath)changed=true;
+    // Lépjünk át a teljesen bejárt aktív cellán, különben a következő iteráció
+    // ugyanazt a mezőt látná még szomszédosként, és visszavonná az iménti lépést.
+    const nextT=Math.min(1,bestHit.exit+0.00015);
+    if(nextT<=cursorT+1e-7)break;
+    cursorT=nextT;
+  }
+  return changed;
+}
+
+function sz26ResetDragCaches() {
+  sz26Geometry = null;
+  sz26LastPoint = null;
+  sz22DragRects = null;
+  sz22DragCenters = null;
+  sz22BoardRect = null;
+  sz23Rects = null;
+  sz24HotRects = null;
+  if (sz26VisualFrame) { cancelAnimationFrame(sz26VisualFrame); sz26VisualFrame = 0; }
+  document.body.classList.remove('sz26-gesture-active');
+  const board = $('board');
+  board.classList.remove('is-dragging');
+  board.closest('.board-wrap')?.classList.remove('is-drag-active');
+}
+
+(function installPrecisePointerLayer() {
+  const board = $('board');
+  board.style.touchAction = 'none';
+  const block = e => { e.preventDefault(); e.stopImmediatePropagation(); };
+
+  board.addEventListener('pointerdown', e => {
+    const tile = e.target.closest?.('#board .tile');
+    if (!tile || e.button !== 0 || !state.active || state.roundEnded || state.accepting) return;
+    const index = Number(tile.dataset.index);
+    if (!Number.isInteger(index) || !state.board[index]?.letter) return;
+    block(e);
+    if (state.rowShotArmed) { useRowShot(index); return; }
+    if (state.bankPhase === 'collect') { moveBoardLetterToBank(index); return; }
+    if (state.bombArmed) { useStoneBomb(index); return; }
+
+    pointerSelecting = true;
+    pointerId = e.pointerId;
+    state.dragging = true;
+    state.hintIndex = null;
+    state.selected = [index];
+    state.selectionValid = false;
+    state.validationPending = false;
+    state.lastValidSignature = '';
+    state.bonusFoundAt = 0;
+    cancelPendingValidation();
+    sz26CacheBoardGeometry();
+    sz26LastPoint = {x:e.clientX, y:e.clientY};
+    board.classList.add('is-dragging');
+    board.closest('.board-wrap')?.classList.add('is-drag-active');
+    document.body.classList.add('sz26-gesture-active');
+    try { board.setPointerCapture(e.pointerId); } catch {}
+    updateSelection();
+  }, {capture:true, passive:false});
+
+  board.addEventListener('pointermove', e => {
+    if (!pointerSelecting || e.pointerId !== pointerId) return;
+    block(e);
+    let samples = null;
+    try { samples = typeof e.getCoalescedEvents === 'function' ? Array.from(e.getCoalescedEvents()) : null; } catch {}
+    if (!samples || !samples.length) samples = [e];
+    else {
+      const last = samples[samples.length - 1];
+      if (last.clientX !== e.clientX || last.clientY !== e.clientY) samples.push(e);
+    }
+    let changed = false;
+    for (const p of samples) {
+      if (sz26ExtendToPoint(p.clientX, p.clientY)) changed = true;
+      sz26LastPoint = {x:p.clientX, y:p.clientY};
+    }
+    if (changed) {
+      sz26UpdateDragState();
+      // Ugyanebben az eseményben frissítjük a kockák osztályait, a szóelőnézetet és a fénycsíkot.
+      sz26ScheduleVisualUpdate();
+    }
+  }, {capture:true, passive:false});
+
+  const finish = e => {
+    if (!pointerSelecting || e.pointerId !== pointerId) return;
+    block(e);
+    const endChanged = sz26ExtendToPoint(e.clientX, e.clientY);
+    if (endChanged) { sz26UpdateDragState(); updateSelection(); }
+    const path = state.selected.slice();
+    const word = normalize(path.map(i => state.board[i]?.letter || '').join(''));
+    const enough = tokenize(word).length >= 3;
+    const bonusAt = state.bonusFoundAt;
+    pointerSelecting = false;
+    const oldId = pointerId;
+    pointerId = null;
+    state.dragging = false;
+    try { if (board.hasPointerCapture(oldId)) board.releasePointerCapture(oldId); } catch {}
+    sz26ResetDragCaches();
+    clearSelectionOnly();
+    if (enough) {
+      if (bonusAt > 0) state.bonusFoundAt = bonusAt;
+      submitWord(path);
+    } else {
+      state.bonusFoundAt = 0;
+      if (path.length > 1) updateStatus('Legalább 3 értelmes magyar betű szükséges.','bad');
+    }
+  };
+  board.addEventListener('pointerup', finish, {capture:true, passive:false});
+
+  const abort = e => {
+    if (!pointerSelecting || e.pointerId !== pointerId) return;
+    block(e);
+    pointerSelecting = false;
+    pointerId = null;
+    state.dragging = false;
+    sz26ResetDragCaches();
+    clearSelectionOnly();
+    updateStatus('A húzás megszakadt.','');
+  };
+  board.addEventListener('pointercancel', abort, {capture:true, passive:false});
+  board.addEventListener('lostpointercapture', abort, true);
+})();
+
+// Energiatakarékos, de látványazonos interakció: húzás közben megáll a két lassú,
+// kizárólag díszítő háttérforgás. A fények, színek, kockák és találati effektek megmaradnak.
+const sz26PerfStyle = document.createElement('style');
+const sz26LowPower = ((navigator.hardwareConcurrency || 0) > 0 && navigator.hardwareConcurrency <= 4)
+  || ((navigator.deviceMemory || 0) > 0 && navigator.deviceMemory <= 4)
+  || navigator.connection?.saveData === true;
+if (sz26LowPower) document.documentElement.classList.add('sz26-low-power');
+sz26PerfStyle.textContent = `
+#board{contain:layout style;}
+body.sz26-gesture-active:after{animation-play-state:paused!important;}
+body.sz26-gesture-active .bonus-orb{animation-play-state:paused!important;}
+.board-wrap.is-drag-active:before{animation-play-state:paused!important;}
+/* Kis teljesítményű hardveren csak a folyamatos díszítő mozgás áll meg;
+   a fények, színek, árnyékok, kockák és minden egyszeri játékeffekt változatlan. */
+html.sz26-low-power body:after,
+html.sz26-low-power .board-wrap:before,
+html.sz26-low-power .bonus-orb{animation-play-state:paused!important;}
+`;
+sz26PerfStyle.textContent += `
+/* A húzás szín- és kijelölés-visszajelzése azonnali; a kockák grafikai stílusa nem változik. */
+#board.is-dragging .tile,
+#board.is-dragging .tile .tile-letter,
+#board.is-dragging .tile .tile-rock{transition:none!important;}
+`;
+document.head.appendChild(sz26PerfStyle);
+
+// A régi geometriai útvonal-feldolgozók ne futhassanak párhuzamosan a célzott új réteggel.
+// A capture-phase pointerkezelő már a buborékoló réteg előtt elkapja a húzást.
+/* ================= SZÓSZÖVŐ 2.8 – azonnali útvonal-visszajelzés ================= */
+
+function sz27SyncShuffleButton(){
+  const b=$('shuffleLettersBtn');if(!b)return;
+  const blocked=!state.active||state.roundEnded||state.accepting||state.draining||state.bankPhase!=='off'||state.dragging;
+  b.disabled=blocked;
+  b.title=blocked?'A betűkeverés csak az aktív betűtáblán használható.':'A betűk helyét keveri össze; a kőrétegek és a küldetésjelvények helye változatlan marad.';
+}
+
+function sz27ShuffleLetters(){
+  if(!state.active||state.roundEnded||state.accepting||state.draining||state.bankPhase!=='off'||state.dragging)return;
+  cancelPendingValidation();
+  const slots=[];
+  for(let i=0;i<state.board.length;i++)if(state.board[i]?.letter)slots.push(i);
+  if(slots.length<2){showToast('Nincs elég betű az összekeveréshez.');return;}
+  const original=slots.map(i=>state.board[i].letter);
+  let shuffled=original.slice();
+  // Fisher–Yates: a betűk atomi magyar betűkapcsolatként maradnak egyben (CS, GY, SZ…).
+  for(let attempt=0;attempt<5;attempt++){
+    shuffled=original.slice();
+    for(let i=shuffled.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]];}
+    if(shuffled.some((v,i)=>v!==original[i]))break;
+  }
+  if(shuffled.every((v,i)=>v===original[i]))shuffled.push(shuffled.shift());
+  for(let k=0;k<slots.length;k++)state.board[slots[k]].letter=shuffled[k];
+  state.selected=[];state.selectionValid=false;state.validationPending=false;state.lastValidSignature='';
+  state.bonusFoundAt=0;state.hintIndex=null;state.lastValidSignature='';
+  state.wordCandidates=null;state.bankCanForm=null;state.bankPossibleCache=null;
+  renderBoard();updateSelection();updateBoardWordCounts();
+  playSound('combo');
+  const board=$('board');board.classList.remove('shuffle-pop');void board.offsetWidth;board.classList.add('shuffle-pop');
+  setTimeout(()=>board.classList.remove('shuffle-pop'),420);
+  showToast('A betűk összekeveredtek — a kövek és a küldetésjelvények a helyükön maradtak!');
+  sz27SyncShuffleButton();
+}
+
+$('shuffleLettersBtn')?.addEventListener('click',sz27ShuffleLetters);
+
+// A gomb állapota a módváltások és fázisváltások után is pontos marad.
+const sz27OriginalEnterGame=enterGame;
+enterGame=function(mode){const result=sz27OriginalEnterGame(mode);sz27SyncShuffleButton();return result;};
+const sz27OriginalNewBoard=newBoard;
+newBoard=function(){const result=sz27OriginalNewBoard();sz27SyncShuffleButton();return result;};
+const sz27OriginalFinishBankCollection=finishBankCollection;
+if(typeof finishBankCollection==='function')finishBankCollection=function(){const result=sz27OriginalFinishBankCollection();sz27SyncShuffleButton();return result;};
+const sz27OriginalAcceptWord=acceptWord;
+acceptWord=function(...args){const result=sz27OriginalAcceptWord(...args);sz27SyncShuffleButton();return result;};
+const sz27OriginalReturnHome=returnHome;
+returnHome=function(...args){const result=sz27OriginalReturnHome(...args);sz27SyncShuffleButton();return result;};
+
+const sz27ShufflePerfStyle=document.createElement('style');
+sz27ShufflePerfStyle.textContent=`
+#board.shuffle-pop .tile:not(.empty){animation:sz27TileShuffle .34s ease-out both}
+@keyframes sz27TileShuffle{0%{filter:brightness(1);transform:translateY(0) rotate(0)}38%{filter:brightness(1.22);transform:translateY(-3px) rotate(-1deg)}100%{filter:brightness(1);transform:translateY(0) rotate(0)}}
+@media(prefers-reduced-motion:reduce){#board.shuffle-pop .tile:not(.empty){animation:none!important}}
+`;
+document.head.appendChild(sz27ShufflePerfStyle);
+sz27SyncShuffleButton();
+
+/* ================= SZÓSZÖVŐ 2.7 vége ================= */
+/* ================= SZÓSZÖVŐ 2.6 vége ================= */
+
+
+/* ================= SZÓSZÖVŐ 2.9 – kattintásos egérútvonal, koppintásos mobilkötés, fix betűkeverő ================= */
+// Asztali gépen: első kattintás elindítja a kijelölést; ezután a szabad egérmozgás
+// követi a betűket. Az utolsó mezőre kattintás vagy Enter fejezi be.
+// Telefonon: koppintásonként fűzhető a következő szomszéd; az ujjhúzás is használható.
+// A régi, nyomva tartásos pointerrétegeket dokumentumszintű capture kezeli le.
+let sz29Mode = null;                 // null | 'mouse-hover' | 'touch-chain'
+let sz29FingerPointerId = null;
+let sz29TouchInProgress = false;
+let sz29TouchCandidate = null;
+let sz29IgnoreTouchClick = false;
+let sz29TouchPath = [];
+let sz29LastHoverPoint = null;
+let sz29Finishing = false;
+
+const sz29Board = $('board');
+const sz29Block = e => { if (e.cancelable) e.preventDefault(); e.stopImmediatePropagation(); };
+
+function sz29SetGestureVisual(active) {
+  const board = $('board');
+  if (active) {
+    board.classList.add('is-dragging');
+    board.closest('.board-wrap')?.classList.add('is-drag-active');
+    document.body.classList.add('sz26-gesture-active');
+  } else {
+    board.classList.remove('is-dragging');
+    board.closest('.board-wrap')?.classList.remove('is-drag-active');
+    document.body.classList.remove('sz26-gesture-active');
+  }
+}
+
+function sz29StartPath(index, x, y, mode) {
+  if (!state.active || state.roundEnded || state.accepting || !state.board[index]?.letter) return false;
+  cancelPendingValidation();
+  state.selected = [index];
+  state.selectionValid = false;
+  state.validationPending = false;
+  state.lastValidSignature = '';
+  state.bonusFoundAt = 0;
+  state.hintIndex = null;
+  state.dragging = true;
+  sz29Mode = mode;
+  sz26CacheBoardGeometry();
+  sz26LastPoint = {x, y};
+  sz29LastHoverPoint = {x, y};
+  sz29SetGestureVisual(true);
+  updateSelection();
+  playSound('select');
+  updateStatus(mode === 'mouse-hover'
+    ? 'Egérkötés aktív: vezesd az egeret a szomszédos betűk fölé. Enter vagy kattintás az utolsó betűn: kész.'
+    : 'Érintőkötés aktív: koppints a következő szomszédos betűkre, vagy húzd az ujjad. A Szóellenőrzés gomb zárja le.', 'gold');
+  return true;
+}
+
+function sz29PathStep(index) {
+  if (!Number.isInteger(index) || index < 0 || index >= 25 || !state.board[index]?.letter) return false;
+  const existing = state.selected.indexOf(index);
+  if (existing === state.selected.length - 1) return false;
+  if (existing >= 0) {
+    state.validationSeq++;
+    if (state.validationTimer) { clearTimeout(state.validationTimer); state.validationTimer = null; }
+    state.selected = state.selected.slice(0, existing + 1);
+    state.selectionValid = false;
+    state.validationPending = false;
+    state.lastValidSignature = '';
+    state.bonusFoundAt = 0;
+    sz26UpdateDragState();
+    updateSelection();
+    return true;
+  }
+  const last = state.selected[state.selected.length - 1];
+  if (last === undefined || !(SZ26_NEIGHBORS[last] || []).includes(index) || state.selected.length >= 25) return false;
+  if (!sz26ApplyStep(index)) return false;
+  sz26UpdateDragState();
+  updateSelection();
+  return true;
+}
+
+function sz29ContinueTo(x, y) {
+  if (!state.selected.length || !sz26Geometry || !sz26LastPoint) return false;
+  const changed = sz26ExtendToPoint(x, y);
+  sz26LastPoint = {x, y};
+  sz29LastHoverPoint = {x, y};
+  if (changed) {
+    sz26UpdateDragState();
+    updateSelection();
+  }
+  return changed;
+}
+
+function sz29EndMode(keepSelection = true) {
+  if (sz29Mode === null && !sz29TouchInProgress) return;
+  sz29Mode = null;
+  sz29FingerPointerId = null;
+  sz29TouchInProgress = false;
+  sz29TouchCandidate = null;
+  sz29TouchPath = [];
+  state.dragging = false;
+  sz26ResetDragCaches();
+  sz29LastHoverPoint = null;
+  if (!keepSelection) clearSelectionOnly();
+  else updateSelection();
+}
+
+function sz29CommitWord() {
+  if (sz29Finishing || !state.selected.length) return;
+  sz29Finishing = true;
+  const path = state.selected.slice();
+  const word = normalize(path.map(i => state.board[i]?.letter || '').join(''));
+  const bonusAt = state.bonusFoundAt;
+  sz29EndMode(true);
+  if (tokenize(word).length >= 3) {
+    if (bonusAt > 0) state.bonusFoundAt = bonusAt;
+    submitWord(path);
+  } else {
+    state.bonusFoundAt = 0;
+    updateStatus('Legalább 3 értelmes magyar betű szükséges.','bad');
+  }
+  setTimeout(() => { sz29Finishing = false; }, 0);
+}
+
+function sz29TouchTapStep(index, x, y) {
+  if (!state.active || state.roundEnded || state.accepting || !state.board[index]?.letter) return;
+  if (sz29HandleSpecialTile(index)) return;
+  if (sz29Mode !== 'touch-chain') {
+    if (sz29Mode === 'mouse-hover') sz29EndMode(true);
+    sz29Mode = 'touch-chain';
+    sz29TouchPath = [index];
+  } else {
+    const last = sz29TouchPath[sz29TouchPath.length - 1];
+    if (index === last) {
+      state.selected = sz29TouchPath.slice();
+      sz29CommitWord();
+      return;
+    }
+    const existing = sz29TouchPath.indexOf(index);
+    if (existing >= 0) sz29TouchPath = sz29TouchPath.slice(0, existing + 1);
+    else if ((SZ26_NEIGHBORS[last] || []).includes(index) && sz29TouchPath.length < 25) sz29TouchPath.push(index);
+    else sz29TouchPath = [index];
+  }
+  state.selected = sz29TouchPath.slice();
+  state.dragging = false;
+  state.hintIndex = null;
+  cancelPendingValidation();
+  state.selectionValid = false;
+  state.validationPending = false;
+  state.lastValidSignature = '';
+  state.bonusFoundAt = 0;
+  sz26ResetDragCaches();
+  sz26UpdateDragState();
+  updateSelection();
+  if (state.selected.length >= 3) autoValidateSelection();
+  updateStatus('Érintőkötés: koppints a következő szomszédos betűre. Az utolsó betű újbóli megérintése lezárja a szót; a Szóellenőrzés gomb is használható.','gold');
+}
+
+function sz29BeginTouchSwipe(candidate) {
+  const index = candidate.index;
+  if (!state.active || !state.board[index]?.letter) return false;
+  if (sz29Mode !== 'touch-chain') {
+    if (sz29Mode === 'mouse-hover') sz29EndMode(true);
+    sz29StartPath(index, candidate.x, candidate.y, 'touch-chain');
+  } else {
+    const last = state.selected[state.selected.length - 1];
+    if (index !== last) {
+      const existing = state.selected.indexOf(index);
+      if (existing >= 0) sz29PathStep(index);
+      else if ((SZ26_NEIGHBORS[last] || []).includes(index)) sz29PathStep(index);
+      else {
+        sz29EndMode(false);
+        sz29StartPath(index, candidate.x, candidate.y, 'touch-chain');
+      }
+    }
+    state.dragging = true;
+    sz26CacheBoardGeometry();
+    sz26LastPoint = {x:candidate.x, y:candidate.y};
+    sz29SetGestureVisual(true);
+  }
+  return true;
+}
+
+function sz29HandleSpecialTile(index) {
+  if (state.rowShotArmed) { useRowShot(index); return true; }
+  if (state.bombArmed) { useStoneBomb(index); return true; }
+  if (state.bankPhase === 'collect') { moveBoardLetterToBank(index); return true; }
+  return false;
+}
+
+// Desktop click-to-start + hover-to-connect. There is no mouse-button hold requirement.
+document.addEventListener('pointerdown', e => {
+  const tile = e.target.closest?.('#board .tile[data-index]');
+  if (e.pointerType !== 'mouse') {
+    if (sz29Mode === 'mouse-hover') sz29EndMode(true);
+    if (tile && e.isPrimary && state.active && !state.roundEnded && !state.accepting) {
+      const index = Number(tile.dataset.index);
+      if (Number.isInteger(index) && state.board[index]?.letter) {
+        // Powerups/collection must run once, not once on pointerdown and again on click.
+        if (sz29HandleSpecialTile(index)) {
+          sz29Block(e);
+          sz29IgnoreTouchClick = true;
+          setTimeout(() => { sz29IgnoreTouchClick = false; }, 120);
+          return;
+        }
+        // Only observe touch movement here. The existing precise pointer layer
+        // continues to handle a true finger swipe; a plain tap is assembled from
+        // the subsequent compatibility click, after the browser's focus scroll.
+        sz29TouchCandidate = {pointerId:e.pointerId,index,x:e.clientX,y:e.clientY,moved:false};
+      }
+    }
+    return;
+  }
+
+  if (!tile) {
+    if (sz29Mode === 'mouse-hover') sz29EndMode(true);
+    return;
+  }
+  if (!e.isPrimary || e.button !== 0 || !state.active || state.roundEnded || state.accepting) return;
+  const index = Number(tile.dataset.index);
+  if (!Number.isInteger(index) || !state.board[index]?.letter) return;
+  sz29Block(e);
+  if (sz29HandleSpecialTile(index)) return;
+
+  if (sz29Mode !== 'mouse-hover') {
+    sz29StartPath(index, e.clientX, e.clientY, 'mouse-hover');
+    return;
+  }
+
+  const last = state.selected[state.selected.length - 1];
+  const existing = state.selected.indexOf(index);
+  if (existing >= 0 && existing < state.selected.length - 1) {
+    sz29PathStep(index); // Click a previous tile to backtrack, keep hover mode active.
+    sz29LastHoverPoint = {x:e.clientX, y:e.clientY};
+    sz26LastPoint = {x:e.clientX, y:e.clientY};
+    return;
+  }
+  if (index === last) {
+    sz29CommitWord();
+    return;
+  }
+  const rect = sz26Geometry?.rects[index];
+  if (rect) sz29ContinueTo(rect.cx, rect.cy);
+  if (state.selected[state.selected.length - 1] === index) sz29CommitWord();
+  else if (state.selected.length >= 3) sz29CommitWord();
+  else {
+    sz29EndMode(false);
+    sz29StartPath(index, e.clientX, e.clientY, 'mouse-hover');
+  }
+}, {capture:true, passive:false});
+
+// Mouse moves are tracked with the button released. Touch moves only while a finger is down.
+document.addEventListener('pointermove', e => {
+  if (sz29Mode === 'mouse-hover' && e.pointerType === 'mouse') {
+    if (!state.active || state.accepting) { sz29EndMode(true); return; }
+    sz29Block(e);
+    const samples = (() => { try { const a = e.getCoalescedEvents?.(); return a?.length ? [...a] : [e]; } catch { return [e]; } })();
+    if (samples[samples.length - 1]?.clientX !== e.clientX || samples[samples.length - 1]?.clientY !== e.clientY) samples.push(e);
+    for (const p of samples) sz29ContinueTo(p.clientX, p.clientY);
+    return;
+  }
+  if (sz29TouchCandidate && e.pointerId === sz29TouchCandidate.pointerId) {
+    const dx = e.clientX - sz29TouchCandidate.x, dy = e.clientY - sz29TouchCandidate.y;
+    if (dx*dx + dy*dy >= 36) sz29TouchCandidate.moved = true;
+    // Do not cancel or delay the existing board-level touch-drag handler.
+  }
+}, {capture:true, passive:false});
+
+// Lifting a finger ends the current swipe but preserves the tap-built word.
+document.addEventListener('pointerup', e => {
+  if (!sz29TouchCandidate || e.pointerId !== sz29TouchCandidate.pointerId) return;
+  const candidate = sz29TouchCandidate;
+  sz29TouchCandidate = null;
+  if (candidate.moved) {
+    // A finger-drag has already been processed and submitted by the pre-existing
+    // precision layer; swallow only its synthetic click, never a simple tap.
+    sz29IgnoreTouchClick = true;
+    setTimeout(() => { sz29IgnoreTouchClick = false; }, 120);
+  }
+}, {capture:true, passive:true});
+
+document.addEventListener('pointercancel', e => {
+  if (sz29TouchCandidate && e.pointerId === sz29TouchCandidate.pointerId) sz29TouchCandidate = null;
+}, {capture:true, passive:true});
+
+// Controls close the input mode but preserve the path so their original action can run.
+for (const id of ['submitWord','undoSelection','clearSelection','hintBtn','shuffleLettersBtn','newBoard','backHome','stoneBombBtn','rowShotBtn']) {
+  const el = $(id);
+  if (el) el.addEventListener('click', () => { if (sz29Mode) sz29EndMode(true); }, {capture:true});
+}
+
+document.addEventListener('keydown', e => {
+  if (!sz29Mode) return;
+  if (e.key === 'Escape') {
+    e.preventDefault(); e.stopImmediatePropagation();
+    sz29EndMode(false);
+    updateStatus('A szóösszekötést megszakítottad.','');
+  } else if (e.key === 'Enter' && state.selected.length >= 3) {
+    e.preventDefault(); e.stopImmediatePropagation();
+    sz29CommitWord();
+  }
+}, true);
+
+// A mouse path is ended by clicking its last tile. Keyboard activation also works.
+document.addEventListener('click', e => {
+  const tile = e.target.closest?.('#board .tile[data-index]');
+  if (!tile) return;
+  const isTouchClick = e.pointerType === 'touch' || e.pointerType === 'pen' ||
+    (e.detail > 0 && navigator.maxTouchPoints > 0 && e.sourceCapabilities?.firesTouchEvents);
+  if (isTouchClick) {
+    e.preventDefault(); e.stopImmediatePropagation();
+    if (sz29IgnoreTouchClick) return;
+    const index = Number(tile.dataset.index);
+    sz29TouchTapStep(index, e.clientX, e.clientY);
+    return;
+  }
+  if (e.detail !== 0) return;
+  e.preventDefault(); e.stopImmediatePropagation();
+  const index = Number(tile.dataset.index);
+  if (sz29Mode !== 'touch-chain') {
+    sz29Mode = 'touch-chain'; sz29TouchPath = [index]; state.selected = [index];
+    state.dragging = false; sz26ResetDragCaches(); updateSelection();
+  } else sz29TouchTapStep(index, e.clientX, e.clientY);
+}, true);
+
+// Reliable shuffle: all occupied letter slots are actually permuted; tile metadata
+// (rocks, relics, special status) stays attached to its own square. Collect-phase is allowed.
+function sz29SyncShuffleButton() {
+  const b = $('shuffleLettersBtn'); if (!b) return;
+  const noBoardLetters = !state.board?.some(t => t?.letter);
+  const compose = state.bankPhase === 'compose' || state.bankPhase === 'done';
+  const blocked = !state.active || state.roundEnded || state.accepting || state.dragging || noBoardLetters || compose;
+  b.disabled = blocked;
+  b.title = blocked
+    ? 'A betűk keverése akkor használható, amikor van aktív betű a táblán.'
+    : 'A táblán lévő összes betűt átrendezi; a kövek és küldetésjelvények a helyükön maradnak.';
+}
+
+function sz29ShuffleLetters() {
+  if (!state.active || state.roundEnded || state.accepting || state.dragging) return false;
+  if (state.bankPhase === 'compose' || state.bankPhase === 'done') {
+    showToast('A betűk már a betűládában vannak; a táblakeverés ebben a szakaszban nem használható.');
+    return false;
+  }
+  const slots = [];
+  for (let i = 0; i < state.board.length; i++) if (state.board[i]?.letter) slots.push(i);
+  if (slots.length < 2) { showToast('Nincs elég betű a táblán az összekeveréshez.'); return false; }
+  const original = slots.map(i => state.board[i].letter);
+  const unique = new Set(original);
+  if (unique.size < 2) { showToast('A táblán jelenleg minden betű egyforma; nincs mit átrendezni.'); return false; }
+  let shuffled = original.slice();
+  for (let attempt = 0; attempt < 40; attempt++) {
+    shuffled = original.slice();
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    if (shuffled.some((v, i) => v !== original[i])) break;
+  }
+  if (shuffled.every((v, i) => v === original[i])) {
+    const firstDifferent = original.findIndex(v => v !== original[0]);
+    if (firstDifferent > 0) [shuffled[0], shuffled[firstDifferent]] = [shuffled[firstDifferent], shuffled[0]];
+  }
+  for (let k = 0; k < slots.length; k++) state.board[slots[k]].letter = shuffled[k];
+  cancelPendingValidation();
+  state.selected = [];
+  state.selectionValid = false;
+  state.validationPending = false;
+  state.lastValidSignature = '';
+  state.bonusFoundAt = 0;
+  state.hintIndex = null;
+  state.wordCandidates = null;
+  state.bankCanForm = null;
+  state.bankPossibleCache = null;
+  sz29EndMode(false);
+  renderBoard();
+  updateSelection();
+  updateBoardWordCounts();
+  playSound('combo');
+  const board = $('board');
+  board.classList.remove('shuffle-pop');
+  void board.offsetWidth;
+  board.classList.add('shuffle-pop');
+  setTimeout(() => board.classList.remove('shuffle-pop'), 420);
+  showToast(slots.length + ' betű új helyre került. A kövek és a küldetésjelvények nem mozdultak.');
+  sz29SyncShuffleButton();
+  return true;
+}
+
+const sz29ShuffleButton = $('shuffleLettersBtn');
+if (sz29ShuffleButton) {
+  sz29ShuffleButton.removeEventListener('click', sz27ShuffleLetters);
+  sz29ShuffleButton.addEventListener('click', sz29ShuffleLetters);
+}
+sz27SyncShuffleButton = sz29SyncShuffleButton;
+sz29SyncShuffleButton();
+
+// Keep the shuffle button state in sync after round/board/quest transitions.
+const sz29OldEnterGame = enterGame;
+enterGame = function(mode) { const result = sz29OldEnterGame(mode); sz29SyncShuffleButton(); return result; };
+const sz29OldNewBoard = newBoard;
+newBoard = function() { const result = sz29OldNewBoard(); sz29SyncShuffleButton(); return result; };
+const sz29OldAcceptWord = acceptWord;
+acceptWord = function(...args) { const result = sz29OldAcceptWord(...args); sz29SyncShuffleButton(); return result; };
+const sz29OldReturnHome = returnHome;
+returnHome = function(...args) { const result = sz29OldReturnHome(...args); sz29SyncShuffleButton(); return result; };
+
+// Help copy for both devices; visuals of the board and tiles remain untouched.
+const sz29Help = document.querySelector('.board-help');
+if (sz29Help) sz29Help.textContent = 'Számítógépen: kattints az első betűre, majd mozgasd az egeret a szomszédos betűk fölé — nem kell nyomva tartani. Az utolsó kijelölt betűre kattintva vagy Enterrel zárhatod le. Telefonon: koppints sorban a szomszédos betűkre, vagy húzd végig az ujjad; a Szóellenőrzés gomb fogadja el. A korábbi betűre lépés visszavonja az útvonal végét.';
+
+
+/* ================= SZÓSZÖVŐ 3.0 – jégmezők, falbontás, precíz és azonnali útvonal ================= */
+// A megjelenés változatlan. A fagyás a betűobjektumhoz tartozik, így a betűvel együtt
+// mozog a gravitációs rendezéskor; csak egy mellette felrobbanó betű olvasztja.
+Object.assign(state, {
+  iceTotalLayers: 0,
+  iceMeltedLayers: 0,
+  iceRemainingLayers: 0,
+  iceNoticeAt: 0
+});
+
+function sz30IsFrozen(index) {
+  return !!(state.board?.[index] && Number(state.board[index].ice || 0) > 0);
+}
+
+function sz30UpdateIceHUD() {
+  const pills = document.querySelector('.objective-pills');
+  if (!pills) return;
+  let el = $('iceObjective');
+  if (!el) {
+    el = document.createElement('span');
+    el.id = 'iceObjective';
+    el.className = 'ice-objective';
+    const stone = $('stoneObjective');
+    if (stone?.nextSibling) pills.insertBefore(el, stone.nextSibling);
+    else pills.appendChild(el);
+  }
+  const total = Math.max(0, Number(state.iceTotalLayers || 0));
+  const melted = Math.min(total, Math.max(0, Number(state.iceMeltedLayers || 0)));
+  const left = Math.max(0, total - melted);
+  state.iceRemainingLayers = left;
+  el.textContent = total ? (left ? `❄ JÉG ${melted}/${total}` : `✓ JÉG OLVADT`) : '❄ NINCS JÉG';
+  el.classList.toggle('done', left === 0);
+  el.title = left
+    ? `${left} jégréteg maradt. Csak a közvetlenül szomszédos, felrobbanó betűk olvasztják.`
+    : 'A jégmezők teljesen felolvadtak.';
+}
+
+function sz30RenderIceDOM() {
+  const board = $('board');
+  if (!board) return;
+  for (let i = 0; i < 25; i++) {
+    const cell = board.children[i];
+    if (!cell?.classList?.contains('tile')) continue;
+    const tile = state.board?.[i];
+    const layers = Math.max(0, Number(tile?.ice || 0));
+    let overlay = cell.querySelector('.tile-ice');
+    if (layers > 0) {
+      cell.classList.add('has-ice');
+      if (!overlay) {
+        overlay = document.createElement('span');
+        overlay.className = 'tile-ice';
+        overlay.setAttribute('aria-hidden', 'true');
+        const mark = document.createElement('i');
+        mark.className = 'ice-mark';
+        mark.textContent = '❄';
+        const count = document.createElement('b');
+        count.className = 'ice-count';
+        overlay.append(mark, count);
+        const letter = cell.querySelector('.tile-letter');
+        if (letter) cell.insertBefore(overlay, letter);
+        else cell.appendChild(overlay);
+      }
+      const count = overlay.querySelector('.ice-count');
+      if (count) count.textContent = layers > 1 ? String(layers) : '1';
+      cell.setAttribute('aria-label', (tile?.letter || '') + `, ${layers} jégréteg`);
+    } else {
+      cell.classList.remove('has-ice');
+      // A teljesen elolvadt jég rövid shatter animációja a következő renderig megmaradhat.
+      if (overlay && !overlay.classList.contains('shattering')) overlay.remove();
+      if (tile?.letter) cell.setAttribute('aria-label', tile.letter + ((state.rocks?.[i] || 0) ? `, ${state.rocks[i]} kőréteg` : ''));
+    }
+  }
+}
+
+const sz30IceStyle = document.createElement('style');
+sz30IceStyle.textContent = `
+.objective-pills{gap:7px}
+.ice-objective{display:inline-flex;align-items:center;gap:5px;border:1px solid rgba(130,210,255,.28);border-radius:999px;padding:6px 10px;background:linear-gradient(135deg,rgba(42,111,164,.22),rgba(98,180,225,.08));color:#b9eaff;font-size:10px;font-weight:900;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.ice-objective.done{border-color:rgba(115,227,192,.34);background:rgba(70,174,139,.12);color:#a5f1d7}
+.tile.has-ice{border-color:rgba(154,220,255,.72);box-shadow:0 5px 0 #101b31,0 0 13px rgba(93,184,245,.2),inset 0 1px 0 rgba(255,255,255,.12)}
+.tile-ice{position:absolute;inset:1px;z-index:2;display:block;overflow:hidden;border-radius:inherit;pointer-events:none;background:linear-gradient(145deg,rgba(221,247,255,.62),rgba(83,164,218,.38) 52%,rgba(28,88,142,.52));border:1px solid rgba(225,249,255,.72);box-shadow:inset 0 2px 7px rgba(255,255,255,.58),inset 0 -5px 10px rgba(28,88,142,.34),0 0 12px rgba(96,187,245,.22)}
+.tile-ice:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 0 24%,rgba(255,255,255,.48) 24.5% 25.5%,transparent 26%),linear-gradient(42deg,transparent 0 58%,rgba(255,255,255,.34) 58.5% 59.3%,transparent 60%),radial-gradient(circle at 26% 18%,rgba(255,255,255,.42) 0 1px,transparent 2px),radial-gradient(circle at 76% 72%,rgba(255,255,255,.32) 0 1px,transparent 2px)}
+.tile-ice .ice-mark{position:absolute;right:4px;top:3px;font-style:normal;font-size:12px;color:#ecfbff;text-shadow:0 0 7px #70c8ff;line-height:1}
+.tile-ice .ice-count{position:absolute;left:4px;bottom:3px;min-width:14px;height:14px;padding:0 3px;border-radius:8px;background:rgba(12,42,68,.78);border:1px solid rgba(218,245,255,.6);color:#effbff;font:900 8px/12px Manrope;text-align:center}
+.tile.has-ice .tile-letter{z-index:4;color:#fff;text-shadow:0 2px 3px rgba(9,37,64,.8),0 0 9px rgba(255,255,255,.36)}
+.tile-ice.cracking{animation:sz30IceCrack .2s ease}
+.tile-ice.shattering{animation:sz30IceShatter .24s ease forwards}
+@keyframes sz30IceCrack{0%,100%{filter:brightness(1)}45%{filter:brightness(1.55);transform:scale(.96)}}
+@keyframes sz30IceShatter{0%{opacity:1;transform:scale(1);filter:brightness(1.5)}100%{opacity:0;transform:scale(1.16) rotate(5deg);filter:brightness(2)}}
+@media(max-width:620px){.ice-objective{font-size:9px;padding:5px 8px}.tile-ice .ice-mark{font-size:10px;right:3px;top:2px}.tile-ice .ice-count{left:3px;bottom:2px;min-width:12px;height:12px;font-size:7px;line-height:10px}}
+`;
+document.head.appendChild(sz30IceStyle);
+
+function sz30UpdateIceInstructions() {
+  const hint = $('hintBox');
+  if (hint) hint.innerHTML = '<strong>❄ JÉGRÉTEG – FIGYELJ!</strong><br>A kék jég alatti betű nem választható. Csak a közvetlenül mellette felrobbanó betűk olvasztják: minden szomszédos robbanás egy réteget bont le. A szóútvonalad mellett a kőfalakat is áttörheted; a kőbomba és a sorlövő is segít a bontásban.';
+  sz30UpdateIceHUD();
+}
+
+function sz30SetupIce() {
+  if (!Array.isArray(state.board) || state.board.length !== 25) return;
+  state.iceTotalLayers = 0;
+  state.iceMeltedLayers = 0;
+  state.iceRemainingLayers = 0;
+  for (const tile of state.board) if (tile && typeof tile === 'object') delete tile.ice;
+
+  // A biztosan kirakható, már meglévő szóutakhoz közel helyezünk jeget, de magukat
+  // az induló szóutakat nem fagyasztjuk be. Így az új akadály mindig bontható marad.
+  let matches = Array.isArray(state.boardWordMatches) ? state.boardWordMatches : [];
+  if (!matches.length) { try { matches = scanBoardWords(); } catch {} }
+  const wordCells = new Set();
+  const wordNeighbors = new Set();
+  for (const match of matches || []) {
+    for (const p of match.path || []) {
+      wordCells.add(p);
+      for (const n of neighbors(p)) wordNeighbors.add(n);
+    }
+  }
+  const stage = Math.max(0, Number(state.difficultyStage || 0));
+  const target = Math.min(6, 3 + Math.floor(stage / 2));
+  const rng = seeded(((Number(state.seed) || 1) ^ 0x6D2B79F5 ^ (Number(state.roundNumber) || 1) * 0x45D9F3B) >>> 0);
+  const candidates = [];
+  for (let i = 0; i < 25; i++) {
+    const tile = state.board[i];
+    if (!tile?.letter || state.rocks?.[i] || tile.collectible || tile.special || wordCells.has(i)) continue;
+    if (wordNeighbors.size && !wordNeighbors.has(i)) continue;
+    const freeNeighbors = neighbors(i).filter(n => state.board[n]?.letter && !state.rocks?.[n] && !state.board[n]?.collectible);
+    if (freeNeighbors.length >= 2) candidates.push(i);
+  }
+  for (let i = candidates.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [candidates[i], candidates[j]] = [candidates[j], candidates[i]];
+  }
+  const chosen = [];
+  for (const i of candidates) {
+    if (chosen.length >= target) break;
+    if (chosen.some(j => neighbors(j).includes(i))) continue; // ne legyen összefüggő jégfal
+    const layers = stage >= 2 && rng() < .22 ? 2 : 1;
+    state.board[i].ice = layers;
+    state.iceTotalLayers += layers;
+    chosen.push(i);
+  }
+  state.iceRemainingLayers = state.iceTotalLayers;
+  sz30UpdateIceInstructions();
+}
+
+function sz30MeltAdjacentIce(explodingIndices) {
+  if (!Array.isArray(explodingIndices) || !explodingIndices.length || !state.board) return 0;
+  // Minden ténylegesen felrobbanó betű a közvetlen szomszédos jégből egy réteget olvaszt.
+  const hits = new Map();
+  for (const source of explodingIndices) {
+    if (!Number.isInteger(source) || source < 0 || source >= 25) continue;
+    // Csak ténylegesen jelen lévő, felrobbanó betű adhat le hőt; az üres cella nem.
+    if (!state.board[source]?.letter) continue;
+    for (const n of neighbors(source)) {
+      if (state.board[n]?.ice > 0) hits.set(n, (hits.get(n) || 0) + 1);
+    }
+  }
+  let melted = 0, fullyMelted = 0;
+  for (const [index, hitCount] of hits) {
+    const tile = state.board[index];
+    if (!tile || tile.ice <= 0) continue;
+    const before = tile.ice;
+    const loss = Math.min(before, hitCount);
+    tile.ice = before - loss;
+    melted += loss;
+    if (tile.ice === 0) fullyMelted++;
+    const cell = $('board')?.children?.[index];
+    const overlay = cell?.querySelector('.tile-ice');
+    if (overlay) {
+      if (tile.ice > 0) {
+        const count = overlay.querySelector('.ice-count');
+        if (count) count.textContent = String(tile.ice);
+        overlay.classList.remove('cracking');
+        void overlay.offsetWidth;
+        overlay.classList.add('cracking');
+        setTimeout(() => overlay.classList.remove('cracking'), 230);
+      } else {
+        overlay.classList.remove('cracking');
+        overlay.classList.add('shattering');
+        cell.classList.remove('has-ice');
+        setTimeout(() => { if (overlay.isConnected && state.board[index]?.ice <= 0) overlay.remove(); }, 260);
+      }
+    }
+  }
+  if (melted) {
+    state.iceMeltedLayers = Math.min(state.iceTotalLayers, (state.iceMeltedLayers || 0) + melted);
+    sz30UpdateIceHUD();
+    playSound(fullyMelted ? 'break' : 'stone');
+    if (fullyMelted) showToast(`❄ ${fullyMelted} jégmező felolvadt · ${melted} réteg eltűnt!`);
+    else showToast(`❄ A szomszédos robbanás ${melted} jégréteget olvasztott!`);
+  }
+  return melted;
+}
+
+// Kicsit több kőfal, fokozatosan nehezedő, de továbbra is bontható eloszlással.
+const sz30BaseCreateRocks = createRocks;
+createRocks = function sz30CreateRocks(seed) {
+  const rng = seeded((seed ^ 0xA5C31E27) >>> 0);
+  const stage = Math.max(0, Number(state.difficultyStage || 0));
+  const density = Math.min(.35, .16 + stage * .022);
+  const rocks = Array.from({length:25}, () => {
+    if (rng() >= density) return 0;
+    const roll = rng(), heavy = Math.min(.16, stage * .018);
+    return roll < (.18 + heavy) ? 3 : roll < (.62 + heavy * .5) ? 2 : 1;
+  });
+  if (rocks.every(v => !v)) rocks[12] = stage >= 4 ? 3 : 2;
+  return rocks;
+};
+
+// A táblák létrehozása után kapnak jégréteget. A fagyott réteg a betűobjektummal
+// együtt esik/mozog; nincs külön rács-újrarendezés, így a mozgás könnyű marad.
+const sz30BaseEnterGame = enterGame;
+enterGame = function sz30EnterGame(mode) {
+  const result = sz30BaseEnterGame.apply(this, arguments);
+  sz30SetupIce();
+  renderBoard();
+  updateSelection();
+  updateBoardWordCounts();
+  sz30UpdateIceInstructions();
+  return result;
+};
+
+const sz30BaseNewBoard = newBoard;
+newBoard = function sz30NewBoard() {
+  const beforeSeed = state.seed;
+  const result = sz30BaseNewBoard.apply(this, arguments);
+  if (state.seed !== beforeSeed && state.active && !state.draining) {
+    sz30SetupIce();
+    renderBoard();
+    updateSelection();
+    updateBoardWordCounts();
+    sz30UpdateIceInstructions();
+  }
+  return result;
+};
+
+const sz30BaseNextRound = startNextContinuousRound;
+startNextContinuousRound = function sz30StartNextRound() {
+  const beforeRound = state.roundNumber;
+  const result = sz30BaseNextRound.apply(this, arguments);
+  if (state.roundNumber !== beforeRound && state.active && state.bankPhase === 'off') {
+    sz30SetupIce();
+    renderBoard();
+    updateSelection();
+    updateBoardWordCounts();
+    sz30UpdateIceInstructions();
+  }
+  return result;
+};
+
+// A teljes kockán látszik a jég, de a betű fölött marad a jól olvasható arany kockagrafika.
+const sz30BaseRenderBoard = renderBoard;
+renderBoard = function sz30RenderBoard() {
+  const result = sz30BaseRenderBoard.apply(this, arguments);
+  sz30RenderIceDOM();
+  return result;
+};
+
+// Fagyott betű nem köthető és a táblaszámláló sem kínálhatja fel szó részeként.
+const sz30BasePathStillForms = pathStillForms;
+pathStillForms = function sz30PathStillForms(path, word) {
+  if (Array.isArray(path) && path.some(i => sz30IsFrozen(i))) return false;
+  return sz30BasePathStillForms.apply(this, arguments);
+};
+
+const sz30BaseScanBoardWords = scanBoardWords;
+scanBoardWords = function sz30ScanBoardWords() {
+  const original = state.board;
+  if (!original?.some(tile => tile?.ice > 0)) return sz30BaseScanBoardWords.apply(this, arguments);
+  state.board = original.map(tile => tile?.ice > 0 ? {...tile, letter:''} : tile);
+  try { return sz30BaseScanBoardWords.apply(this, arguments); }
+  finally { state.board = original; }
+};
+
+function sz30ShowFrozenInfo() {
+  const now = performance.now();
+  if (now - (state.iceNoticeAt || 0) < 800) return;
+  state.iceNoticeAt = now;
+  updateStatus('❄ Ez a betű jég alatt van. Egy közvetlenül mellette felrobbanó betű olvaszt le róla egy jégréteget.', 'gold');
+  showToast('❄ Fagyott betű: csak a szomszédos robbanás olvasztja!');
+}
+
+const sz30BaseApplyStep = sz26ApplyStep;
+sz26ApplyStep = function sz30ApplyStep(index) {
+  if (sz30IsFrozen(index)) { sz30ShowFrozenInfo(); return false; }
+  return sz30BaseApplyStep.apply(this, arguments);
+};
+const sz30BasePathStep = sz29PathStep;
+sz29PathStep = function sz30PathStep(index) {
+  if (sz30IsFrozen(index)) { sz30ShowFrozenInfo(); return false; }
+  return sz30BasePathStep.apply(this, arguments);
+};
+const sz30BaseStartPath = sz29StartPath;
+sz29StartPath = function sz30StartPath(index) {
+  if (sz30IsFrozen(index)) { sz30ShowFrozenInfo(); return false; }
+  return sz30BaseStartPath.apply(this, arguments);
+};
+const sz30BaseSelectTile = selectTile;
+selectTile = function sz30SelectTile(index) {
+  // A robbanó segítségek célpontja lehet fagyott kocka is.
+  if (state.rowShotArmed || state.bombArmed) return sz30BaseSelectTile.apply(this, arguments);
+  if (sz30IsFrozen(index)) { sz30ShowFrozenInfo(); return false; }
+  return sz30BaseSelectTile.apply(this, arguments);
+};
+const sz30BaseSpecialTile = sz29HandleSpecialTile;
+sz29HandleSpecialTile = function sz30HandleSpecialTile(index) {
+  // Előbb engedjük a kőbombát/sorlövőt, mert azok robbanása a jeget is olvaszthatja.
+  if (state.rowShotArmed || state.bombArmed) return sz30BaseSpecialTile.apply(this, arguments);
+  if (sz30IsFrozen(index)) { sz30ShowFrozenInfo(); return true; }
+  return sz30BaseSpecialTile.apply(this, arguments);
+};
+
+// Csak a valóban bejárt középvonal 0.39 kockaszélességű csatornája választhat cellát.
+// Az átlós oldalszomszéd 0.7 cellányira van a vonaltól, ezért nem kerül be véletlenül;
+// de ha a játékos ténylegesen rávezeti az egeret/ujját, a kör alakú aktív zóna felveszi.
+function sz30SegmentCircleHit(x0, y0, x1, y1, cx, cy, radius, fromT) {
+  const dx = x1 - x0, dy = y1 - y0;
+  const fx = x0 - cx, fy = y0 - cy;
+  const a = dx * dx + dy * dy;
+  if (a < 1e-6) return null;
+  const b = 2 * (fx * dx + fy * dy);
+  const c = fx * fx + fy * fy - radius * radius;
+  const disc = b * b - 4 * a * c;
+  if (disc < 0) return null;
+  const root = Math.sqrt(disc);
+  let t1 = (-b - root) / (2 * a), t2 = (-b + root) / (2 * a);
+  if (t1 > t2) [t1, t2] = [t2, t1];
+  if (t2 < fromT || t1 > 1) return null;
+  const enter = Math.max(fromT, t1, 0), exit = Math.min(1, t2);
+  if (exit < enter) return null;
+  return {enter, exit};
+}
+
+sz26ExtendToPoint = function sz30ExtendToPoint(x, y) {
+  if (!sz26Geometry || !sz26LastPoint || !state.selected.length) return false;
+  const x0 = sz26LastPoint.x, y0 = sz26LastPoint.y;
+  const dx = x - x0, dy = y - y0;
+  if (dx * dx + dy * dy < .16) return false;
+  const distance = Math.hypot(dx, dy);
+  let cursorT = 0, changed = false;
+  for (let guard = 0; guard < 24 && cursorT < .9999; guard++) {
+    const last = state.selected[state.selected.length - 1];
+    const adjacent = SZ26_NEIGHBORS[last] || [];
+    let bestIndex = -1, bestHit = null;
+    for (const candidate of adjacent) {
+      if (!state.board[candidate]?.letter || sz30IsFrozen(candidate)) continue;
+      const center = sz26Geometry.centers[candidate];
+      const rect = sz26Geometry.rects[candidate];
+      if (!center || !rect) continue;
+      const radius = Math.min(rect.width, rect.height) * .39;
+      const hit = sz30SegmentCircleHit(x0, y0, x, y, center.x, center.y, radius, cursorT);
+      if (!hit) continue;
+      if (!bestHit || hit.enter < bestHit.enter - 1e-6 ||
+          (Math.abs(hit.enter - bestHit.enter) < 1e-6 && hit.exit > bestHit.exit)) {
+        bestIndex = candidate;
+        bestHit = hit;
+      }
+    }
+    if (bestIndex < 0 || !bestHit) break;
+    const before = state.selected.join(',');
+    if (!sz26ApplyStep(bestIndex)) break;
+    if (state.selected.join(',') !== before) changed = true;
+    const nextT = Math.min(1, bestHit.exit + .0002);
+    if (nextT <= cursorT + 1e-7) break;
+    cursorT = nextT;
+  }
+  return changed;
+};
+
+// A hibás/érvénytelen szó azonnal elveszíti a kijelölést, még az online ellenőrzés előtt.
+// Az ellenőrzés alatt a játékos új szót kezdhet; az új mozdulat érvényteleníti a régi kérést.
+submitWord = async function sz30SubmitWord(pathOverride = null) {
+  if (!state.active || state.roundEnded || state.accepting || (state.draining && state.bankPhase !== 'off')) return;
+  const path = Array.isArray(pathOverride) ? [...pathOverride] : [...state.selected];
+  const word = normalize(path.map(i => state.board[i]?.letter || '').join(''));
+  const capturedBonusAt = state.bonusFoundAt || 0;
+  if (sz29Mode !== null || sz29TouchInProgress) sz29EndMode(false);
+  else clearSelectionOnly();
+  const seq = state.validationSeq;
+
+  if (tokenize(word).length < 3 || !pathStillForms(path, word)) {
+    state.combo = 0; updateHUD();
+    updateStatus('Ez a kijelölés nem alkot érvényes, legalább 3 betűs magyar szót. A kijelölést töröltem.', 'bad');
+    return;
+  }
+  if (state.words.includes(word) || isRecentlyUsed(word)) {
+    state.combo = 0; updateHUD();
+    updateStatus('Ezt a szót már megtaláltad vagy a közelmúltban használtad. A kijelölést töröltem.', 'bad');
+    return;
+  }
+  let valid = isKnownWord(word);
+  if (!valid) {
+    updateStatus('Magyar szótárellenőrzés… a kijelölés már törölve van.', 'gold');
+    valid = await checkOnlineWord(word);
+  }
+  if (seq !== state.validationSeq || !state.active || !pathStillForms(path, word)) return;
+  if (!valid) {
+    state.combo = 0; updateHUD();
+    updateStatus(valid === null ? 'A külső szótár most nem érhető el. A kijelölést töröltem; próbálj biztos magyar szót!' : 'Ez nem igazolt magyar szó. A kijelölést azonnal töröltem.', 'bad');
+    return;
+  }
+  if (state.bonusWord?.word === word && capturedBonusAt > 0) state.bonusFoundAt = capturedBonusAt;
+  acceptWord(path, word);
+};
+
+// A korábban regisztrált gombkezelő régi függvényreferenciát tartana; capture fázisban
+// leállítjuk, hogy minden kézi beküldés is a kijelölést azonnal törlő új ellenőrzőt használja.
+const sz30SubmitButton = $('submitWord');
+if (sz30SubmitButton) sz30SubmitButton.addEventListener('click', e => {
+  e.preventDefault(); e.stopImmediatePropagation();
+  if (state.selected.length) submitWord([...state.selected]);
+}, {capture:true});
+
+// A rövid, megszakított útvonal se maradjon kijelölve a mouse-hover módból kilépés után.
+sz29CommitWord = function sz30CommitWord() {
+  if (sz29Finishing || !state.selected.length) return;
+  sz29Finishing = true;
+  const path = state.selected.slice();
+  const word = normalize(path.map(i => state.board[i]?.letter || '').join(''));
+  const bonusAt = state.bonusFoundAt || 0;
+  sz29EndMode(false);
+  if (tokenize(word).length >= 3) {
+    if (bonusAt > 0) state.bonusFoundAt = bonusAt;
+    submitWord(path);
+  } else {
+    state.bonusFoundAt = 0;
+    updateStatus('Legalább 3 értelmes magyar betű szükséges. A kijelölést töröltem.', 'bad');
+  }
+  setTimeout(() => { sz29Finishing = false; }, 0);
+};
+
+// A jég is pályacél: a tábla csak akkor tisztítható le, ha minden réteg felolvadt.
+const sz30BaseCheckObjectives = checkObjectivesCleared;
+checkObjectivesCleared = function sz30CheckObjectivesCleared() {
+  if ((state.iceRemainingLayers || 0) > 0) return false;
+  return sz30BaseCheckObjectives.apply(this, arguments);
+};
+const sz30BaseShowHow = showHow;
+showHow = function sz30ShowHow() {
+  sz30BaseShowHow.apply(this, arguments);
+  const title = $('modalTitle'), body = $('modalText');
+  if (title) title.textContent = 'SZÓSZÖVŐ 3.0 – szabályok és jégmezők';
+  if (body) body.innerHTML += '<br><br><strong>❄ Jégmezők:</strong> a jég alatt álló betű nem választható ki, és nem része a megtalálható szóutaknak. Csak a közvetlenül szomszédos, elfogadott szóban vagy robbanásban részt vevő betűk olvasztják: minden szomszédos robbanó betű egy jégréteget bont le. A kőbomba és a sorlövő robbanása is olvaszt jeget a szomszédos mezőkön.<br><br><strong>Útvonal:</strong> kattintás/koppintás után követheted a szomszédos betűket; a húzás pontosan a kurzor/ujj tényleges útját figyeli. Hibás szó beküldésekor a kijelölés azonnal törlődik. A játékidő kötés közben is folyamatosan fut.';
+};
+
+const sz30BaseTick = tick;
+tick = function sz30Tick() {
+  if (!state.active || state.roundEnded || state.timerPaused) return;
+  state.time--;
+  updateHUD();
+  if (state.mode === 'campaign' && state.score >= state.target &&
+      state.stoneBroken >= state.stoneGoal && state.questCompleted &&
+      (state.iceRemainingLayers || 0) === 0) {
+    endRound(true); return;
+  }
+  if (state.time <= 0) endRound(false);
+};
+
+// Közvetlenül a szóútvonalon/fegyverrobbanásban szereplő betűk olvasztják a szomszédos jeget.
+const sz30BaseDamageStones = damageStones;
+damageStones = function sz30DamageStones(path) {
+  const result = sz30BaseDamageStones.apply(this, arguments);
+  sz30MeltAdjacentIce(path);
+  return result;
+};
+
+// A betűk mozgatása a jégobjektumot együtt viszi. A táblakeverés a betűpozíciókat keveri,
+// ezért a befagyott hely marad fagyott, és az alatta lévő betű is továbbra sem választható.
+const sz30BaseShuffle = sz29ShuffleLetters;
+sz29ShuffleLetters = function sz30ShuffleLetters() {
+  const result = sz30BaseShuffle.apply(this, arguments);
+  sz30UpdateIceHUD();
+  sz30SyncShuffleButton?.();
+  return result;
+};
+
+// A játékidőhöz nem nyúlunk: az óra ugyanúgy ketyeg húzás és szótárellenőrzés közben is.
+// A visszavonás és az Escape továbbra is azonnal törli az aktuális útvonalat.
+const sz30BaseClearSelection = clearSelectionOnly;
+clearSelectionOnly = function sz30ClearSelectionOnly() {
+  const result = sz30BaseClearSelection.apply(this, arguments);
+  if (sz29Mode !== null) sz29EndMode(false);
+  sz29TouchPath = [];
+  state.dragging = false;
+  sz26ResetDragCaches();
+  return result;
+};
+
+// A tesztelés és a későbbi bővítés számára egyetlen diagnosztikai pillanatkép.
+window.__SZOSZOVO_30_DIAG__ = () => ({
+  version: '3.0',
+  iceTotalLayers: state.iceTotalLayers || 0,
+  iceMeltedLayers: state.iceMeltedLayers || 0,
+  iceRemainingLayers: state.iceRemainingLayers || 0,
+  frozenCells: (state.board || []).filter(tile => tile?.ice > 0).length,
+  rockCells: (state.rocks || []).filter(Boolean).length,
+  selected: [...(state.selected || [])],
+  gameTime: state.time,
+  boardLetters: (state.board || []).map(tile => tile?.letter || '')
+});
+
+// Kezdőképernyő/aktív játék inicializálás után is következetes súgó.
+if (state.active && state.board?.length === 25) {
+  if (!(state.iceTotalLayers > 0)) sz30SetupIce();
+  sz30RenderIceDOM();
+  sz30UpdateIceInstructions();
+  updateBoardWordCounts();
+}
+/* ================= SZÓSZÖVŐ 3.0.1 – robusztus koppintásos útvonal ================= */
+// Egyes mobilböngészők a touchből származó click esemény pointerType mezőjét
+// üresen hagyják. A koppintást ezért a tényleges pointerdown/up pár azonosítja.
+let sz301TouchGesture = null;
+let sz301TouchClickPending = null;
+document.addEventListener('pointerdown', e => {
+  if (e.pointerType !== 'touch' && e.pointerType !== 'pen') return;
+  const tile = e.target.closest?.('#board .tile[data-index]');
+  if (!tile || !state.active || state.roundEnded || state.accepting) return;
+  const index = Number(tile.dataset.index);
+  // A korábbi speciális mező-kezelő csak a normál betűkön hagy touch candidate-et.
+  if (!Number.isInteger(index) || !state.board[index]?.letter || !sz29TouchCandidate || sz29TouchCandidate.pointerId !== e.pointerId) return;
+  sz301TouchGesture = {pointerId:e.pointerId,index,x:e.clientX,y:e.clientY,moved:false};
+}, {capture:true, passive:true});
+
+document.addEventListener('pointermove', e => {
+  const g = sz301TouchGesture;
+  if (!g || e.pointerId !== g.pointerId) return;
+  const dx=e.clientX-g.x,dy=e.clientY-g.y;
+  if (dx*dx+dy*dy >= 25) g.moved=true;
+}, {capture:true, passive:true});
+
+document.addEventListener('pointerup', e => {
+  const g=sz301TouchGesture;
+  if (!g || e.pointerId !== g.pointerId) return;
+  sz301TouchGesture=null;
+  // A valódi swipe útvonalát a pointer réteg már feldolgozta; csak a végén
+  // keletkező kompatibilitási clicket nyeljük el, hogy ne induljon új szó.
+  sz301TouchClickPending={index:g.index,action:g.moved?'suppress':'select',expires:Date.now()+700};
+  setTimeout(()=>{if(sz301TouchClickPending?.expires<=Date.now())sz301TouchClickPending=null;},720);
+}, {capture:true, passive:true});
+
+document.addEventListener('pointercancel', e => {
+  if (sz301TouchGesture?.pointerId===e.pointerId) sz301TouchGesture=null;
+  if (sz301TouchClickPending) sz301TouchClickPending=null;
+}, {capture:true, passive:true});
+
+// Window capture megelőzi a régi document-click kezelőt, ezért a touch click
+// sosem értelmeződik új kezdőbetűként még detail=0 esetén sem.
+window.addEventListener('click', e => {
+  const pending=sz301TouchClickPending;
+  if (!pending || pending.expires < Date.now()) return;
+  const tile=e.target.closest?.('#board .tile[data-index]');
+  if (!tile || Number(tile.dataset.index)!==pending.index) return;
+  sz301TouchClickPending=null;
+  e.preventDefault(); e.stopImmediatePropagation();
+  if (pending.action==='select' && state.active && !state.roundEnded && !state.accepting) {
+    const index=Number(tile.dataset.index);
+    sz29TouchTapStep(index,e.clientX,e.clientY);
+  }
+}, {capture:true, passive:false});
+
+// Jégolvasztásnál csak valódi betűmező lehet hőforrás; üres cella nem.
+window.__SZOSZOVO_301_TOUCH_FIX__ = true;
+/* ================= SZÓSZÖVŐ 3.0.2 – mobilkoppintás és ujjhúzás egységesítése ================= */
+// A régi pointerdown réteg minden touch mozdulatot dragként kezelhetett és
+// preventDefault miatt elnyomhatta a koppintásos clicket. Window capture-ben
+// önálló, determinisztikus touch útvonalat kezelünk; a desktop logika nem változik.
+let sz302TouchGesture = null;
+let sz302SuppressClickUntil = 0;
+function sz302StopTouchEvent(e) {
+  if (e.cancelable) e.preventDefault();
+  e.stopImmediatePropagation();
+}
+window.addEventListener('pointerdown', e => {
+  if (e.pointerType !== 'touch' && e.pointerType !== 'pen') return;
+  const tile = e.target.closest?.('#board .tile[data-index]');
+  if (!tile || !state.active || state.roundEnded || state.accepting) return;
+  const index = Number(tile.dataset.index);
+  if (!Number.isInteger(index) || !state.board[index]?.letter) return;
+  sz302StopTouchEvent(e);
+  if (state.rowShotArmed || state.bombArmed || state.bankPhase === 'collect') {
+    sz29HandleSpecialTile(index);
+    sz302SuppressClickUntil = Date.now() + 550;
+    return;
+  }
+  if (sz30IsFrozen(index)) {
+    sz30ShowFrozenInfo();
+    sz302SuppressClickUntil = Date.now() + 550;
+    return;
+  }
+  sz302TouchGesture = {pointerId:e.pointerId,index,x:e.clientX,y:e.clientY,moved:false};
+}, {capture:true, passive:false});
+
+window.addEventListener('pointermove', e => {
+  const g = sz302TouchGesture;
+  if (!g || e.pointerId !== g.pointerId) return;
+  sz302StopTouchEvent(e);
+  const samples = (() => { try { const a=e.getCoalescedEvents?.(); return a?.length ? [...a] : [e]; } catch { return [e]; } })();
+  if (samples[samples.length-1]?.clientX !== e.clientX || samples[samples.length-1]?.clientY !== e.clientY) samples.push(e);
+  for (const p of samples) {
+    const dx=p.clientX-g.x,dy=p.clientY-g.y;
+    if (!g.moved && dx*dx+dy*dy >= 25) {
+      g.moved = true;
+      if (!sz29StartPath(g.index,g.x,g.y,'touch-chain')) continue;
+    }
+    if (g.moved) sz29ContinueTo(p.clientX,p.clientY);
+  }
+}, {capture:true, passive:false});
+
+window.addEventListener('pointerup', e => {
+  const g=sz302TouchGesture;
+  if (!g || e.pointerId !== g.pointerId) return;
+  sz302TouchGesture=null;
+  sz302StopTouchEvent(e);
+  sz302SuppressClickUntil=Date.now()+550;
+  if (!g.moved) {
+    // Egyszerű koppintás: minden betű önálló lépés, nincs egérgomb- vagy ujjnyomva-tartás.
+    sz29TouchTapStep(g.index,g.x,g.y);
+    return;
+  }
+  const path=state.selected.slice();
+  const bonusAt=state.bonusFoundAt||0;
+  sz29EndMode(false);
+  if (path.length>=3) {
+    if (bonusAt>0) state.bonusFoundAt=bonusAt;
+    submitWord(path);
+  } else {
+    state.bonusFoundAt=0;
+    updateStatus('Legalább 3 értelmes magyar betű szükséges. A kijelölést töröltem.','bad');
+  }
+}, {capture:true, passive:false});
+
+window.addEventListener('pointercancel', e => {
+  if (sz302TouchGesture?.pointerId !== e.pointerId) return;
+  sz302TouchGesture=null;
+  sz302SuppressClickUntil=Date.now()+550;
+  sz302StopTouchEvent(e);
+  if (sz29Mode) sz29EndMode(false);
+  else clearSelectionOnly();
+}, {capture:true, passive:false});
+
+// A mobilböngésző által küldött kompatibilitási click nem indíthat második betűt.
+window.addEventListener('click', e => {
+  if (Date.now() < sz302SuppressClickUntil && e.target.closest?.('#board .tile[data-index]')) {
+    e.preventDefault(); e.stopImmediatePropagation();
+  }
+}, {capture:true, passive:false});
+window.__SZOSZOVO_302_TOUCH_FIX__ = true;
+/* ================= SZÓSZÖVŐ 3.0 vége ================= */
+
+
+/* ================= SZÓSZÖVŐ 3.1 – erőforrás-kímélés és küldetés-elakadásmentés =================
+   A jelenlegi grafika változatlan marad. Csak a végtelen díszítő animációk állnak meg;
+   az egyszeri szórobbanások, jégrepedések, kőtörések és találati effektek megmaradnak.
+*/
+const sz31Style = document.createElement('style');
+sz31Style.id = 'szoszovo-31-resource-and-quest-fix';
+sz31Style.textContent = `
+/* A statikus fény- és örvényminták megmaradnak; a folyamatos forgatás/pulzálás nem terheli a GPU-t. */
+body:after, .board-wrap:before, .bonus-orb { animation-play-state: paused !important; }
+.tile.word-valid { animation-iteration-count: 2 !important; }
+.tile.hint-origin { animation-iteration-count: 2 !important; }
+/* A tábla és az állandó dekorációk elkülönített festési rétege, de nincs kényszerített GPU-promóció. */
+#board { contain: layout style; }
+.tile { will-change: auto !important; }
+/* A segítő gomb csak színnel jelez, nem pulzál folyamatosan. */
+.quest-rescue-btn { border-color:rgba(115,227,192,.48)!important; background:linear-gradient(135deg,rgba(22,107,91,.48),rgba(10,54,76,.72))!important; color:#c7ffea!important; }
+.quest-rescue-btn.needs-rescue { border-color:rgba(255,223,145,.75)!important; box-shadow:0 0 0 1px rgba(255,223,145,.18),0 0 13px rgba(255,196,92,.14)!important; }
+.quest-rescue-btn:disabled { opacity:.42; filter:saturate(.5); }
+html.sz31-page-hidden *,html.sz31-page-hidden *:before,html.sz31-page-hidden *:after { animation-play-state:paused!important; transition:none!important; }
+`;
+document.head.appendChild(sz31Style);
+
+// Low-power jelzés: csak diagnosztikára és a háttérfolyamatok ütemezésére használjuk.
+const sz31LowPower = ((navigator.hardwareConcurrency || 0) > 0 && navigator.hardwareConcurrency <= 4) ||
+  ((navigator.deviceMemory || 0) > 0 && navigator.deviceMemory <= 4) ||
+  navigator.connection?.saveData === true;
+document.documentElement.classList.toggle('sz31-low-power', !!sz31LowPower);
+const sz31Visibility = () => {
+  document.documentElement.classList.toggle('sz31-page-hidden', document.hidden);
+  if (document.hidden) {
+    if (state.bonusTicker) { clearInterval(state.bonusTicker); state.bonusTicker = null; }
+  } else {
+    if(state.wordTrieBuilding && sz31TrieResume) sz31TrieResume();
+    if (state.active && !state.draining && state.bankPhase === 'off' && !state.bonusTicker) {
+      state.bonusTicker = setInterval(updateBonusClock, 100);
+      updateBonusClock();
+    }
+  }
+};
+document.addEventListener('visibilitychange', sz31Visibility, {passive:true});
+sz31Visibility();
+
+// A relikviajelvény a rácsmezőhöz kötődik, nem a betűhöz: gravitáció után sem gyűlik össze
+// az alsó sorban. A szó elfogadása előtt a bejárt útvonal jelvényei már eltűntek, így
+// a megmaradt jelvényeket biztonságosan vissza lehet tenni ugyanarra a rácsmezőre.
+const sz31BaseRefillBoard = refillBoard;
+refillBoard = function sz31RefillBoard(...args) {
+  const markers = (state.board || []).map(tile => tile?.collectible || null);
+  for (const tile of state.board || []) if (tile && tile.collectible) tile.collectible = null;
+  const result = sz31BaseRefillBoard.apply(this, args);
+  for (let i = 0; i < markers.length; i++) {
+    if (!markers[i]) continue;
+    if (!state.board[i]) state.board[i] = {letter:'',special:false,collectible:null};
+    // Normál játékban minden mező kap betűt; betűmentéskor már nincs aktív relikvia.
+    if (state.board[i].letter) state.board[i].collectible = markers[i];
+  }
+  return result;
+};
+
+// Relikvia-elakadásmentő: a jelvényeket valódi, érvényes szóútvonalak mezőire helyezi át.
+// Ha a táblán nincs egyetlen igazolt szó sem, néhány rövid, helyi szótári mentőútvonalat
+// készít – a jégmezőket nem írja felül, a köveket viszont továbbra is lehet bontani.
+function sz31ShuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [arr[i],arr[j]]=[arr[j],arr[i]]; }
+  return arr;
+}
+function sz31FindRescuePath(length, reserved = new Set()) {
+  // Útvonalat keresünk a 8 irányú szomszédságban; a mezők betűi szükség esetén
+  // lecserélhetők, de fagyott és már lefoglalt mezőre soha nem írunk.
+  const allowed = i => !reserved.has(i) && !!state.board[i] && !sz30IsFrozen(i);
+  const starts = sz31ShuffleArray(Array.from({length:25}, (_,i)=>i).filter(allowed));
+  const used = new Set(reserved), path = [];
+  let visits = 0;
+  function walk(at) {
+    if (path.length === length) return true;
+    if (++visits > 9000) return false;
+    const opts = sz31ShuffleArray((SZ23_NEIGHBORS[at] || []).filter(n => allowed(n) && !used.has(n)));
+    for (const n of opts) {
+      used.add(n); path.push(n);
+      if (walk(n)) return true;
+      path.pop(); used.delete(n);
+    }
+    return false;
+  }
+  for (const start of starts) {
+    used.add(start); path.push(start);
+    if (walk(start)) return path.slice();
+    path.pop(); used.delete(start);
+  }
+  return null;
+}
+function sz31BuildRescueRoutes(slotCount, reserved = new Set()) {
+  const candidates = [...new Set([...(COMMON || []), ...(state.hunspellWords || [])])]
+    .map(normalize)
+    .filter(word => {
+      const n = tokenize(word).length;
+      return n >= 3 && n <= 6 && !state.words.includes(word) && !isRecentlyUsed(word) && isKnownWord(word);
+    });
+  sz31ShuffleArray(candidates);
+  const slots = [], used = new Set(reserved);
+  let attempts = 0;
+  for (const word of candidates) {
+    if (slots.length >= slotCount || attempts++ >= 180) break;
+    const tokens = tokenize(word);
+    const path = sz31FindRescuePath(tokens.length, used);
+    if (!path) continue;
+    if(state.wordTrie) sz31InsertTrieWord(state.wordTrie,word,new Set());
+    path.forEach((index, k) => {
+      state.board[index].letter = tokens[k];
+      used.add(index);
+      slots.push(index);
+    });
+  }
+  return slots;
+}
+// Új táblán a questjelvények eleve csak igazolt szóútvonalakra kerülhetnek.
+// A korábbi generátor a szóutak elfogyásakor véletlen mezőkre is rakott ikonokat,
+// amelyek később – bár a betűk legördültek mellettük – nem feltétlenül voltak beköthetők.
+const sz31BaseCreateBoard = createBoard;
+createBoard = function sz31CreateBoard(...args) {
+  const board = sz31BaseCreateBoard.apply(this,args);
+  const quest=args[1] || state.quest;
+  if(!quest || !Array.isArray(board) || board.length!==25) return board;
+  const markers=[];
+  for(let i=0;i<25;i++) if(board[i]?.collectible===quest.shape) markers.push(i);
+  if(!markers.length) return board;
+  const previous=state.board;
+  state.board=board;
+  const previousCache=sz31ScanCacheKey;
+  sz31ScanCacheKey='';
+  let matches=[];
+  try { matches=scanBoardWords(); } catch {}
+  const pathCells=new Set();
+  for(const match of matches) for(const i of match.path||[]) if(board[i]?.letter&&!sz30IsFrozen(i)) pathCells.add(i);
+  if(pathCells.size<markers.length){
+    const extra=sz31BuildRescueRoutes(markers.length-pathCells.size,pathCells);
+    for(const i of extra) pathCells.add(i);
+  }
+  const candidates=sz31ShuffleArray([...pathCells]);
+  // Előnyben a felső/középső sorok, majd körkörösen elosztva választjuk ki a mezőket.
+  const byRow=[0,1,2,3,4].map(r=>sz31ShuffleArray(candidates.filter(i=>Math.floor(i/5)===r)));
+  const chosen=[];
+  const rowOrder=[1,2,0,3,4];
+  while(chosen.length<markers.length){
+    let added=false;
+    for(const row of rowOrder){const item=byRow[row].shift();if(item!==undefined&& !chosen.includes(item)){chosen.push(item);added=true;if(chosen.length>=markers.length)break;}}
+    if(!added)break;
+  }
+  for(const i of markers) if(board[i]) board[i].collectible=null;
+  chosen.forEach(i=>{if(board[i])board[i].collectible=quest.shape;});
+  // Ha valamilyen rendkívüli táblán nem képezhető elég szóút, csak a bizonyítottan
+  // elérhető mennyiséget jelöljük; véletlen, beköthetetlen célmezőt nem generálunk.
+  if(chosen.length<markers.length){
+    const remaining=markers.length-chosen.length;
+    quest.target=Math.max(state.questProgress||0,(quest.target||0)-remaining);
+  }
+  state.questPlaced=chosen.length;
+  state.board=previous;
+  sz31ScanCacheKey=previousCache;
+  return board;
+};
+
+function sz31QuestMarkerPositions() {
+  const shape = state.quest?.shape;
+  if (!shape) return [];
+  const out=[];
+  for(let i=0;i<25;i++) if(state.board[i]?.collectible===shape) out.push(i);
+  return out;
+}
+function sz31SyncRescueButton() {
+  const b = $('questRescueBtn'); if (!b) return;
+  const markers = sz31QuestMarkerPositions();
+  const blocked = !state.active || state.roundEnded || state.accepting || state.draining || state.bankPhase !== 'off' || state.questCompleted;
+  b.disabled = blocked || !markers.length;
+  const matches = state.boardWordMatches || [];
+  const covered = new Set();
+  for (const m of matches) for (const i of m.path || []) covered.add(i);
+  const unreachable = markers.filter(i => !covered.has(i));
+  const bottomCount = markers.filter(i => Math.floor(i/5) === 4).length;
+  const cluster = markers.length >= 2 && bottomCount >= Math.ceil(markers.length * .55);
+  b.classList.toggle('needs-rescue', !blocked && (unreachable.length > 0 || cluster));
+  b.textContent = cluster || unreachable.length ? '🧭 RELIKVIA-MENTÉS' : '🧭 ELAKADÁSMENTŐ';
+  b.title = markers.length
+    ? 'A beszorult küldetésjelvényeket biztosan kirakható szóútvonalakra helyezi. A kövek és a jég a helyükön maradnak.'
+    : 'Nincs áthelyezhető relikvia a táblán.';
+}
+function sz31RescueQuest() {
+  if (!state.active || state.roundEnded || state.accepting || state.draining || state.bankPhase !== 'off' || state.questCompleted || !state.quest) return false;
+  const original = sz31QuestMarkerPositions();
+  if (!original.length) { showToast('Nincs már begyűjthető relikvia a táblán.'); return false; }
+  // Friss, jégbiztos útvonalakból dolgozunk; a korábbi táblaszámláló lehet már elavult.
+  const matches = scanBoardWords();
+  state.boardWordMatches = matches;
+  const covered = new Set();
+  for (const m of matches) for (const i of m.path || []) covered.add(i);
+  const bottom = original.filter(i => Math.floor(i/5) === 4);
+  const bottomCluster = original.length >= 2 && bottom.length >= Math.ceil(original.length * .55);
+  const stranded = original.filter(i => !covered.has(i));
+  // Alsó sorba szorult halmaz esetén azt mozgatjuk; egyébként csak az útvonalon
+  // nem szereplő jelvényeket. Ha egyik sem akadályozott, a gomb nem kever fölöslegesen.
+  const moving = bottomCluster ? bottom : stranded;
+  if (!moving.length) {
+    showToast('A relikviák már elérhető szóútvonalon vannak. Használd a BETŰK KEVERÉSE gombot, ha más elrendezést szeretnél.');
+    playSound('select');
+    return false;
+  }
+  const originalSet = new Set(original);
+  const movingSet = new Set(moving);
+  // A megmaradó (nem mozgatott) jelvények helyét is lefoglaljuk.
+  const reserved = new Set(original.filter(i => !movingSet.has(i)));
+  const pathCells = new Set();
+  for (const m of matches) for (const i of m.path || []) {
+    if (!originalSet.has(i) && !sz30IsFrozen(i) && state.board[i]?.letter) pathCells.add(i);
+  }
+  const candidates = sz31ShuffleArray([...pathCells]);
+  const chosen = candidates.slice(0, moving.length);
+  if (chosen.length < moving.length) {
+    const extra = sz31BuildRescueRoutes(moving.length - chosen.length, new Set([...reserved, ...originalSet, ...chosen]));
+    for (const i of extra) { if (chosen.length >= moving.length) break; if (!chosen.includes(i)) chosen.push(i); }
+  }
+  if (chosen.length < moving.length) {
+    // Biztonsági szabály: soha nem tesszük a relikviát találomra olyan mezőre,
+    // amelyhez nem tartozik igazolt szóútvonal. Az eredeti helye megmarad.
+    showToast('Most nem találtam elég biztonságos szóútvonalat. Keverd össze a betűket, majd próbáld újra!');
+    return false;
+  }
+  for (const i of moving) if (state.board[i]) state.board[i].collectible = null;
+  chosen.forEach(i => { if (state.board[i]) state.board[i].collectible = state.quest.shape; });
+  state.questPlaced = Math.max(state.questPlaced || 0, state.questProgress + sz31QuestMarkerPositions().length);
+  sz31ScanCacheKey = '';
+  state.boardWordMatches = scanBoardWords();
+  state.selected = []; state.selectionValid = false; state.validationPending = false;
+  cancelPendingValidation();
+  if (typeof sz29EndMode === 'function') sz29EndMode(false);
+  renderBoard(); updateSelection(); updateQuestHUD(); updateBoardWordCounts();
+  sz31SyncRescueButton();
+  playSound('combo');
+  showToast('🧭 ' + moving.length + ' relikvia biztonságos szóútvonalra került. A kő és a jég változatlan maradt.');
+  return true;
+}
+
+// A segítő gombot a meglévő SEGÍTSÉG-sávba tesszük, a tábla mérete és elrendezése nem változik.
+(function installQuestRescueButton(){
+  const bar=$('powerupBar'); if(!bar || $('questRescueBtn')) return;
+  const b=document.createElement('button'); b.type='button'; b.id='questRescueBtn';
+  b.className='powerup-btn quest-rescue-btn'; b.textContent='🧭 ELAKADÁSMENTŐ';
+  b.title='A küldetésjelvényeket elérhető szóútvonalakra rendezi át.';
+  b.addEventListener('click',sz31RescueQuest);
+  const shuffle=$('shuffleLettersBtn');
+  if(shuffle?.parentNode===bar) shuffle.insertAdjacentElement('afterend',b); else bar.appendChild(b);
+})();
+
+// A betűk lezuhanásakor a quest ikon a rácsmezőn marad.
+// A tábla újrarenderelése után egyszer frissítjük a geometriai cache-t;
+// húzás/koppintás közben már nem kérünk újra 25 getBoundingClientRect-et.
+const sz31BaseRenderBoard = renderBoard;
+renderBoard = function sz31RenderBoard(...args) {
+  const result=sz31BaseRenderBoard.apply(this,args);
+  try { if ($('board')?.querySelector('.tile[data-index]')) sz26CacheBoardGeometry(); } catch {}
+  sz31SyncRescueButton();
+  return result;
+};
+
+// A fényút SVG-jét újrahasználjuk, és a renderBoard után eltárolt középpontokból rajzoljuk.
+// Ezzel a kattintásos/koppintásos útvonalnál megszűnik a minden betűlépéskor történő
+// geometriai DOM-lekérdezés.
+renderSelectionTrail = function sz31RenderSelectionTrail(board) {
+  if(!board)return;
+  if(!sz22TrailSvg || !board.contains(sz22TrailSvg)) {
+    const ns='http://www.w3.org/2000/svg';
+    sz22TrailSvg=document.createElementNS(ns,'svg');
+    sz22TrailSvg.setAttribute('class','selection-trail');
+    sz22TrailSvg.setAttribute('preserveAspectRatio','none');
+    sz22TrailSvg.setAttribute('aria-hidden','true');
+    sz22TrailHalo=document.createElementNS(ns,'polyline');
+    sz22TrailHalo.setAttribute('class','trail-halo');
+    sz22TrailCore=document.createElementNS(ns,'polyline');
+    sz22TrailCore.setAttribute('class','trail-core');
+    sz22TrailSvg.append(sz22TrailHalo,sz22TrailCore);board.appendChild(sz22TrailSvg);sz22TrailLastPoints='';
+  }
+  if(!state.selected || state.selected.length<2){sz22TrailSvg.style.visibility='hidden';sz22TrailLastPoints='';return;}
+  if(!sz26Geometry || !sz26Geometry.boardRect?.width) { try{sz26CacheBoardGeometry()}catch{} }
+  const box=sz26Geometry?.boardRect;
+  if(!box?.width || !box?.height){sz22TrailSvg.style.visibility='hidden';return;}
+  let points='';
+  for(const index of state.selected){
+    const c=sz26Geometry.centers[index]; if(!c)continue;
+    points+=(points?' ':'')+(c.x-box.left).toFixed(1)+','+(c.y-box.top).toFixed(1);
+  }
+  if(!points){sz22TrailSvg.style.visibility='hidden';return;}
+  sz22TrailSvg.style.visibility='visible';
+  sz22TrailSvg.setAttribute('viewBox','0 0 '+box.width+' '+box.height);
+  if(points!==sz22TrailLastPoints){sz22TrailHalo.setAttribute('points',points);sz22TrailCore.setAttribute('points',points);sz22TrailLastPoints=points;}
+};
+let sz31GeometryRefreshTimer=0;
+function sz31RefreshGeometrySoon(){
+  if(sz31GeometryRefreshTimer)clearTimeout(sz31GeometryRefreshTimer);
+  sz31GeometryRefreshTimer=setTimeout(()=>{sz31GeometryRefreshTimer=0;if(!pointerSelecting && !state.dragging && $('gameScreen')?.style.display!=='none'){try{sz26CacheBoardGeometry();if(state.selected?.length>1)renderSelectionTrail($('board'))}catch{}}},90);
+}
+window.addEventListener('resize',sz31RefreshGeometrySoon,{passive:true});
+document.addEventListener('scroll',sz31RefreshGeometrySoon,{passive:true,capture:true});
+
+// A nagy magyar szótárfát nem egyszerre építjük fel a főszálon. Az alapszavak
+// azonnal elérhetők, a Hunspell és a ragozott alakok pedig rövid, idle-idős csomagokban
+// kerülnek a fába. Ettől a játék indulása és az első húzás nem akad meg szótárépítéskor.
+let sz31TrieBuildVersion=0,sz31TrieBuildState=null,sz31TrieResume=null;
+function sz31InsertTrieWord(root, raw, seen) {
+  const word=normalize(raw); if(!word || seen.has(word)) return false;
+  const tokens=tokenize(word); if(tokens.length<3 || tokens.length>10) return false;
+  seen.add(word); let node=root;
+  for(const token of tokens){if(!node.next[token])node.next[token]={next:Object.create(null),word:null};node=node.next[token];}
+  node.word=word; return true;
+}
+const sz31BaseBuildWordTrie=buildWordTrie;
+buildWordTrie=function sz31BuildWordTrieLazy(){
+  if(state.wordTrie) return state.wordTrie;
+  const root={next:Object.create(null),word:null};
+  const seen=new Set();
+  // A kicsi, kézzel karbantartott alapszólista szinkron épül, így van azonnali találat.
+  for(const word of COMMON) sz31InsertTrieWord(root,word,seen);
+  state.wordTrie=root;
+  state.wordTrieBuilding=true;
+  const version=++sz31TrieBuildVersion;
+  const sources=[
+    (state.hunspellWords||new Set()).values(),
+    (state.onlineWords||new Set()).values(),
+    (()=>{try{return state.spellchecker?.dictionaryTable?.keys?.() || [][Symbol.iterator]();}catch{return [][Symbol.iterator]();}})()
+  ];
+  let sourceIndex=0,iterator=sources[0],finished=false;
+  const weak=!!sz31LowPower, batch=weak?160:360, maxMs=weak?3.2:5.5;
+  const schedule=()=>{
+    if(typeof requestIdleCallback==='function') requestIdleCallback(processBatch,{timeout:240});
+    else setTimeout(()=>processBatch(null),weak?40:20);
+  };
+  const processBatch=deadline=>{
+    if(version!==sz31TrieBuildVersion || finished || document.hidden)return;
+    const started=performance.now();let done=0;
+    while(sourceIndex<sources.length && done<batch && performance.now()-started<maxMs && (!deadline || deadline.timeRemaining()>1)){
+      const item=iterator.next();
+      if(item.done){sourceIndex++;if(sourceIndex<sources.length)iterator=sources[sourceIndex];continue;}
+      if(sz31InsertTrieWord(root,item.value,seen))done++;
+    }
+    if(sourceIndex>=sources.length){
+      finished=true;state.wordTrieBuilding=false;state.wordTrieRevision=(state.wordTrieRevision||0)+1;
+      if(sz31TrieBuildVersion===version)sz31TrieResume=null;
+      sz31ScanCacheKey='';
+      if(state.active && state.board?.length) updateBoardWordCounts();
+      return;
+    }
+    schedule();
+  };
+  sz31TrieResume=schedule;
+  schedule();
+  return root;
+};
+
+// Szóútvonal-szkenner: jégmentes, új szavakat keres; a nagy bejárást cache-eli.
+// A gyenge eszközökön kisebb, rövid munkacsomagot használ; a betűláda csak teljes
+// (nem csonkolt) keresés után nyílik meg.
+let sz31ScanCacheKey='',sz31ScanCacheTrie=null,sz31ScanCacheValue=[],sz31ScanCacheCapped=false;
+let sz31DrainBudget=36000,sz31DrainRetryTimer=0,sz31CountGeneration=0;
+scanBoardWords = function sz31ScanBoardWords() {
+  const root=buildWordTrie();
+  const boardLetters=state.board.map(tile=>tile && !tile.ice ? (tile.letter||'') : '');
+  const played=(state.words||[]).join('\u001f');
+  const revision=(state.hunspellWords?.size||0)+'#'+(state.onlineWords?.size||0)+'#'+(state.spellchecker?.loaded?'1':'0');
+  const cacheKey=boardLetters.join('\u001e')+'#'+played+'#'+revision+'#'+(state.difficultyStage||0)+'#'+(state.wordTrieRevision||0);
+  if(cacheKey===sz31ScanCacheKey && root===sz31ScanCacheTrie){state.wordScanCapped=sz31ScanCacheCapped;return sz31ScanCacheValue;}
+  const found=new Map(),usedWords=new Set(state.words||[]),seenStates=new WeakMap(),path=new Array(25);
+  const seen=stats.seen||{},now=Date.now(),recentWindow=30*86400000;
+  const adjacent=SZ23_NEIGHBORS;
+  if (cacheKey !== sz31ScanCacheKey && state.draining) sz31DrainBudget = 36000;
+  const maxVisits=state.draining?sz31DrainBudget:(sz31LowPower?22000:48000);
+  const maxDepth=25;let visits=0;
+  const trustedCache = new Map();
+  function trusted(word){
+    if(trustedCache.has(word)) return trustedCache.get(word);
+    // A trie-jelöltség önmagában nem elég: minden találatot ugyanaz a szigorú
+    // magyar szóellenőrző hagy jóvá, mint a játékos által beküldött szavakat.
+    const ok = isKnownWord(word);
+    if(trustedCache.size < 2048) trustedCache.set(word, ok);
+    return ok;
+  }
+  function walk(index,node,mask,depth){
+    if(visits++>=maxVisits)return;
+    const next=node.next[boardLetters[index]];if(!next)return;
+    const nextDepth=depth+1,nextMask=mask|(1<<index);path[depth]=index;
+    let memo=seenStates.get(next);if(!memo){memo=new Set();seenStates.set(next,memo);}
+    const stateKey=nextMask*32+index;if(memo.has(stateKey))return;memo.add(stateKey);
+    const word=next.word;
+    if(word&&!usedWords.has(word)&&!found.has(word)&&trusted(word)){
+      const stamp=seen[word],recent=typeof stamp==='number'&&now-stamp<recentWindow;
+      if(!recent)found.set(word,{word,path:path.slice(0,nextDepth),length:nextDepth});
+    }
+    if(nextDepth>=maxDepth || visits>=maxVisits)return;
+    const nbs=adjacent[index];
+    for(let k=0;k<nbs.length;k++){const n=nbs[k],bit=1<<n;if(!(nextMask&bit)){walk(n,next,nextMask,nextDepth);if(visits>=maxVisits)return;}}
+  }
+  for(let i=0;i<25&&visits<maxVisits;i++)if(boardLetters[i])walk(i,root,0,0);
+  state.wordScanCapped=visits>=maxVisits || !!state.wordTrieBuilding;
+  const result=[...found.values()].sort((a,b)=>b.length-a.length||a.word.localeCompare(b.word,'hu'));
+  sz31ScanCacheKey=cacheKey;sz31ScanCacheTrie=root;sz31ScanCacheValue=result;sz31ScanCacheCapped=state.wordScanCapped;
+  return result;
+};
+
+// A szólista-szkennelés nem futhat rá a játékos húzására: a táblaváltozás után
+// böngésző-idle időben indul, összevonva a gyors egymás utáni frissítéseket.
+// A szókeresés a táblaváltozás után összevont, böngésző-idle feladatként indul.
+// Nem fut le újra minden apró UI-frissítésre; a játékidő mérőjét ez nem érinti.
+let sz31CountJob=false,sz31CountAgain=false,sz31CountTimer=0,sz31CountIdle=0;
+function sz31RenderWordCounts(matches) {
+  if (!$('boardWordCounts')) return;
+  const groups=new Map();
+  for(const item of matches) groups.set(item.length,(groups.get(item.length)||0)+1);
+  $('boardWordState').textContent=state.spellchecker?'HUNSPELL':'SZÓTÁR';
+  if(!matches.length){
+    const text=state.draining
+      ? (state.wordScanCapped ? 'Még ellenőrzöm a teljes betűútvonal-készletet; nem zárom le idő előtt a betűládát.' : 'A táblán nincs több igazolt szó. A betűmentő láda megnyílik.')
+      : 'Most nincs felismert, igazolt szó ezen a mezőn. Keverd össze a betűket vagy kérj tippet!';
+    $('boardWordCounts').innerHTML='<div class="word-count-total"><strong>0</strong> '+(state.wordScanCapped?'eddig talált szó':'igazolt szóútvonal')+'</div><div class="empty-list">'+text+'</div>';
+  } else {
+    const parts=[...groups.entries()].sort((a,b)=>a[0]-b[0]).map(([len,count])=>'<span class="word-count-pill">'+len+' betű <b>'+count+' db</b></span>').join('');
+    $('boardWordCounts').innerHTML='<div class="word-count-total"><strong>'+(state.wordScanCapped?'legalább ':'')+matches.length+'</strong> '+(state.wordScanCapped?'igazolt szó eddig':'megtalálható szó')+'</div><div class="word-count-breakdown">'+parts+'</div>';
+  }
+}
+function sz31ScheduleCountRetry(delay=90) {
+  if(sz31DrainRetryTimer || !state.active || !state.draining || state.bankPhase!=='off') return;
+  sz31DrainRetryTimer=setTimeout(()=>{
+    sz31DrainRetryTimer=0;
+    if(!state.active || !state.draining || state.bankPhase!=='off') return;
+    sz31ScanCacheKey='';
+    sz31DrainBudget=Math.min(190000,sz31DrainBudget*2);
+    updateBoardWordCounts();
+  },delay);
+}
+const sz31BaseUpdateBoardWordCounts=updateBoardWordCounts;
+updateBoardWordCounts=function sz31ScheduleBoardWordCounts(){
+  if(!state.active || !state.board?.length) return sz31BaseUpdateBoardWordCounts.apply(this,arguments);
+  if(sz31CountJob){sz31CountAgain=true;return;}
+  sz31CountJob=true;
+  const generation=++sz31CountGeneration;
+  const run=()=>{
+    sz31CountJob=false;sz31CountIdle=0;sz31CountTimer=0;
+    if(generation!==sz31CountGeneration)return;
+    if(state.active && state.board?.length){
+      const matches=scanBoardWords();
+      state.boardWordMatches=matches;
+      sz31RenderWordCounts(matches);
+      sz31SyncRescueButton();
+      if(state.draining && !matches.length){
+        if(state.wordScanCapped){
+          if(state.wordTrieBuilding) sz31ScheduleCountRetry(260);
+          else if(sz31DrainBudget<190000) sz31ScheduleCountRetry(120);
+          else {
+            // Bizonytalan keresési eredmény esetén nem nyitjuk ki tévesen a betűládát.
+            const note=$('boardWordCounts').querySelector('.empty-list'); if(note) note.textContent='A keresés elérte a biztonságos számítási keretet. Keverd át a betűket vagy indíts egy újabb keresést; a játék nem állítja tévesen, hogy nincs szó.';
+          }
+        } else activateBankPhase();
+      } else if(matches.length && state.active && !state.draining) ensureBonusWord(matches);
+    }
+    if(sz31CountAgain){sz31CountAgain=false;updateBoardWordCounts();}
+  };
+  if(typeof requestIdleCallback==='function')sz31CountIdle=requestIdleCallback(run,{timeout:220});
+  else sz31CountTimer=setTimeout(run,110);
+};
+
+// A súgó gomb felhasználói kérésre azonnal friss, teljes szkennelést kér.
+const sz31BaseFindHint=findHint;
+findHint=function sz31FindHint(){
+  const matches=scanBoardWords();state.boardWordMatches=matches;sz31RenderWordCounts(matches);sz31SyncRescueButton();
+  const options=matches.filter(x=>!state.words.includes(x.word));
+  if(!options.length){$('hintBox').textContent='Most nem találtam új, igazolt magyar szót. Próbáld meg a betűk összekeverését vagy az elakadásmentőt!';return;}
+  const pick=options[Math.floor(Math.random()*options.length)];
+  const first=state.board[pick.path[0]].letter;state.hintIndex=pick.path[0];state.usedHints++;renderBoard();
+  $('hintBox').innerHTML='<strong>'+pick.length+' betűs szó</strong> rejtőzik a táblán. A kezdőmező betűje: <strong>'+escapeHTML(first)+'</strong>.<br>A folytatást neked kell megtalálnod.';
+  updateStatus('Apró segítséget kaptál — keresd a kezdőmezőt!','gold');
+};
+
+// A 100 ms-es bónuszóra megmarad tizedmásodpercesnek, de ugyanazt a tábla-szót
+// nem keresi ki újra minden frissítéskor. Csak akkor vizsgálja újra, ha a lista változott.
+let sz31BonusCacheRef=null,sz31BonusCacheWord='',sz31BonusCacheMatch=null;
+updateBonusClock=function sz31UpdateBonusClock(){
+  const banner=$('bonusWordBanner');
+  if(!state.active || state.draining || state.bankPhase!=='off') {if(banner)banner.hidden=true;return;}
+  const now=performance.now();
+  if(!state.bonusCycleEndsAt)state.bonusCycleEndsAt=now+30000;
+  if(now>=state.bonusCycleEndsAt){
+    const cycles=Math.floor((now-state.bonusCycleEndsAt)/30000)+1;
+    state.bonusCycleEndsAt+=cycles*30000;state.bonusCycleId=(state.bonusCycleId||0)+cycles;
+    state.bonusPreparedCycle=0;state.bonusWord=null;state.bonusFoundAt=0;
+    playSound('bonus');ensureBonusWord(state.boardWordMatches||[],false);
+  }
+  const remaining=Math.max(0,state.bonusCycleEndsAt-now);
+  if(state.bonusWord){
+    if(sz31BonusCacheRef!==state.boardWordMatches || sz31BonusCacheWord!==state.bonusWord.word){
+      sz31BonusCacheRef=state.boardWordMatches;sz31BonusCacheWord=state.bonusWord.word;
+      sz31BonusCacheMatch=(state.boardWordMatches||[]).find(x=>x.word===state.bonusWord.word)||null;
+    }
+    const match=sz31BonusCacheMatch;
+    if(match){state.bonusWord.path=[...match.path];state.bonusWord.available=true;}
+    else if(!state.bonusWord.found)state.bonusWord.available=false;
+    banner.hidden=false;$('bonusWordDisplay').textContent=state.bonusWord.word.toLocaleUpperCase('hu-HU');
+    $('bonusWordHint').textContent=state.bonusWord.found?'✓ BÓNUSZSZÓ MEGTALÁLVA · +'+state.bonusWord.points+' pont · a következő szóig':state.bonusWord.available?'30 másodperces bónusz · más szó nem indítja újra az órát':'A bónuszszó útvonala megváltozott; az idő tovább fut.';
+  }else{banner.hidden=false;$('bonusWordDisplay').textContent='ÚJ BÓNUSZSZÓ';$('bonusWordHint').textContent='A következő bónuszszó a következő 30 mp-es ciklusban érkezik.';}
+  $('bonusTimer').textContent=(remaining/1000).toFixed(1);$('bonusTimer').style.color=remaining<3500?'#ff9d9d':'#ffe4a7';
+};
+
+// Gombállapot frissítése az összes fontos állapotátmenet után.
+const sz31BaseUpdateQuestHUD=updateQuestHUD;
+updateQuestHUD=function(...args){const r=sz31BaseUpdateQuestHUD.apply(this,args);sz31SyncRescueButton();return r;};
+const sz31BaseReturnHome=returnHome;
+returnHome=function(...args){const r=sz31BaseReturnHome.apply(this,args);sz31SyncRescueButton();return r;};
+const sz31BaseEnterGame=enterGame;
+enterGame=function(...args){const r=sz31BaseEnterGame.apply(this,args);sz31SyncRescueButton();return r;};
+
+// A Súgóban is látható az új elakadásmentő és a háttérben épülő szótár működése.
+const sz31BaseShowHow = showHow;
+showHow = function sz31ShowHow(...args) {
+  const result=sz31BaseShowHow.apply(this,args);
+  const body=$('modalText');
+  if(body) body.innerHTML += '<br><br><strong>🧭 Elakadásmentő:</strong> a küldetésjelvények a rácsmezőhöz kötődnek, ezért nem zuhannak össze az alsó sorban. Ha egy jelvény mégsem esik igazolt szóútvonalra, használd a RELIKVIA-MENTÉS gombot: a játék biztonságos, valódi magyar szóútvonalakra helyezi át. A kövek és a jég a helyükön maradnak.<br><br><strong>⚙ Kímélő működés:</strong> a nagy magyar szótárfa kis háttércsomagokban épül, a szókeresés eredményeit a játék gyorsítótárazza. A díszítő háttérmozgások szünetelnek, az egyszeri kő-, jég- és szórobbanások megmaradnak.';
+  return result;
+};
+
+/* ================= SZÓSZÖVŐ 3.1 vége ================= */
 
 })();
 </script>

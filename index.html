@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0b1020">
-<title>SZÓSZÖVŐ 3.1 – Erőforrás-kímélés és elakadásmentés</title>
+<title>SZÓSZÖVŐ 3.4 – Olvasható útmutató és játékváltozat-választó</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
 :root{--bg:#080d1b;--panel:#101a30;--panel2:#131f39;--line:rgba(177,196,255,.12);--muted:#93a2c3;--text:#f4f6ff;--gold:#f6c96b;--gold2:#ffdf91;--mint:#73e3c0;--blue:#7ea7ff;--pink:#e89bcb;--danger:#ff8295;--shadow:0 22px 70px rgba(0,0,0,.34);--tile:clamp(48px,9.1vw,76px)}
@@ -4678,6 +4678,424 @@ showHow = function sz31ShowHow(...args) {
 };
 
 /* ================= SZÓSZÖVŐ 3.1 vége ================= */
+
+
+/* ================= SZÓSZÖVŐ 3.2 – láthatóbb questikonok, elérhető bónuszszó ================= */
+const sz32QuestBadgeStyle = document.createElement('style');
+sz32QuestBadgeStyle.id = 'szoszovo-32-quest-bonus-polish';
+sz32QuestBadgeStyle.textContent = `
+/* A nagyobb relikviajelvény külön sarokba kerül: nem ül rá a betű közepére,
+   a kőréteg számlálója pedig a jobb felső sarokban marad. */
+.tile-collectible {
+  left:3px!important; top:3px!important; right:auto!important; bottom:auto!important;
+  width:24px!important; min-width:24px!important; height:24px!important;
+  padding:0!important; display:grid!important; place-items:center!important;
+  border-radius:8px!important; font-size:16px!important; line-height:1!important;
+  background:linear-gradient(145deg,rgba(7,24,48,.97),rgba(10,42,73,.96))!important;
+  border:1.5px solid rgba(255,226,132,.9)!important;
+  box-shadow:0 2px 5px rgba(0,0,0,.45),0 0 0 1px rgba(255,221,112,.15),0 0 10px rgba(255,218,102,.28)!important;
+  z-index:8!important; pointer-events:none!important;
+}
+.tile.has-rock .tile-collectible { left:3px!important; top:3px!important; right:auto!important; bottom:auto!important; }
+.tile.selected .tile-collectible { transform:scale(1.04)!important; }
+.tile.word-valid .tile-collectible { background:linear-gradient(145deg,#155b45,#073d37)!important; border-color:#c8ffe2!important; }
+.tile .tile-letter { position:relative; z-index:6; }
+@media(max-width:620px){
+ .tile-collectible { width:21px!important; min-width:21px!important; height:21px!important; left:2px!important; top:2px!important; font-size:14px!important; border-radius:7px!important; }
+ .tile.has-rock .tile-collectible { left:2px!important; top:2px!important; }
+}
+@media(max-width:390px){
+ .tile-collectible { width:19px!important; min-width:19px!important; height:19px!important; font-size:12px!important; left:2px!important; top:2px!important; border-radius:6px!important; }
+ .tile.has-rock .tile-collectible { left:2px!important; top:2px!important; }
+}
+`;
+document.head.appendChild(sz32QuestBadgeStyle);
+
+// A bónuszszó csak addig maradjon cél, amíg a frissen átvizsgált táblán valóban
+// létezik hozzá legalább egy útvonal. Másik szó elfogadása után, ha ezzel eltűnt
+// az összes útvonala, azonnal új, aktuálisan kirakható cél és új 30 mp indul.
+function sz32BonusChoices(matches) {
+  const list = Array.isArray(matches) ? matches : [];
+  const recent = new Set((stats.bonusRecent || []).map(normalize));
+  let choices = list.filter(x => x && x.length >= 4 && !recent.has(normalize(x.word)) &&
+    !isRecentlyUsed(x.word) && !state.words.includes(x.word));
+  if (!choices.length) choices = list.filter(x => x && x.length >= 3 &&
+    !isRecentlyUsed(x.word) && !state.words.includes(x.word));
+  // Ha már minden friss cél elfogyott, csak akkor engedünk ismétlést,
+  // ha tényleg nincs másik, az aktuális táblán kirakható szó.
+  if (!choices.length) choices = list.filter(x => x && x.length >= 3 && !state.words.includes(x.word));
+  return choices;
+}
+
+ensureBonusWord = function sz32EnsureBonusWord(matches, playChime = true) {
+  if (!state.active || state.draining || state.bankPhase !== 'off') return;
+  const list = Array.isArray(matches) ? matches : [];
+  const now = performance.now();
+  const current = state.bonusWord;
+  const currentMatch = current && list.find(x => normalize(x.word) === normalize(current.word));
+  const scanComplete = !state.wordScanCapped && !state.wordTrieBuilding;
+
+  // Még mindig kirakható: megtartjuk az eredeti határidőt, csak az útvonalat frissítjük.
+  if (current && !current.found && currentMatch) {
+    current.path = [...currentMatch.path];
+    current.available = true;
+    return;
+  }
+
+  // Részleges szótár-/táblakeresésből nem következtetünk arra, hogy a cél eltűnt.
+  if (current && !current.found && !currentMatch && !scanComplete) return;
+
+  const replacing = !!current;
+  if (replacing) {
+    state.bonusWord = null;
+    state.bonusFoundAt = 0;
+    state.bonusCycleId = (state.bonusCycleId || 0) + 1;
+    state.bonusCycleEndsAt = now + 30000;
+    state.bonusPreparedCycle = 0;
+    state.bonusNoCandidate = false;
+  }
+
+  // Ugyanabban a ciklusban ne adjunk ki két azonos célt; ha korábban nem volt
+  // kirakható szó, az új táblaszkennelés első valódi találatánál újra próbálkozunk.
+  if (state.bonusPreparedCycle === state.bonusCycleId && !state.bonusNoCandidate) return;
+  const choices = sz32BonusChoices(list);
+  if (!choices.length) {
+    state.bonusWord = null;
+    state.bonusFoundAt = 0;
+    state.bonusPreparedCycle = state.bonusCycleId;
+    state.bonusNoCandidate = true;
+    const banner = $('bonusWordBanner');
+    if (banner) banner.hidden = true;
+    return;
+  }
+
+  // Ha a korábbi szkenneléskor nem volt cél, de azóta a táblán lett szó,
+  // innen indul az új, teljes 30 másodperces ablak.
+  if (state.bonusNoCandidate || !state.bonusCycleEndsAt || state.bonusCycleEndsAt <= now) {
+    state.bonusCycleEndsAt = now + 30000;
+  }
+  const pick = choices[Math.floor(Math.random() * choices.length)];
+  const cycleStart = state.bonusCycleEndsAt - 30000;
+  state.bonusWord = {
+    word: pick.word, path: [...pick.path], startedAt: cycleStart, duration: 30000,
+    cycleId: state.bonusCycleId || 1, found: false, available: true,
+    foundAt: 0, points: 0
+  };
+  state.bonusFoundAt = 0;
+  state.bonusPreparedCycle = state.bonusCycleId;
+  state.bonusNoCandidate = false;
+  stats.bonusRecent = [...(stats.bonusRecent || []), pick.word].slice(-100);
+  saveStats();
+  const banner = $('bonusWordBanner');
+  if (banner) banner.hidden = false;
+  $('bonusWordDisplay').textContent = pick.word.toLocaleUpperCase('hu-HU');
+  $('bonusWordHint').textContent = replacing
+    ? 'Az előző cél már nem rakható ki. ÚJ BÓNUSZ! 30 másodperced van.'
+    : 'ÚJ BÓNUSZ! 30 másodperced van. Más szavak nem állítják újra az órát.';
+  $('bonusTimer').textContent = '30.0';
+  $('bonusTimer').style.color = '#ffe4a7';
+  if (playChime) playSound('bonus');
+  if (typeof updateBonusClock === 'function') updateBonusClock();
+};
+
+// A táblaszkennelés kész eredménye után akkor is frissítjük a bónuszt,
+// ha nulla szó maradt – így a régi, már elérhetetlen cél sem marad kint.
+const sz32BaseRenderWordCounts = sz31RenderWordCounts;
+sz31RenderWordCounts = function sz32RenderWordCounts(matches) {
+  const result = sz32BaseRenderWordCounts.apply(this, arguments);
+  if (state.active && !state.draining && state.bankPhase === 'off') {
+    ensureBonusWord(matches || [], true);
+  }
+  return result;
+};
+
+// A 100 ms-es óra megmarad: a célváltás nem módosítja a játék főidőmérőjét.
+const sz32BaseBonusClock = updateBonusClock;
+updateBonusClock = function sz32UpdateBonusClock(...args) {
+  const result = sz32BaseBonusClock.apply(this, args);
+  if (state.active && !state.draining && state.bankPhase === 'off' &&
+      state.bonusNoCandidate && !state.bonusWord) {
+    const banner = $('bonusWordBanner');
+    if (banner) banner.hidden = true;
+  }
+  return result;
+};
+
+
+/* ================= SZÓSZÖVŐ 3.3 – finomabb questjelvények és alacsonyabb gépterhelés =================
+   A látvány színvilága és a betűkockák formája változatlan. A statikus CSS-árnyékok
+   váltják ki a sok külön GPU drop-shadow szűrőt; a folyamatos animációk megállnak.
+*/
+const sz33PerfStyle = document.createElement('style');
+sz33PerfStyle.id = 'szoszovo-33-lightweight-rendering';
+sz33PerfStyle.textContent = `
+/* A jelvény valamivel nagyobb, továbbra is sarokban ül, nem fedi a betű közepét. */
+.tile-collectible {
+  left:3px!important; top:3px!important; right:auto!important; bottom:auto!important;
+  width:27px!important; min-width:27px!important; height:27px!important;
+  font-size:18px!important; line-height:1!important; border-radius:8px!important;
+  filter:none!important;
+  box-shadow:0 2px 4px rgba(0,0,0,.48),0 0 0 1px rgba(255,221,112,.13),0 0 7px rgba(255,218,102,.2)!important;
+}
+.tile.has-rock .tile-collectible { left:3px!important; top:3px!important; }
+@media(max-width:620px){
+  .tile-collectible {width:23px!important;min-width:23px!important;height:23px!important;font-size:15px!important;left:2px!important;top:2px!important;border-radius:7px!important;}
+  .tile.has-rock .tile-collectible {left:2px!important;top:2px!important;}
+}
+@media(max-width:390px){
+  .tile-collectible {width:21px!important;min-width:21px!important;height:21px!important;font-size:14px!important;left:2px!important;top:2px!important;border-radius:6px!important;}
+}
+
+/* A drop-shadow filter minden egyes kockán külön kompozitálást kérhet.
+   A kocka 3D hatását olcsóbb, azonos tónusú box-shadow tartja meg. */
+.tile:not(.empty) {
+  filter:none!important;
+  box-shadow:0 4px 0 #814719,0 7px 5px rgba(0,5,27,.48),
+             inset 0 1px 0 rgba(255,255,255,.22)!important;
+  transition:transform .08s ease,border-color .08s ease!important;
+}
+.tile.has-rock {
+  filter:none!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.36),inset 0 -4px 7px rgba(0,0,0,.27),
+             0 4px 0 #263d53,0 7px 6px rgba(0,5,27,.4)!important;
+}
+.tile.selected {
+  filter:none!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 4px 0 #805321,
+             0 0 0 2px rgba(255,223,145,.22),0 7px 12px rgba(205,151,59,.22)!important;
+}
+.tile.word-valid {
+  filter:none!important;
+  animation:sz33AcceptOnce .22s ease-out 1 both!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 4px 0 #367d24,
+             0 0 0 2px rgba(176,255,112,.3),0 0 12px rgba(148,255,87,.4)!important;
+}
+@keyframes sz33AcceptOnce {0%{transform:scale(1)}55%{transform:scale(1.045)}100%{transform:scale(1.015)}}
+.tile.word-pending {filter:none!important;}
+.tile.special:not(.selected):before {filter:none!important;text-shadow:0 0 5px #e58b14;}
+.tile.hint-origin {animation:none!important;outline:2px solid #8de8d0!important;outline-offset:1px!important;}
+.selection-trail .trail-halo {filter:none!important;opacity:.34!important;stroke-width:10!important;}
+.selection-trail .trail-core {filter:none!important;stroke-width:4.5!important;}
+
+/* A lassú dekoratív körbeforgás statikus képet ad; a fények és a gradiens megmarad. */
+body:after,.board-wrap:before,.bonus-orb {animation:none!important;}
+html.sz31-page-hidden *,html.sz31-page-hidden *:before,html.sz31-page-hidden *:after {animation:none!important;transition:none!important;}
+`;
+document.head.appendChild(sz33PerfStyle);
+
+// A bónuszóra pontos határidejét továbbra is performance.now() méri.
+// A kijelző frissítése 100 ms helyett 250 ms-onként történik; pontozáskor nem
+// ezt az ütemezést, hanem a tényleges időbélyeget használjuk.
+function sz33StopBonusTicker(){
+  if(state.bonusTicker){clearInterval(state.bonusTicker);state.bonusTicker=null;}
+}
+function sz33StartBonusTicker(){
+  sz33StopBonusTicker();
+  if(!state.active||state.roundEnded||state.draining||state.bankPhase!=='off'||document.hidden)return;
+  updateBonusClock();
+  state.bonusTicker=setInterval(()=>{
+    if(!state.active||state.roundEnded||state.draining||state.bankPhase!=='off'||document.hidden){
+      sz33StopBonusTicker();return;
+    }
+    updateBonusClock();
+  },250);
+}
+const sz33BaseEnterGame=enterGame;
+enterGame=function sz33EnterGame(...args){
+  const result=sz33BaseEnterGame.apply(this,args);
+  sz33StartBonusTicker();
+  return result;
+};
+const sz33BaseNextRound=startNextContinuousRound;
+startNextContinuousRound=function sz33NextRound(...args){
+  const result=sz33BaseNextRound.apply(this,args);
+  sz33StartBonusTicker();
+  return result;
+};
+const sz33BaseActivateBank=activateBankPhase;
+activateBankPhase=function sz33ActivateBank(...args){
+  const result=sz33BaseActivateBank.apply(this,args);
+  sz33StopBonusTicker();
+  return result;
+};
+const sz33BaseEndRound=endRound;
+endRound=function sz33EndRound(...args){
+  const result=sz33BaseEndRound.apply(this,args);
+  sz33StopBonusTicker();
+  return result;
+};
+const sz33BaseReturnHome=returnHome;
+returnHome=function sz33ReturnHome(...args){
+  const result=sz33BaseReturnHome.apply(this,args);
+  sz33StopBonusTicker();
+  return result;
+};
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden)sz33StopBonusTicker();
+  else sz33StartBonusTicker();
+},{passive:true});
+
+/* ================= SZÓSZÖVŐ 3.3 vége ================= */
+
+/* ================= SZÓSZÖVŐ 3.2 vége ================= */
+
+
+/* ================= SZÓSZÖVŐ 3.4 – olvasható súgó + játékváltozat-választó ================= */
+(function initSz34HomeExperience(){
+  const style = document.createElement('style');
+  style.id = 'szoszovo-34-home-experience';
+  style.textContent = `
+    .sz34-overlay{position:fixed;inset:0;z-index:120;display:none;align-items:center;justify-content:center;padding:clamp(10px,3vw,28px);background:rgba(3,8,20,.88);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+    .sz34-overlay.is-open{display:flex}
+    .sz34-dialog{width:min(900px,100%);max-height:min(92dvh,940px);overflow:auto;overscroll-behavior:contain;border:1px solid rgba(132,205,255,.34);border-radius:25px;background:linear-gradient(150deg,#10477e 0%,#092e62 48%,#071d43 100%);box-shadow:0 25px 90px rgba(0,0,0,.58);color:#f4f8ff;scrollbar-width:thin;scrollbar-color:rgba(143,201,247,.48) rgba(3,15,37,.35)}
+    .sz34-dialog:focus{outline:none}
+    .sz34-head{position:sticky;top:0;z-index:2;display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:clamp(18px,3vw,28px);background:linear-gradient(150deg,rgba(13,62,112,.98),rgba(7,35,78,.97));border-bottom:1px solid rgba(154,219,255,.17)}
+    .sz34-kicker{font-size:12px;font-weight:900;letter-spacing:.16em;color:#b9f18b;text-transform:uppercase;margin-bottom:8px}
+    .sz34-head h2{font:800 clamp(24px,4vw,34px)/1.13 Manrope,'DM Sans',sans-serif;margin:0;color:#f7fbff;letter-spacing:-.025em}
+    .sz34-head p{font-size:clamp(14px,1.8vw,16px);line-height:1.55;color:#d3e8ff;margin:9px 0 0;max-width:680px}
+    .sz34-close{flex:0 0 auto;width:42px;height:42px;border-radius:13px;border:1px solid rgba(206,232,255,.25);background:rgba(4,21,50,.45);color:white;font-size:22px;display:grid;place-items:center}
+    .sz34-body{padding:clamp(15px,3vw,27px)}
+    .sz34-how-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+    .sz34-how-card{min-width:0;padding:17px 18px;border-radius:17px;border:1px solid rgba(167,220,255,.18);background:linear-gradient(145deg,rgba(16,77,133,.64),rgba(7,39,87,.72))}
+    .sz34-how-card h3{display:flex;align-items:center;gap:10px;margin:0 0 9px;font:800 16px/1.3 Manrope,'DM Sans',sans-serif;color:#f3ffc9}
+    .sz34-how-card h3 span{width:31px;height:31px;flex:0 0 31px;border-radius:10px;display:grid;place-items:center;background:rgba(180,245,128,.13);font-size:17px}
+    .sz34-how-card p,.sz34-how-card li{font-size:15px;line-height:1.65;color:#e0efff;margin:0}
+    .sz34-how-card p+p{margin-top:8px}
+    .sz34-how-card ul{margin:7px 0 0;padding-left:21px}
+    .sz34-how-card li+li{margin-top:4px}
+    .sz34-callout{margin-top:14px;padding:15px 17px;border-radius:15px;background:rgba(190,244,125,.1);border:1px solid rgba(190,244,125,.28);font-size:14px;line-height:1.6;color:#eaffd3}
+    .sz34-foot{display:flex;justify-content:flex-end;gap:10px;padding:0 clamp(15px,3vw,27px) clamp(17px,3vw,25px)}
+    .sz34-foot button{min-height:46px;padding:11px 19px;border-radius:13px;border:0;font-weight:900;font-size:14px}
+    .sz34-dim{background:rgba(6,23,51,.65);border:1px solid rgba(178,218,255,.25)!important;color:#e9f5ff}
+    .sz34-primary{background:linear-gradient(135deg,#e6ff9b,#a7e35e);color:#15243a;box-shadow:0 7px 20px rgba(172,235,99,.18)}
+    .sz34-mode-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+    .sz34-mode-choice{position:relative;display:flex;gap:13px;align-items:flex-start;width:100%;min-height:132px;padding:17px;text-align:left;border:1px solid rgba(161,215,255,.23);border-radius:17px;background:linear-gradient(145deg,rgba(15,73,130,.68),rgba(6,37,83,.82));color:#f5f8ff;transition:border-color .12s,background .12s,box-shadow .12s}
+    .sz34-mode-choice:hover{border-color:rgba(199,246,143,.58)}
+    .sz34-mode-choice[aria-pressed="true"]{border-color:#c8f58b;background:linear-gradient(145deg,rgba(47,111,132,.84),rgba(20,75,105,.92));box-shadow:0 0 0 2px rgba(191,242,130,.22),inset 0 0 22px rgba(190,244,125,.07)}
+    .sz34-mode-icon{width:45px;height:45px;flex:0 0 45px;border-radius:14px;display:grid;place-items:center;font-size:23px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.13)}
+    .sz34-mode-text{min-width:0;display:block}
+    .sz34-mode-text strong{display:block;font:800 17px/1.3 Manrope,'DM Sans',sans-serif;color:#f6ffdc;margin:1px 0 6px}
+    .sz34-mode-text small{display:block;font-size:14px;line-height:1.55;color:#d9eaff}
+    .sz34-mode-meta{display:block;margin-top:9px;font-size:11px;line-height:1.4;font-weight:900;letter-spacing:.08em;color:#bdeaff;text-transform:uppercase}
+    .sz34-choice-mark{position:absolute;right:12px;top:11px;width:23px;height:23px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.1);color:transparent;font-size:14px;font-weight:900}
+    .sz34-mode-choice[aria-pressed="true"] .sz34-choice-mark{background:#c8f58b;color:#17304a}
+    .sz34-selection-note{margin:16px 1px 0;padding:13px 15px;border-radius:13px;background:rgba(2,19,48,.42);border:1px solid rgba(173,219,255,.15);font-size:14px;line-height:1.55;color:#d8eaff}
+    .sz34-selection-note strong{color:#eaffb9}
+    .sz34-foot .sz34-primary:disabled{opacity:.42;filter:grayscale(.5);cursor:not-allowed;box-shadow:none}
+    @media(max-width:640px){
+      .sz34-overlay{padding:8px;align-items:flex-end}
+      .sz34-dialog{max-height:94dvh;border-radius:22px 22px 14px 14px;width:100%}
+      .sz34-how-grid,.sz34-mode-grid{grid-template-columns:1fr;gap:10px}
+      .sz34-how-card{padding:15px 15px}
+      .sz34-how-card p,.sz34-how-card li{font-size:14px;line-height:1.62}
+      .sz34-mode-choice{min-height:0;padding:14px}
+      .sz34-head{padding:18px 16px}
+      .sz34-body{padding:13px}
+      .sz34-foot{padding:0 13px 16px;display:grid;grid-template-columns:1fr}
+      .sz34-foot button{width:100%}
+    }
+    @media(max-width:360px){.sz34-mode-icon{width:39px;height:39px;flex-basis:39px;font-size:20px}.sz34-mode-text strong{font-size:16px}.sz34-mode-text small{font-size:13px}}
+    @media(prefers-reduced-motion:reduce){.sz34-overlay *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+  `;
+  document.head.appendChild(style);
+
+  const how = document.createElement('div');
+  how.id = 'sz34HowOverlay'; how.className = 'sz34-overlay'; how.setAttribute('aria-hidden','true');
+  how.innerHTML = `
+    <section class="sz34-dialog" role="dialog" aria-modal="true" aria-labelledby="sz34HowTitle" tabindex="-1">
+      <header class="sz34-head"><div><div class="sz34-kicker">GYORS ÚTMUTATÓ</div><h2 id="sz34HowTitle">Hogyan működik a SZÓSZÖVŐ?</h2><p>Olvasd át a játékmenet fő lépéseit. A súgó telefonon, kisebb kijelzőn és számítógépen is kényelmesen olvasható.</p></div><button class="sz34-close" type="button" data-close-how aria-label="Súgó bezárása">×</button></header>
+      <div class="sz34-body"><div class="sz34-how-grid">
+        <article class="sz34-how-card"><h3><span>🔤</span> Betűk összekötése</h3><p><b>Számítógépen:</b> kattints az első betűre, engedd fel az egeret, majd vezesd a kurzort a szomszédos betűk fölé. A szó lezárásához kattints az utolsó kijelölt mezőre vagy nyomj Entert.</p><p><b>Telefonon:</b> koppints egymás után a betűkre, vagy húzd végig rajtuk az ujjad. Egyenesen, átlósan és kanyargósan is haladhatsz. Egy mezőt egy szóban csak egyszer használhatsz.</p></article>
+        <article class="sz34-how-card"><h3><span>✅</span> Szóellenőrzés és visszavonás</h3><p>Legalább 3 betűs, igazolt magyar szavakat fogad el a játék. A helyes útvonal zöldre vált, majd a szó pontot és látványos találati effektet ad.</p><p>Az <b>Vissza</b> gomb vagy a Backspace az utolsó mezőt veszi le; a <b>Törlés</b> vagy az Escape az egész kijelölést megszünteti. Hibás szó esetén a kijelölés azonnal törlődik. A játékidő kötés közben is fut.</p></article>
+        <article class="sz34-how-card"><h3><span>💎</span> Küldetések és relikviák</h3><p>A pályákon jelvényeket, kristályokat és más alakzatokat gyűjthetsz. Egy relikvia akkor számít, ha elfogadott szó útvonala érinti. A küldetés célja és az eddigi haladás a tábla fölötti panelen látható.</p><p>Ha egy jelvény elakad, használd a <b>Relikvia-mentés</b> segítséget. A <b>Betűk keverése</b> csak a betűk helyét rendezi át; a kövek, a jég és a jelvények a helyükön maradnak.</p></article>
+        <article class="sz34-how-card"><h3><span>🪨</span> Kőfalak és jégmezők</h3><p>A kőrétegeket az elfogadott szavak bontják le. Ha egy szó kővel fedett mezőn halad át, az érintett fal eltűnik.</p><p>A jég alatt lévő betű nem választható ki. Csak a közvetlenül mellette felrobbanó betűk olvasztják a jégréteget. A jég és a kő eltávolítása a pályacél része lehet.</p></article>
+        <article class="sz34-how-card"><h3><span>🔔</span> Csilingelő bónuszszó</h3><p>A táblán időről időre új cél szó jelenik meg hangjelzéssel. A cél saját, 30 másodperces időablakot kap. Ha közben másik szót találsz, az óra nem indul újra.</p><p>Ha a bónuszszó már nem rakható ki a megváltozott táblán, a játék új, valóban elérhető célt keres. A jutalom a tényleges találati időt veszi figyelembe, tizedmásodperc pontossággal.</p></article>
+        <article class="sz34-how-card"><h3><span>🧭</span> Segítségek és tippek</h3><p>A <b>Tippet kérek</b> csak a szó hosszát és egy kezdőbetűt mutat meg, nem árulja el a teljes megoldást. A <b>Betűk keverése</b> segít, ha a betűk kedvezőtlenül állnak.</p><p>A <b>Relikvia-mentés</b> akkor segít, ha egy gyűjthető küldetésjelvény nem esik elérhető szóútvonalra. A segítségek nem állítják meg az időmérőt.</p></article>
+        <article class="sz34-how-card"><h3><span>📦</span> Betűláda és következő kör</h3><p>Ha elfogytak a köthető szavak, a megmaradt betűk a ládába kerülnek. Itt már a legalább <b>2 betűs</b>, igazolt magyar szavak is érvényesek. Elsőként csak a még kirakható szavak számát látod; a megfejtések külön kérésre fedhetők fel.</p><p>A teljes betűfelhasználás extra pontot és segítséget adhat a következő körre. Ha a ládában nincs több szó, továbbléphetsz.</p></article>
+        <article class="sz34-how-card"><h3><span>🎮</span> Játékváltozatok</h3><ul><li><b>Villámkör:</b> rövid, 90 másodperces pontvadászat.</li><li><b>Nyugalom:</b> időkorlát nélküli, folyamatos szógyűjtés.</li><li><b>Szóösvény:</b> egymásra épülő pályacélok és növekvő nehézség.</li><li><b>Napi kihívás:</b> az adott nap közös, rögzített pályája.</li></ul></article>
+      </div><div class="sz34-callout"><b>Jó tudni:</b> a SZÓSZÖVŐ helyi rekordokat és fejlődést ment a böngészőben. A külső magyar szótár elérhetősége hálózatfüggő; ha nem érhető el, a játék a rendelkezésére álló helyi szóanyaggal dolgozik.</div></div>
+      <footer class="sz34-foot"><button type="button" class="sz34-primary" data-close-how>Értem, vissza a játékhoz</button></footer>
+    </section>`;
+  document.body.appendChild(how);
+
+  const chooser = document.createElement('div');
+  chooser.id = 'sz34ModeOverlay'; chooser.className = 'sz34-overlay'; chooser.setAttribute('aria-hidden','true');
+  chooser.innerHTML = `
+    <section class="sz34-dialog" role="dialog" aria-modal="true" aria-labelledby="sz34ModeTitle" tabindex="-1">
+      <header class="sz34-head"><div><div class="sz34-kicker">VÁLASZD KI A KIHÍVÁST</div><h2 id="sz34ModeTitle">Melyik játékváltozattal játszol?</h2><p>A játék csak a választásod megerősítése után indul el. Bármelyik módot kiválaszthatod, akkor is, ha másik kártyáról nyitottad meg ezt az ablakot.</p></div><button class="sz34-close" type="button" data-close-mode aria-label="Választó bezárása">×</button></header>
+      <div class="sz34-body"><div class="sz34-mode-grid">
+        <button class="sz34-mode-choice" type="button" data-mode-choice="timed" aria-pressed="false"><span class="sz34-mode-icon">⏱️</span><span class="sz34-mode-text"><strong>Villámkör</strong><small>Gyors szóvadászat, kombók és pontszorzók. Kevés idő alatt kell a legtöbbet kihoznod a táblából.</small><span class="sz34-mode-meta">90 MÁSODPERC · IDŐRE</span></span><span class="sz34-choice-mark">✓</span></button>
+        <button class="sz34-mode-choice" type="button" data-mode-choice="zen" aria-pressed="false"><span class="sz34-mode-icon">🌙</span><span class="sz34-mode-text"><strong>Nyugalom</strong><small>Nincs visszaszámlálás. Gondolkodj szabadon, gyűjts szavakat és haladj folyamatosan a körök között.</small><span class="sz34-mode-meta">IDŐKORLÁT NÉLKÜL · FOLYAMATOS</span></span><span class="sz34-choice-mark">✓</span></button>
+        <button class="sz34-mode-choice" type="button" data-mode-choice="campaign" aria-pressed="false"><span class="sz34-mode-icon">🧭</span><span class="sz34-mode-text"><strong>Szóösvény</strong><small>Teljesítendő pont-, kő- és relikviacélok. A pályák fokozatosan nehezednek, de minden szint teljesíthető.</small><span class="sz34-mode-meta">PÁLYÁK · FEJLŐDÉS · KÜLDETÉSEK</span></span><span class="sz34-choice-mark">✓</span></button>
+        <button class="sz34-mode-choice" type="button" data-mode-choice="daily" aria-pressed="false"><span class="sz34-mode-icon">✨</span><span class="sz34-mode-text"><strong>Napi kihívás</strong><small>Naponta azonos betűtábla minden játékosnak. Döntsd meg a saját napi rekordodat!</small><span class="sz34-mode-meta">NAPONTA FRISSÜL · KÖZÖS PÁLYA</span></span><span class="sz34-choice-mark">✓</span></button>
+      </div><div class="sz34-selection-note" id="sz34ModeNote"><strong>Még nincs kiválasztott mód.</strong> Válassz egy játékváltozatot a folytatáshoz.</div></div>
+      <footer class="sz34-foot"><button type="button" class="sz34-dim" data-close-mode>Mégsem</button><button type="button" class="sz34-primary" id="sz34ConfirmMode" disabled>Indítás a kiválasztott móddal →</button></footer>
+    </section>`;
+  document.body.appendChild(chooser);
+
+  let chosenMode = null;
+  const modeNames = {timed:'Villámkör',zen:'Nyugalom',campaign:'Szóösvény',daily:'Napi kihívás'};
+  const modeNotes = {
+    timed:'90 másodperces, pörgős pontvadászat. A gyors szófelismerés és a kombók számítanak.',
+    zen:'Időkorlát nélküli, folyamatos szógyűjtés. A játék nem zár le 40 szó után.',
+    campaign:'Küldetések, kő- és jégcélok, relikviák és fokozatosan nehezedő pályák.',
+    daily:'A mai közös pálya és a napi saját rekordod. A tábla az adott napra rögzített.'
+  };
+  function closeOverlay(el){el.classList.remove('is-open');el.setAttribute('aria-hidden','true');document.body.style.overflow='';}
+  function openModeChooser(preselect=null){
+    chosenMode = Object.prototype.hasOwnProperty.call(modeNames,preselect) ? preselect : null;
+    chooser.querySelectorAll('[data-mode-choice]').forEach(btn=>{
+      const selected=btn.dataset.modeChoice===chosenMode;
+      btn.setAttribute('aria-pressed',selected?'true':'false');
+    });
+    const note=chooser.querySelector('#sz34ModeNote');
+    const confirm=chooser.querySelector('#sz34ConfirmMode');
+    confirm.disabled=!chosenMode;
+    note.innerHTML=chosenMode?'<strong>'+modeNames[chosenMode]+' kiválasztva.</strong> '+modeNotes[chosenMode]:'<strong>Még nincs kiválasztott mód.</strong> Válassz egy játékváltozatot a folytatáshoz.';
+    chooser.classList.add('is-open');chooser.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+    requestAnimationFrame(()=>chooser.querySelector('.sz34-dialog').focus());
+  }
+  function closeModeChooser(){closeOverlay(chooser);chosenMode=null;}
+  function openHow(){how.classList.add('is-open');how.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';requestAnimationFrame(()=>how.querySelector('.sz34-dialog').focus());}
+  function closeHowOverlay(){closeOverlay(how);}
+
+  chooser.addEventListener('click',e=>{
+    const choice=e.target.closest('[data-mode-choice]');
+    if(choice){
+      chosenMode=choice.dataset.modeChoice;
+      chooser.querySelectorAll('[data-mode-choice]').forEach(btn=>btn.setAttribute('aria-pressed',btn===choice?'true':'false'));
+      chooser.querySelector('#sz34ModeNote').innerHTML='<strong>'+modeNames[chosenMode]+' kiválasztva.</strong> '+modeNotes[chosenMode];
+      chooser.querySelector('#sz34ConfirmMode').disabled=false;
+      return;
+    }
+    if(e.target===chooser||e.target.closest('[data-close-mode]'))closeModeChooser();
+  });
+  chooser.querySelector('#sz34ConfirmMode').addEventListener('click',()=>{
+    if(!chosenMode)return;
+    const mode=chosenMode;closeOverlay(chooser);chosenMode=null;
+    if(typeof enterGame==='function')enterGame(mode);
+  });
+  how.addEventListener('click',e=>{if(e.target===how||e.target.closest('[data-close-how]'))closeHowOverlay();});
+
+  // Intercept all home-screen entry points. Existing legacy handlers remain untouched,
+  // but cannot launch a mode before the player confirms their choice in this selector.
+  function intercept(el, getMode){
+    if(!el)return;
+    el.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();openModeChooser(getMode?getMode():null);},true);
+  }
+  intercept(document.getElementById('quickStart'),null);
+  intercept(document.getElementById('dailyStart'),()=> 'daily');
+  document.querySelectorAll('.mode-card[data-mode]').forEach(card=>intercept(card,()=>card.dataset.mode));
+  document.getElementById('howBtn')?.addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();openHow();},{capture:true});
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){
+      if(chooser.classList.contains('is-open')){e.preventDefault();closeModeChooser();}
+      else if(how.classList.contains('is-open')){e.preventDefault();closeHowOverlay();}
+    }
+  },true);
+})();
+/* ================= SZÓSZÖVŐ 3.4 vége ================= */
 
 })();
 </script>

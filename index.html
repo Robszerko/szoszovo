@@ -489,7 +489,7 @@ html{overflow-x:hidden;max-width:100%;}
   </div>
 </section>
 
-<footer class="footer"><span>© SZÓSZÖVŐ · 3.0 JÉGMEZŐK · PONTOS ÚTVONALKÖVETÉS · VÉGTELEN NYUGALOM MÓD</span><span>Helyi mentés · <a href="https://github.com/laszlonemeth/magyarispell" target="_blank" rel="noopener">Magyar Ispell / Hunspell forrás</a> · <a href="https://hu.wiktionary.org/" target="_blank" rel="noopener">Wikiszótár</a></span></footer>
+<footer class="footer"><span>© SZÓSZÖVŐ · 3.5 MESTERPRÓBÁK · PONTOS ÚTVONALKÖVETÉS · VÉGTELEN NYUGALOM MÓD</span><span>Helyi mentés · <a href="https://github.com/laszlonemeth/magyarispell" target="_blank" rel="noopener">Magyar Ispell / Hunspell forrás</a> · <a href="https://hu.wiktionary.org/" target="_blank" rel="noopener">Wikiszótár</a></span></footer>
 </div>
 
 <div class="modal-backdrop" id="modalBackdrop"><div class="modal" id="modalContent"><div class="eyebrow">KÖR VÉGE</div><h2 id="modalTitle">Szép menet!</h2><p id="modalText">Minden szó közelebb visz a következő szinthez.</p><div class="modal-score" id="modalScore">0</div><div style="font-size:10px;color:#94a6ca;letter-spacing:.14em;text-transform:uppercase">MEGSZERZETT PONT</div><div class="modal-actions"><button class="btn btn-primary" id="playAgain">Új kör</button><button class="btn btn-secondary" id="modalHome">Főmenü</button></div></div></div>
@@ -5095,7 +5095,67 @@ document.addEventListener('visibilitychange',()=>{
     }
   },true);
 })();
-/* ================= SZÓSZÖVŐ 3.4 vége ================= */
+/* ================= SZÓSZÖVŐ 3.5 vége ================= */
+
+
+/* ================= SZÓSZÖVŐ 3.5 – MESTERPRÓBÁK + BŐVÍTETT SZÓKERESÉS ================= */
+(function(){
+  const style=document.createElement('style');
+  style.textContent=`
+  .sz35-trial{margin:10px auto 12px;width:min(100%,620px);padding:12px 14px;border:1px solid rgba(255,220,130,.28);border-radius:16px;background:linear-gradient(115deg,rgba(8,54,105,.96),rgba(17,35,72,.96));box-shadow:0 5px 16px rgba(0,8,28,.16)}
+  .sz35-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}.sz35-head strong{font:800 12px Manrope,sans-serif;color:#ffdf9a;letter-spacing:.08em}.sz35-head span{font-size:9px;color:#b7d8f3}
+  .sz35-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.sz35-goal{min-width:0;padding:8px;border-radius:11px;background:rgba(0,13,42,.48);border:1px solid rgba(255,255,255,.08)}.sz35-goal b{display:block;font-size:10px;line-height:1.3;color:#eff8ff}.sz35-goal small{display:block;margin-top:5px;font-size:9px;color:#b9cce2}.sz35-track{height:4px;margin-top:6px;border-radius:8px;background:rgba(255,255,255,.12);overflow:hidden}.sz35-track i{display:block;height:100%;width:0;background:linear-gradient(90deg,#55d8ff,#c6ff79);transition:width .15s linear}.sz35-goal.done{border-color:rgba(159,255,171,.42);background:rgba(25,100,70,.22)}.sz35-goal.done b{color:#caffd8}.sz35-foot{margin-top:8px;font-size:9px;color:#c4d6eb;text-align:right}
+  @media(max-width:520px){.sz35-trial{padding:10px}.sz35-list{grid-template-columns:1fr}.sz35-goal{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:4px 8px}.sz35-goal small{margin:0}.sz35-track{grid-column:1/-1;margin-top:1px}}
+  `;
+  document.head.appendChild(style);
+  const panel=document.createElement('section');panel.className='sz35-trial';panel.id='sz35Trial';panel.setAttribute('aria-live','polite');
+  panel.innerHTML='<div class="sz35-head"><strong>🏆 MESTERPRÓBA · 3 PÁRHUZAMOS CÉL</strong><span id="sz35Reward">Jutalom: +450 pont</span></div><div class="sz35-list" id="sz35Goals"></div><div class="sz35-foot" id="sz35Foot">Minden helyes szó közelebb visz a jutalomhoz.</div>';
+  const anchor=document.getElementById('bonusWordBanner')||document.getElementById('questPanel');
+  if(anchor?.parentNode)anchor.insertAdjacentElement('afterend',panel);
+  const goalDefs=[
+    {id:'five',icon:'🔎',label:'Szógyűjtő',desc:'3 szó legalább 5 betűvel',target:3,match:w=>tokenize(w).length>=5},
+    {id:'long',icon:'🌟',label:'Hosszúszó-mester',desc:'2 szó legalább 7 betűvel',target:2,match:w=>tokenize(w).length>=7},
+    {id:'digraph',icon:'🔤',label:'Kétjegyű vadász',desc:'2 szó CS/GY/LY/NY/SZ/TY/Zs betűvel',target:2,match:w=>/(cs|dzs|gy|ly|ny|sz|ty|zs)/i.test(w)}
+  ];
+  let roundKey=null,goals=[],paid=false;
+  function reset(){roundKey=String(state.roundToken??'round');goals=goalDefs.map(g=>({...g,progress:0,done:false}));paid=false;render();}
+  function render(){
+    const host=document.getElementById('sz35Goals');if(!host)return;
+    host.innerHTML=goals.map(g=>`<div class="sz35-goal ${g.done?'done':''}"><b>${g.icon} ${g.label}</b><small>${g.done?'✓ KÉSZ':g.progress+' / '+g.target}</small><div class="sz35-track"><i style="width:${Math.min(100,g.progress/g.target*100)}%"></i></div></div>`).join('');
+    const done=goals.filter(g=>g.done).length;
+    document.getElementById('sz35Foot').textContent=done===3?'🏆 MESTERPRÓBA TELJESÍTVE! A +450 pont jutalom jóváírva.':`${done}/3 cél teljesítve · minden cél +150 pontot ér.`;
+  }
+  const oldAccept=acceptWord;
+  acceptWord=async function sz35AcceptWithTrials(path,word){
+    const before=state.words?.length||0;
+    const result=await oldAccept.apply(this,arguments);
+    if((state.words?.length||0)>before){
+      const key=String(state.roundToken??'round');if(key!==roundKey)reset();
+      let gained=0;
+      for(const g of goals){if(!g.done&&g.match(word)){g.progress=Math.min(g.target,g.progress+1);if(g.progress>=g.target){g.done=true;gained+=150;}}}
+      if(gained){state.score+=gained;updateHUD();playSound('combo');showToast('MESTERPRÓBA! +'+gained+' pont');}
+      if(goals.every(g=>g.done)&&!paid){paid=true;state.score+=0;stats.xp=(stats.xp||0)+35;saveStats();showToast('🏆 MINDHÁROM MESTERPRÓBA KÉSZ! +35 XP');updateHUD();}
+      render();
+    }
+    return result;
+  };
+  reset();
+  // A hosszabb, valódi magyar összetételek és toldalékolt szavak is bekerülhetnek a
+  // táblaszkenner trie-jába. A szóellenőrzés továbbra is Hunspell + magyar alak-szűrés.
+  if(typeof sz31InsertTrieWord==='function'){
+    sz31InsertTrieWord=function(root,raw,seen){
+      const word=normalize(raw);if(!word||seen.has(word))return false;
+      const tokens=tokenize(word);if(tokens.length<3||tokens.length>16)return false;
+      seen.add(word);let node=root;for(const token of tokens){if(!node.next[token])node.next[token]={next:Object.create(null),word:null};node=node.next[token];}node.word=word;return true;
+    };
+  }
+  const info=document.getElementById('dictionaryInfo');
+  if(info){
+    const old=info.textContent;
+    info.textContent=old+' A szóanyag a friss Magyar Ispell/Hunspell 1.9 adatbázisra épül; a táblakereső a hosszabb, akár 16 betűegységű magyar szavakat is vizsgálja.';
+  }
+})();
+/* ================= SZÓSZÖVŐ 3.5 vége ================= */
 
 })();
 </script>
